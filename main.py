@@ -68,7 +68,7 @@ with st.sidebar:
 st.title("Calculadora Estadistica") #Titulo con fondo azul.
 st.write("Para ingresar nuevos datos por favor refresque la pagina.")
 st.markdown("---")
-st.subheader("Responda las siguientes preguntas.") #Añadir que para volver a meter datos toca refrescar el sitio.
+st.subheader("Responda las siguientes preguntas.") #Reemplzar formato Si/No con botones.
 
 #Añadir opcion de persistencia mas adelante mediante log in
 
@@ -119,6 +119,7 @@ elif NORMALIDAD==True:
     st.write("Con base a lo respondido, es necesario hacer una prueba de normalidad de Shapiro-Wilk para determinar el tipo de prueba de hipotesis. Suba los datos para realizar la prueba de normalidad.")
 
 st.markdown("**Por favor suba los datos para poder continuar con el proceso. Si son datos mixtos (Cualitativos/Cuantitativos) coloque las variables al inicio de cada columna y debajo coloque los valores asociados. Si son datos cualitativos, coloque cada variable a la izquierda de cada fila con un valor que se les asocia a la derecha para cada valor que haya.**")
+#Añadir imagen para que sea mas facil comprender el formato de las tablas. Esta imagen luego deberia desaparece despues de que se haya subido el archivo.
 
 #---------------------------------------------------Subir Tabla y Manipulacion de los Datos-------------------------------------
 #Esto hace que se pueda subir la tabla
@@ -353,3 +354,4 @@ elif Graph == "Diagrama de Dispersion" and (NORMALIDAD or PEARSON):
     )
 else:
     st.write("**:red[ERROR. La opcion de grafico no es valida o no se puede graficar aun.]**")
+
