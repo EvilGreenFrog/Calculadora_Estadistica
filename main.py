@@ -109,14 +109,14 @@ else:
 #-------------------------------------------Recomendacion Pruebas de Hipotesis----------------------------------------------------------
 #Aqui se recomienda que tipo de prueba de hipotesis se debe hacer.
 if CHI2:
-    Response = "Chi Cuadrado porque todas las variables son cualitativas"
+    Response = "**:red[Chi Cuadrado]** porque todas las variables son cualitativas"
     st.write(f"Con base a lo respondido, se recomienda hacer una prueba de hipotesis de {Response}.")
 elif PEARSON:
-    st.write("Con base a lo respondido, se recomienda calcular el coeficiente de Pearson para ver si hay una correlacion linear entre los datos.")
+    st.write("Con base a lo respondido, se recomienda calcular el **:red[coeficiente de Pearson]** para ver si hay una correlacion linear entre los datos.")
 elif MULTINORMALIDAD==True:
-    st.write("Con base a lo respondido, es necesario hacer una prueba de normalidad de Shapiro-Wilk para determinar el tipo de prueba de hipotesis. Suba los datos para realizar la prueba de normalidad.")
+    st.write("Con base a lo respondido, es necesario hacer una **:red[prueba de normalidad de Shapiro-Wilk]** para determinar el tipo de prueba de hipotesis. Suba los datos para realizar la prueba de normalidad.")
 elif NORMALIDAD==True:
-    st.write("Con base a lo respondido, es necesario hacer una **:blue[prueba de normalidad de Shapiro-Wilk]** para determinar el tipo de prueba de hipotesis. Suba los datos para realizar la prueba de normalidad.")
+    st.write("Con base a lo respondido, es necesario hacer una **:red[prueba de normalidad de Shapiro-Wilk]** para determinar el tipo de prueba de hipotesis. Suba los datos para realizar la prueba de normalidad.")
 
 st.markdown("**Por favor suba los datos para poder continuar con el proceso. Si son datos mixtos (Cualitativos/Cuantitativos) coloque las variables al inicio de cada columna y debajo coloque los valores asociados. Si son datos cualitativos, coloque cada variable a la izquierda de cada fila con un valor que se les asocia a la derecha para cada valor que haya.**")
 #Añadir imagen para que sea mas facil comprender el formato de las tablas. Esta imagen luego deberia desaparece despues de que se haya subido el archivo.
@@ -357,6 +357,7 @@ elif Graph == "Diagrama de Dispersion" and (NORMALIDAD or PEARSON):
     )
 else:
     st.write("**:red[ERROR. La opcion de grafico no es valida o no se puede graficar aun.]**")
+
 
 
 
