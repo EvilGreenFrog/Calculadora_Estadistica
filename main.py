@@ -9,7 +9,7 @@ import io
 st.markdown("""
 <style>
 /* Cambia todo el color del texto default a negro
-.stApp {
+.stApp p{
         color: #000000; /* Color Negro */
 }
 /* Afecta solo la barra lateral. */
@@ -358,5 +358,6 @@ elif Graph == "Diagrama de Dispersion" and (NORMALIDAD or PEARSON):
     )
 else:
     st.write("**:red[ERROR. La opcion de grafico no es valida o no se puede graficar aun.]**")
+
 
 
