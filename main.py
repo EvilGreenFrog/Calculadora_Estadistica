@@ -123,8 +123,13 @@ st.markdown("**Por favor suba los datos para poder continuar con el proceso. Si 
 
 #---------------------------------------------------Subir Tabla y Manipulacion de los Datos-------------------------------------
 #Ejemplo de como se debe ver la tabla
-st.image(["Tabla_Chi2.png","Tabla_Comparacion.png"], width=[300,400])
-st.image("Tabla_Comparacion.png", width=300)
+col1, col2 = st.columns([3, 4]) # Proporción de ancho 300 y 400
+
+with col1:
+    st.image("Tabla_Chi2.png", caption="Tabla Chi-cuadrado", use_container_width=True)
+
+with col2:
+    st.image("Tabla_Comparacion.png", caption="Tabla de Comparación", use_container_width=True)
 
 #Esto hace que se pueda subir la tabla
 RawData= st.file_uploader("Sube una tabla en formato .CSV de maximo 20 MB.",type=["csv"], max_upload_size=20) #Limita el tamaño maximo de archivo a 20MB
@@ -361,6 +366,7 @@ elif Graph == "Diagrama de Dispersion" and (NORMALIDAD or PEARSON):
     )
 else:
     st.write("**:red[ERROR. La opcion de grafico no es valida o no se puede graficar aun.]**")
+
 
 
 
