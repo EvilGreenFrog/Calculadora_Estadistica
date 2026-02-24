@@ -123,7 +123,7 @@ st.markdown("**Por favor suba los datos para poder continuar con el proceso. Si 
 
 #---------------------------------------------------Subir Tabla y Manipulacion de los Datos-------------------------------------
 #Ejemplo de como se debe ver la tabla
-st.image(Tabla_Chi2.png, width=400)
+st.image("Tabla_Chi2.png", width=400)
 
 
 #Esto hace que se pueda subir la tabla
@@ -361,6 +361,7 @@ elif Graph == "Diagrama de Dispersion" and (NORMALIDAD or PEARSON):
     )
 else:
     st.write("**:red[ERROR. La opcion de grafico no es valida o no se puede graficar aun.]**")
+
 
 
 
