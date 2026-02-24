@@ -8,10 +8,6 @@ import io
 #--------------------------------------------------Cambios Visuales con CSS-------------------------------------------------
 st.markdown("""
 <style>
-/* Cambia todo el color del texto default a negro
-.stApp p{
-        color: #000000; /* Color Negro */
-}
 /* Afecta solo la barra lateral. */
 [data-testid="stSidebar"] {
     background-color: #78BCC4;
@@ -19,6 +15,10 @@ st.markdown("""
 /* Cambia el color de fondo de toda la aplicación */
 .stApp {
     background-color: #ECE4D4;
+}
+/* Cambia todo el color del texto default a negro
+.stApp p{
+        color: #000000; /* Color Negro */
 }
 </style>
 """, unsafe_allow_html=True)
@@ -358,6 +358,7 @@ elif Graph == "Diagrama de Dispersion" and (NORMALIDAD or PEARSON):
     )
 else:
     st.write("**:red[ERROR. La opcion de grafico no es valida o no se puede graficar aun.]**")
+
 
 
 
