@@ -193,6 +193,9 @@ elif TSTUDENT:
 elif CHI2:
     Prueba = "Chi Cuadrado"
     LINK = "https://www.questionpro.com/blog/es/prueba-de-chi-cuadrado-de-pearson/"
+elif PEARSON:
+    Prueba = "Coeficiente de Pearson"
+    LINK = "https://numiqo.es/tutorial/pearson-correlation"
 
 st.link_button(f"¿Que es {Prueba}?", LINK) #Boton que lleva a un sitio que explica como funciona la Prueba de Hipotesis.
 
@@ -224,9 +227,9 @@ if ANOVA:
     
     st.write("El p-valor de ANOVA es P =", P_ANOVA,".")
     if P_ANOVA<0.05:
-        st.write("Al ser P < 0.05, se rechaza la hipotesis nula. Todas las medias poblaciones NO son iguales.")
+        st.write("Al ser P < 0.05, se rechaza la hipotesis nula. Hay una diferencia significativa entre las medias de dos variables.")
     else:
-        st.write("Al ser P > 0.05, NO se rechaza la hipotesis nula. Todas las medias poblaciones son iguales.")
+        st.write("Al ser P > 0.05, NO se rechaza la hipotesis nula. NO hay una diferencia significativa entre las medias de las variables.")
 elif CHI2: #Hacer que tire error si hay menos de 5 datos
     st.subheader("Prueba de Hipotesis Chi Cuadrado")
 
@@ -245,9 +248,9 @@ elif CHI2: #Hacer que tire error si hay menos de 5 datos
     st.write("El p-valor de Chi Cuadrado es P =", P_CHI,".")
     
     if P_CHI<0.05:
-        st.write("Al ser P < 0.05, se rechaza la hipotesis nula. Las dos variables son dependientes.")
+        st.write("Al ser P < 0.05, se rechaza la hipotesis nula. Las dos variables estan significativamente relacionadas.")
     else:
-        st.write("Al ser P > 0.05, NO se rechaza la hipotesis nula. Las dos variables son independientes.")
+        st.write("Al ser P > 0.05, NO se rechaza la hipotesis nula. Las dos variables NO estan significativamente relacionadas.")
 elif UMANN:
     st.subheader("Prueba de Hipotesis U de Mann-Whitney")
     df = df0.melt(var_name="Grupo", value_name="Valor")
@@ -262,9 +265,9 @@ elif UMANN:
     st.write("El p-valor de U de Mann-Whitney es de P =", P_UMANN)
 
     if P_UMANN<0.05:
-        st.write("Al ser P < 0.05, se rechaza la hipotesis nula. Las distribuciones son diferentes.")
+        st.write("Al ser P < 0.05, se rechaza la hipotesis nula. Las distribuciones son significativamente diferentes.")
     else:
-        st.write("Al ser P > 0.05, NO se rechaza la hipotesis nula.")
+        st.write("Al ser P > 0.05, NO se rechaza la hipotesis nula. Las distribuciones NO son significativamente diferentes.")
 elif TSTUDENT:
     df = df0.melt(var_name="Grupo", value_name="Valor")
     df["Valor"] = pd.to_numeric(df["Valor"], errors="coerce")
@@ -278,9 +281,9 @@ elif TSTUDENT:
     st.write("El p-valor de T de Student es de P =", P_TSTUDENT)
 
     if P_TSTUDENT<0.05:
-        st.write("Al ser P < 0.05, se rechaza la hipotesis nula. Las medias son diferentes.")
+        st.write("Al ser P < 0.05, se rechaza la hipotesis nula. Las medias son significativamente diferentes.")
     else:
-        st.write("Al ser P > 0.05, NO se rechaza la hipotesis nula.")
+        st.write("Al ser P > 0.05, NO se rechaza la hipotesis nula. Las medias NO son significativamente diferentes.")
 
 
 #--------------------------------------------¡¡¡¡SECCION PARA LAS GRAFICAS!!!!-------------------------------------------------------------
@@ -354,6 +357,7 @@ elif Graph == "Diagrama de Dispersion" and (NORMALIDAD or PEARSON):
     )
 else:
     st.write("**:red[ERROR. La opcion de grafico no es valida o no se puede graficar aun.]**")
+
 
 
 
