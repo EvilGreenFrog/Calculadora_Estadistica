@@ -118,16 +118,16 @@ elif MULTINORMALIDAD==True:
 elif NORMALIDAD==True:
     st.write("Con base a lo respondido, es necesario hacer una **:red[prueba de normalidad de Shapiro-Wilk]** para determinar el tipo de prueba de hipotesis. Suba los datos para realizar la prueba de normalidad.")
 
-st.markdown("**Por favor suba los datos para poder continuar con el proceso. Si son datos mixtos (Cualitativos/Cuantitativos) coloque las variables al inicio de cada columna y debajo coloque los valores asociados. Si son datos cualitativos, coloque cada variable a la izquierda de cada fila con un valor que se les asocia a la derecha para cada valor que haya.**")
+st.markdown("**Por favor suba los datos para poder continuar con el proceso. Si son datos cuantitativos coloque las variables al inicio de cada columna y debajo coloque los valores asociados. Si son datos cualitativos, coloque cada variable a la izquierda de cada fila con un valor que se les asocia a la derecha para cada valor que haya.**")
 #Añadir imagen para que sea mas facil comprender el formato de las tablas. Esta imagen luego deberia desaparece despues de que se haya subido el archivo.
 
 #---------------------------------------------------Subir Tabla y Manipulacion de los Datos-------------------------------------
 #Ejemplo de como se debe ver la tabla
 COL1, COL2 = st.columns([3, 4]) # Ancho de 300 y 400. Todo esto vuelve las imagenes una tabla y ya.
 with COL1:
-    st.image("Tabla_Chi2.png", caption="Ejemplo de Tabla para Datos Cualitativos", use_container_width=True)
+    st.image("Tabla_Chi2.png", caption="Ejemplo Formato de Tabla para Datos Cualitativos", use_container_width=True)
 with COL2:
-    st.image("Tabla_Comparacion.png", caption="Ejemplo de Tabla para Datos Cuantitativos", use_container_width=True)
+    st.image("Tabla_Comparacion.png", caption="Ejemplo Formato de Tabla para Datos Cuantitativos", use_container_width=True)
 
 #Esto hace que se pueda subir la tabla
 RawData= st.file_uploader("Sube una tabla en formato .CSV de maximo 20 MB.",type=["csv"], max_upload_size=20) #Limita el tamaño maximo de archivo a 20MB
@@ -364,6 +364,7 @@ elif Graph == "Diagrama de Dispersion" and (NORMALIDAD or PEARSON):
     )
 else:
     st.write("**:red[ERROR. La opcion de grafico no es valida o no se puede graficar aun.]**")
+
 
 
 
