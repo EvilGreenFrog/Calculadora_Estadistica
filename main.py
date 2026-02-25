@@ -125,9 +125,9 @@ st.markdown("**Por favor suba los datos para poder continuar con el proceso. Si 
 #Ejemplo de como se debe ver la tabla
 COL1, COL2 = st.columns([3, 4]) # Ancho de 300 y 400. Todo esto vuelve las imagenes una tabla y ya.
 with COL1:
-    st.image("Tabla_Chi2.png", caption="Ejemplo Formato de Tabla para Datos Cualitativos", use_container_width=True)
+    st.image("Tabla_Chi2.png", caption="Ejemplo Formato de Tabla para Datos Cualitativos", width="stretch")
 with COL2:
-    st.image("Tabla_Comparacion.png", caption="Ejemplo Formato de Tabla para Datos Cuantitativos", use_container_width=True)
+    st.image("Tabla_Comparacion.png", caption="Ejemplo Formato de Tabla para Datos Cuantitativos", width="stretch")
 
 #Esto hace que se pueda subir la tabla
 RawData= st.file_uploader("Sube una tabla en formato .CSV de maximo 20 MB.",type=["csv"], max_upload_size=20) #Limita el tamaño maximo de archivo a 20MB
@@ -252,7 +252,7 @@ elif CHI2: #Hacer que tire error si hay menos de 5 datos
     st.dataframe(Tabla)
 
     Tabla = Tabla.apply(pd.to_numeric) #Verifica que la tabla sea numerica.
-    st.markdown(COL2)
+    st.markdown(Tabla)
     
     chi, P_CHI, dof, expected = stats.chi2_contingency(Tabla)
     st.write("El p-valor de Chi Cuadrado es P =", P_CHI,".")
@@ -367,6 +367,7 @@ elif Graph == "Diagrama de Dispersion" and (NORMALIDAD or PEARSON):
     )
 else:
     st.write("**:red[ERROR. La opcion de grafico no es valida o no se puede graficar aun.]**")
+
 
 
 
