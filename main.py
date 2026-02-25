@@ -251,6 +251,8 @@ elif CHI2: #Hacer que tire error si hay menos de 5 datos
     st.write("Tabla de Contingencia:")
     st.dataframe(Tabla)
 
+    Tabla = Tabla.apply(pd.to_numeric) #Verifica que la tabla sea numerica.
+
     chi, P_CHI, dof, expected = stats.chi2_contingency(Tabla)
     st.write("El p-valor de Chi Cuadrado es P =", P_CHI,".")
     
@@ -364,6 +366,7 @@ elif Graph == "Diagrama de Dispersion" and (NORMALIDAD or PEARSON):
     )
 else:
     st.write("**:red[ERROR. La opcion de grafico no es valida o no se puede graficar aun.]**")
+
 
 
 
