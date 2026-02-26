@@ -73,7 +73,7 @@ st.subheader("Responda las siguientes preguntas.") #Reemplzar formato Si/No con 
 #Añadir opcion de persistencia mas adelante mediante log in
 
 #---------------------------------------------------Variables Banderas---------------------------------------------------------------
-PEARSON = False 
+#PEARSON = False 
 UMANN = False
 ANOVA = False
 #WALLIS = False
@@ -98,21 +98,22 @@ else:
     elif PREG2 == "Mas de dos":
         MULTINORMALIDAD=True #Añadir aqui el Kruster-Wallis mas tarde si toca. 
     else:
-        PREG3=st.selectbox("¿Deseas hacer una comparacion o una correlacion con los datos?", ["", "Comparacion", "Correlacion"])
-        if PREG3=="":
-            st.stop()
-        elif PREG3=="Correlacion":
-            PEARSON=True
-        else:
-            NORMALIDAD=True
+        #PREG3=st.selectbox("¿Deseas hacer una comparacion o una correlacion con los datos?", ["", "Comparacion", "Correlacion"])
+        #if PREG3=="":
+        #    st.stop()
+        #elif PREG3=="Correlacion":
+        #    PEARSON=True
+        #else:
+        #    NORMALIDAD=True
+        NORMALIDAD = True
     
 #-------------------------------------------Recomendacion Pruebas de Hipotesis----------------------------------------------------------
 #Aqui se recomienda que tipo de prueba de hipotesis se debe hacer.
 if CHI2:
     Response = "**:red[Chi Cuadrado]** porque todas las variables son cualitativas"
     st.write(f"Con base a lo respondido, se recomienda hacer una prueba de hipotesis de {Response}.")
-elif PEARSON:
-    st.write("Con base a lo respondido, se recomienda calcular el **:red[coeficiente de Pearson]** para ver si hay una correlacion linear entre los datos.")
+#elif PEARSON:
+#    st.write("Con base a lo respondido, se recomienda calcular el **:red[coeficiente de Pearson]** para ver si hay una correlacion linear entre los datos.")
 elif MULTINORMALIDAD==True:
     st.write("Con base a lo respondido, es necesario hacer una **:red[prueba de normalidad de Shapiro-Wilk]** para determinar el tipo de prueba de hipotesis. Suba los datos para realizar la prueba de normalidad.")
 elif NORMALIDAD==True:
@@ -206,10 +207,11 @@ elif PEARSON:
 
 st.link_button(f"¿Que es {Prueba}?", LINK) #Boton que lleva a un sitio que explica como funciona la Prueba de Hipotesis.
 
-if not PEARSON:
-    TEXT1="hipotesis"
-else:
-    TEXT1="correlacion"
+#if not PEARSON:
+#    TEXT1="hipotesis"
+#else:
+#    TEXT1="correlacion"
+TEXT1="hipotesis"
 
 TESTING = st.selectbox(f"¿Deseas realizar la prueba de {TEXT1}?", ["","Si","No"]) #Opcion para empezar la prueba de hipotesis
 START = False
@@ -310,8 +312,8 @@ elif NORMALIDAD and not ANOVA:
     GRAPHS= GRAPHCOMPARACION
 elif ANOVA:
     GRAPHS=GRAPHANOVA
-elif PEARSON:
-    GRAPHS=GRAPHCORRELACION
+#elif PEARSON:
+#    GRAPHS=GRAPHCORRELACION
 #Hacer que saca un error si se selecciona una grafica que no esta ahi
 
 if Graph=="Ninguna":
@@ -340,7 +342,9 @@ elif Graph=="Diagrama de Barras" and CHI2: #NOTA, Actuamente falla y toca cambia
     file_name= str("Diagrama_de_Barras") + ".png",
     mime="image/png"
     )
-elif Graph == "Diagrama de Dispersion" and (NORMALIDAD or PEARSON):
+#elif Graph == "Diagrama de Dispersion" and (NORMALIDAD or PEARSON):
+elif Graph == "Diagrama de Dispersion" and NORMALIDAD:
+
     if len(df0.columns) < 2:
         st.write("Se necesitan al menos dos columnas.")
         st.stop()
@@ -368,6 +372,7 @@ elif Graph == "Diagrama de Dispersion" and (NORMALIDAD or PEARSON):
     )
 else:
     st.write("**:red[ERROR. La opcion de grafico no es valida o no se puede graficar aun.]**")
+
 
 
 
