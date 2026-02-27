@@ -292,7 +292,7 @@ elif TSTUDENT:
     COL1 = df[df["Grupo"]==GRUPOS[0]]["Valor"].dropna() #Columna 1
     COL2 = df[df["Grupo"]==GRUPOS[1]]["Valor"].dropna() #Columna2
 
-    t, P_TSTUDENT = stats.ttest_ind(G1, G2)
+    t, P_TSTUDENT = stats.ttest_ind(COL1, COL2)
 
     st.write("El p-valor de T de Student es de P =", P_TSTUDENT)
 
@@ -375,6 +375,7 @@ elif Graph == "Diagrama de Dispersión" and NORMALIDAD:
     )
 else:
     st.error("❌ ERROR. El gráfico escogido no es válido o no se puede graficar aún.")
+
 
 
 
