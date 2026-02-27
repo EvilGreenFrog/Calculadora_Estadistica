@@ -58,14 +58,14 @@ def guardar_png(fig):
     return buffer.getvalue()
         
 #----------------------------------------------------Inicia EL CODIGO-----------------------------------------------------------------
-GRAPHS = ["Ninguna", "Diagrama de Barras", "Diagrama de Bigotes", "Diagrama de Dispersion"]
+GRAPHS = ["Ninguna", "Diagrama de Barras", "Diagrama de Bigotes", "Diagrama de Dispersión"]
 
 with st.sidebar:
     st.title("Opciones Adicionales")
-    Graph = st.selectbox("Graficas", GRAPHS)
+    Graph = st.selectbox("Gráficas", GRAPHS)
     
-st.title("Calculadora Estadistica") #Titulo con fondo azul.
-st.write("Para ingresar nuevos datos por favor refresque la pagina.")
+st.title("Calculadora Estadística") #Titulo con fondo azul.
+st.write("Para ingresar nuevos datos por favor refresque la página.")
 st.markdown("---")
 st.subheader("Responda las siguientes preguntas.") #Reemplzar formato Si/No con botones.
 
@@ -92,12 +92,12 @@ else:
     if PREG2=="":
         st.stop()
     elif PREG2 == "1":
-        st.error("❌ ERROR. Se necesitan al menos dos variables para realizar la prueba de hipotesis.")
+        st.error("❌ ERROR. Se necesitan al menos dos variables para realizar la prueba de hipótesis.")
         st.stop()
-    elif PREG2 == "Mas de dos":
+    elif PREG2 == "Más de dos":
         MULTINORMALIDAD=True #Añadir aqui el Kruster-Wallis mas tarde si toca. 
     else:
-        #PREG3=st.selectbox("¿Deseas hacer una comparacion o una correlacion con los datos?", ["", "Comparacion", "Correlacion"])
+        #PREG3=st.selectbox("¿Deseas hacer una comparación o una correlación con los datos?", ["", "comparación", "correlación"])
         #if PREG3=="":
         #    st.stop()
         #elif PREG3=="Correlacion":
@@ -110,13 +110,13 @@ else:
 #Aqui se recomienda que tipo de prueba de hipotesis se debe hacer.
 if CHI2:
     Response = "**:red[Chi Cuadrado]** porque todas las variables son cualitativas"
-    st.write(f"Con base a lo respondido, se recomienda hacer una prueba de hipotesis de {Response}.")
+    st.write(f"Con base a lo respondido, se recomienda hacer una prueba de hipótesis de {Response}.")
 #elif PEARSON:
-#    st.write("Con base a lo respondido, se recomienda calcular el **:red[coeficiente de Pearson]** para ver si hay una correlacion linear entre los datos.")
+#    st.write("Con base a lo respondido, se recomienda calcular el **:red[coeficiente de Pearson]** para ver si hay una correlación linear entre los datos.")
 elif MULTINORMALIDAD==True:
-    st.write("Con base a lo respondido, es necesario hacer una **:red[prueba de normalidad de Shapiro-Wilk]** para determinar el tipo de prueba de hipotesis. Suba los datos para realizar la prueba de normalidad.")
+    st.write("Con base a lo respondido, es necesario hacer una **:red[prueba de normalidad de Shapiro-Wilk]** para determinar el tipo de prueba de hipótesis. Suba los datos para realizar la prueba de normalidad.")
 elif NORMALIDAD==True:
-    st.write("Con base a lo respondido, es necesario hacer una **:red[prueba de normalidad de Shapiro-Wilk]** para determinar el tipo de prueba de hipotesis. Suba los datos para realizar la prueba de normalidad.")
+    st.write("Con base a lo respondido, es necesario hacer una **:red[prueba de normalidad de Shapiro-Wilk]** para determinar el tipo de prueba de hipótesis. Suba los datos para realizar la prueba de normalidad.")
 
 st.markdown("**Por favor suba los datos para poder continuar con el proceso. Si son datos cuantitativos coloque las variables al inicio de cada columna y debajo coloque los valores asociados. Si son datos cualitativos, coloque cada variable a la izquierda de cada fila con un valor que se les asocia a la derecha para cada valor que haya.**")
 #Añadir imagen para que sea mas facil comprender el formato de las tablas. Esta imagen luego deberia desaparece despues de que se haya subido el archivo.
@@ -130,7 +130,7 @@ with COL2:
     st.image("Tabla_Comparacion.png", caption="Ejemplo Formato de Tabla para Datos Cuantitativos", width="stretch")
 
 #Esto hace que se pueda subir la tabla
-RawData= st.file_uploader("Sube una tabla en formato .CSV de maximo 20 MB.", max_upload_size=20) #Limita el tamaño maximo de archivo a 20MB #type=["csv"],
+RawData= st.file_uploader("Sube una tabla en formato .CSV de máximo 20 MB.", max_upload_size=20) #Limita el tamaño maximo de archivo a 20MB #type=["csv"],
 
 #Esto hace que no salga un error cuando aun no han subido el archivo.
 if RawData is None:
@@ -155,16 +155,16 @@ if NORMALIDAD:
         st.write("El resultado de la prueba de normalidad para",
                 VARIABLES[0], "es de P:", NORMAL[0], ". Mientras que para", VARIABLES[1], "es de P:", NORMAL[1], ".") #Se coge de la lista el p.
         if NORMAL[0]>0.05 and NORMAL[1]>0.05:
-            st.write("Ya que ambos p-valores tienen una significancia mayor que 0.05 esto signfica los datos siguen una distribucion normal por lo que es recomendabla hacer una prueba de hipotesis T de Student.")
+            st.write("Ya que ambos p-valores tienen una significancia mayor que 0.05 esto signfica los datos siguen una distribución normal por lo que es recomendable hacer una prueba de hipótesis T de Student.")
             TSTUDENT=True
         else:
-            st.write("Ya que al menos uno de los p-valores tiene una significancia menor que 0.05 esto signfica los datos NO siguen una distribucion normal por lo que es recomendabla hacer una prueba de hipotesis de U-Mann-Whitney.")
+            st.write("Ya que al menos uno de los p-valores tiene una significancia menor que 0.05 esto significa los datos NO siguen una distribución normal por lo que es recomendable hacer una prueba de hipótesis de U-Mann-Whitney.")
             UMANN=True
     elif len(VARIABLES)!=2:
         st.error("❌ ERROR. No hay exactamente dos variables independientes.")
         st.stop()
     else:
-        st.error("❌ ERROR. Hay muy pocos datos en alguno de las variables para que el analisis sea estadisticamente significativo. Trata de reunir mas datos en esa variable.")
+        st.error("❌ ERROR. Hay muy pocos datos en alguna de las variables para que el análisis sea estadísticamente significativo. Trata de reunir más datos en esa variable.")
         st.stop()
 elif MULTINORMALIDAD: #Cambiar luego para cuando se pueda hacer ANOVA y Kruger-Willis
     NORMAL=F_NORMALIDAD(df0) #Se crea normal para no tener que llamar la misma funcion varias veces
@@ -178,16 +178,16 @@ elif MULTINORMALIDAD: #Cambiar luego para cuando se pueda hacer ANOVA y Kruger-W
             if NORMAL[i]<0.05:
                 RESULT = False #Otra variable bandera que verifica que todo sub lista tenga un p-valor mayor que 0.05
         if RESULT:
-            st.write("Ya que hay mas de dos variables independientes y todos los p-valores tienen una significancia mayor que 0.05 esto signfica los datos siguen una distribucion normal por lo que es recomendabla hacer una prueba de hipotesis ANOVA.")
+            st.write("Ya que hay más de dos variables independientes y todos los p-valores tienen una significancia mayor que 0.05 esto significa los datos siguen una distribución normal por lo que es recomendable hacer una prueba de hipótesis ANOVA.")
             ANOVA=True
         else:
-            st.write("Ya que hay mas de dos variables independientes y al menos uno de los p-valores tiene una significancia menor que 0.05 esto signfica los datos NO siguen una distribucion normal por lo que es recomendabla hacer una prueba de Kruskal-Wallis. Lamentable, la calculadora no cuenta con esta funcionalidad en el momento.")
+            st.write("Ya que hay más de dos variables independientes y al menos uno de los p-valores tiene una significancia menor que 0.05 esto significa los datos NO siguen una distribución normal por lo que es recomendable hacer una prueba de hipótesis Kruskal-Wallis. Lamentable, la calculadora no cuenta con esta funcionalidad en el momento.")
             #WALLIS=True
     elif len(VARIABLES)<3:
         st.error("❌ ERROR. Se necesitan al menos tres variables independientes.")
         st.stop()
     else:
-        st.error("❌ ERROR. Hay muy pocos datos en alguno de las variables para que el analisis sea estadisticamente significativo. Trata de reunir mas datos en esa variable.")
+        st.error("❌ ERROR. Hay muy pocos datos en alguna de las variables para que el análisis sea estadísticamente significativo. Trata de reunir más datos en esa variable.")
         st.stop()
 
 #st.subheader("¿Que desea hacer a continuacion?")
@@ -211,10 +211,10 @@ elif PEARSON:
 st.link_button(f"¿Que es {Prueba}?", LINK) #Boton que lleva a un sitio que explica como funciona la Prueba de Hipotesis.
 
 #if not PEARSON:
-#    TEXT1="hipotesis"
+#    TEXT1="hipótesis"
 #else:
 #    TEXT1="correlacion"
-TEXT1="hipotesis"
+TEXT1="hipótesis"
 
 TESTING = st.selectbox(f"¿Deseas realizar la prueba de {TEXT1}?", ["","Si","No"]) #Opcion para empezar la prueba de hipotesis
 START = False
@@ -227,7 +227,7 @@ if ANOVA:
         st.error("❌ ERROR. Para realizar ANOVA necesitas tres variables.")
         st.stop()
     
-    st.subheader("Prueba de Hipotesis ANOVA")
+    st.subheader("Prueba de Hipótesis ANOVA")
     df = df0.melt(var_name="Grupo", value_name="Valor") #Rota la matriz para que este en formato variable-valor, o sea el formato anterior a parejas, con la columna Grupo teniendo la variable, y la columna Valor tneiendo los valores.
     df["Valor"] = pd.to_numeric(df["Valor"], errors="coerce") #Mira la columna de los valores y los convierte en numeros si son strings. El coerce es pa evitar errores.
 
@@ -239,11 +239,11 @@ if ANOVA:
     
     st.write("El p-valor de ANOVA es P =", P_ANOVA,".")
     if P_ANOVA<0.05:
-        st.write("Al ser P < 0.05, se rechaza la hipotesis nula. Hay una diferencia significativa entre las medias de dos variables.")
+        st.write("Al ser P < 0.05, se rechaza la hipótesis nula. Hay una diferencia significativa entre las medias de dos variables.")
     else:
-        st.write("Al ser P > 0.05, NO se rechaza la hipotesis nula. NO hay una diferencia significativa entre las medias de las variables.")
+        st.write("Al ser P > 0.05, NO se rechaza la hipótesis nula. NO hay una diferencia significativa entre las medias de las variables.")
 elif CHI2: #Hacer que tire error si hay menos de 5 datos
-    st.subheader("Prueba de Hipotesis Chi Cuadrado")
+    st.subheader("Prueba de Hipótesis Chi Cuadrado")
 
     if len(df0.columns)!=2:
         st.error("❌ ERROR. Se necesitan exactactamente dos columnas cualitativas.")
@@ -264,11 +264,11 @@ elif CHI2: #Hacer que tire error si hay menos de 5 datos
     st.write("El p-valor de Chi Cuadrado es P =", res.pvalue,".")
     
     if P_CHI<0.05:
-        st.write("Al ser P < 0.05, se rechaza la hipotesis nula. Las dos variables estan significativamente relacionadas.")
+        st.write("Al ser P < 0.05, se rechaza la hipótesis nula. Las dos variables están significativamente relacionadas.")
     else:
-        st.write("Al ser P > 0.05, NO se rechaza la hipotesis nula. Las dos variables NO estan significativamente relacionadas.")
+        st.write("Al ser P > 0.05, NO se rechaza la hipótesis nula. Las dos variables NO están significativamente relacionadas.")
 elif UMANN:
-    st.subheader("Prueba de Hipotesis U de Mann-Whitney")
+    st.subheader("Prueba de Hipótesis U de Mann-Whitney")
     df = df0.melt(var_name="Grupo", value_name="Valor")
     df["Valor"] = pd.to_numeric(df["Valor"], errors="coerce") #Se cambia el formato de la matrix
 
@@ -281,9 +281,9 @@ elif UMANN:
     st.write("El p-valor de U de Mann-Whitney es de P =", P_UMANN)
 
     if P_UMANN<0.05:
-        st.write("Al ser P < 0.05, se rechaza la hipotesis nula. Las distribuciones son significativamente diferentes.")
+        st.write("Al ser P < 0.05, se rechaza la hipótesis nula. Las distribuciones son significativamente diferentes.")
     else:
-        st.write("Al ser P > 0.05, NO se rechaza la hipotesis nula. Las distribuciones NO son significativamente diferentes.")
+        st.write("Al ser P > 0.05, NO se rechaza la hipótesis nula. Las distribuciones NO son significativamente diferentes.")
 elif TSTUDENT:
     df = df0.melt(var_name="Grupo", value_name="Valor")
     df["Valor"] = pd.to_numeric(df["Valor"], errors="coerce")
@@ -297,9 +297,9 @@ elif TSTUDENT:
     st.write("El p-valor de T de Student es de P =", P_TSTUDENT)
 
     if P_TSTUDENT<0.05:
-        st.write("Al ser P < 0.05, se rechaza la hipotesis nula. Las medias son significativamente diferentes.")
+        st.write("Al ser P < 0.05, se rechaza la hipótesis nula. Las medias son significativamente diferentes.")
     else:
-        st.write("Al ser P > 0.05, NO se rechaza la hipotesis nula. Las medias NO son significativamente diferentes.")
+        st.write("Al ser P > 0.05, NO se rechaza la hipótesis nula. Las medias NO son significativamente diferentes.")
 
 
 #--------------------------------------------¡¡¡¡SECCION PARA LAS GRAFICAS!!!!-------------------------------------------------------------
@@ -375,4 +375,5 @@ elif Graph == "Diagrama de Dispersion" and NORMALIDAD:
     )
 else:
     st.error("❌ ERROR. La opcion de grafico no es valida o no se puede graficar aun.")
+
 
