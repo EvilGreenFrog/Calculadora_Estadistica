@@ -136,9 +136,9 @@ RawData= st.file_uploader("Sube una tabla en formato .CSV de maximo 20 MB.",type
 if RawData is None:
     st.stop()
 else:
-    try:
+    if RawData.type == "text/csv":
         df0 = pd.read_csv(RawData) #Lectura de la tabla como una matriz en pandas.
-    except Exception:
+    else:
         st.write("ERROR. Revise que su archivo sea .CSV y que sea de 20 MB.")
         st.stop()
 
@@ -375,6 +375,7 @@ elif Graph == "Diagrama de Dispersion" and NORMALIDAD:
     )
 else:
     st.write("**:red[ERROR. La opcion de grafico no es valida o no se puede graficar aun.]**")
+
 
 
 
