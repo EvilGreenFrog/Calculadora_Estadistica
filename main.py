@@ -139,7 +139,7 @@ else:
     if RawData.type == "csv":
         df0 = pd.read_csv(RawData) #Lectura de la tabla como una matriz en pandas.
     else:
-        st.write("ERROR. Revise que su archivo sea .CSV y que sea de 20 MB.")
+        st.write("**:red[ERROR. Revise que su archivo sea .CSV y que sea de 20 MB.]**")
         st.stop()
 
 #Muestra la tabla como un menu despegable.
@@ -375,6 +375,7 @@ elif Graph == "Diagrama de Dispersion" and NORMALIDAD:
     )
 else:
     st.write("**:red[ERROR. La opcion de grafico no es valida o no se puede graficar aun.]**")
+
 
 
 
