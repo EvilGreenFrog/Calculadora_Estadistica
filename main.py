@@ -155,7 +155,7 @@ if NORMALIDAD:
         st.write("El resultado de la prueba de normalidad para",
                 VARIABLES[0], "es de P:", NORMAL[0], ". Mientras que para", VARIABLES[1], "es de P:", NORMAL[1], ".") #Se coge de la lista el p.
         if NORMAL[0]>0.05 and NORMAL[1]>0.05:
-            st.write("Ya que ambos p-valores tienen una significancia mayor que 0.05 esto signfica los datos siguen una distribución normal por lo que es recomendable hacer una prueba de hipótesis T de Student.")
+            st.write("Ya que ambos p-valores tienen una significancia mayor que 0.05 esto significa los datos siguen una distribución normal por lo que es recomendable hacer una prueba de hipótesis T de Student.")
             TSTUDENT=True
         else:
             st.write("Ya que al menos uno de los p-valores tiene una significancia menor que 0.05 esto significa los datos NO siguen una distribución normal por lo que es recomendable hacer una prueba de hipótesis de U-Mann-Whitney.")
@@ -190,7 +190,7 @@ elif MULTINORMALIDAD: #Cambiar luego para cuando se pueda hacer ANOVA y Kruger-W
         st.error("❌ ERROR. Hay muy pocos datos en alguna de las variables para que el análisis sea estadísticamente significativo. Trata de reunir más datos en esa variable.")
         st.stop()
 
-#st.subheader("¿Que desea hacer a continuacion?")
+#st.subheader("¿Que desea hacer a continuación?")
 #------------------------------------------------------Pruebas de Hipotesis-------------------------------------------------------
 if ANOVA:
     Prueba = "ANOVA"
@@ -213,7 +213,7 @@ st.link_button(f"¿Que es {Prueba}?", LINK) #Boton que lleva a un sitio que expl
 #if not PEARSON:
 #    TEXT1="hipótesis"
 #else:
-#    TEXT1="correlacion"
+#    TEXT1="correlación"
 TEXT1="hipótesis"
 
 TESTING = st.selectbox(f"¿Deseas realizar la prueba de {TEXT1}?", ["","Si","No"]) #Opcion para empezar la prueba de hipotesis
@@ -306,7 +306,7 @@ elif TSTUDENT:
 #Tipos de graficas permitidos para cada tipo de datos.
 GRAPHCHI2 = ["Ninguna", "Diagrama de Barras"]
 GRAPHCOMPARACION = ["Ninguna","Diagrama de Bigotes"]
-GRAPHCORRELACION = ["Ninguna","Diagrama de Bigotes", "Diagrama de Dispersion"]
+GRAPHCORRELACION = ["Ninguna","Diagrama de Bigotes", "Diagrama de Dispersión"]
 GRAPHANOVA = ["Ninguna","Diagrama de Bigotes"]
 
 if CHI2:
@@ -346,7 +346,7 @@ elif Graph=="Diagrama de Barras" and CHI2: #NOTA, Actuamente falla y toca cambia
     mime="image/png"
     )
 #elif Graph == "Diagrama de Dispersion" and (NORMALIDAD or PEARSON):
-elif Graph == "Diagrama de Dispersion" and NORMALIDAD:
+elif Graph == "Diagrama de Dispersión" and NORMALIDAD:
 
     if len(df0.columns) < 2:
         st.write("Se necesitan al menos dos columnas.")
@@ -374,6 +374,7 @@ elif Graph == "Diagrama de Dispersion" and NORMALIDAD:
     mime="image/png"
     )
 else:
-    st.error("❌ ERROR. La opcion de grafico no es valida o no se puede graficar aun.")
+    st.error("❌ ERROR. El gráfico escogido no es válido o no se puede graficar aún.")
+
 
 
