@@ -52,7 +52,6 @@ def F_NORMALIDAD(df1): #Para hacer la normalidad aqui se asume que cumple todas 
     else:
         return None #Si algun grupo no es valido, todos no son validos.
 
-
 def guardar_png(fig):
     buffer = io.BytesIO()
     fig.savefig(buffer, format="png", dpi=200, bbox_inches="tight")
@@ -286,8 +285,8 @@ elif TSTUDENT:
     df["Valor"] = pd.to_numeric(df["Valor"], errors="coerce")
 
     GRUPOS = df["Grupo"].unique()
-    G1 = df[df["Grupo"]==GRUPOS[0]]["Valor"].dropna()
-    G2 = df[df["Grupo"]==GRUPOS[1]]["Valor"].dropna()
+    COL1 = df[df["Grupo"]==GRUPOS[0]]["Valor"].dropna() #Columna 1
+    COL2 = df[df["Grupo"]==GRUPOS[1]]["Valor"].dropna() #Columna2
 
     t, P_TSTUDENT = stats.ttest_ind(G1, G2)
 
@@ -372,6 +371,7 @@ elif Graph == "Diagrama de Dispersion" and NORMALIDAD:
     )
 else:
     st.write("**:red[ERROR. La opcion de grafico no es valida o no se puede graficar aun.]**")
+
 
 
 
