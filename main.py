@@ -130,13 +130,13 @@ with COL2:
     st.image("Tabla_Comparacion.png", caption="Ejemplo Formato de Tabla para Datos Cuantitativos", width="stretch")
 
 #Esto hace que se pueda subir la tabla
-RawData= st.file_uploader("Sube una tabla en formato .CSV de maximo 20 MB.",type=["csv"], max_upload_size=20) #Limita el tamaño maximo de archivo a 20MB
+RawData= st.file_uploader("Sube una tabla en formato .CSV de maximo 20 MB.", max_upload_size=20) #Limita el tamaño maximo de archivo a 20MB #type=["csv"],
 
 #Esto hace que no salga un error cuando aun no han subido el archivo.
 if RawData is None:
     st.stop()
 else:
-    if RawData.type == "csv":
+    if RawData.type() == "csv":
         df0 = pd.read_csv(RawData) #Lectura de la tabla como una matriz en pandas.
     else:
         st.write("ERROR. Revise que su archivo sea .CSV y que sea de 20 MB.")
@@ -375,6 +375,7 @@ elif Graph == "Diagrama de Dispersion" and NORMALIDAD:
     )
 else:
     st.write("**:red[ERROR. La opcion de grafico no es valida o no se puede graficar aun.]**")
+
 
 
 
