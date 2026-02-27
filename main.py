@@ -92,7 +92,7 @@ else:
     if PREG2=="":
         st.stop()
     elif PREG2 == "1":
-        st.error("ERROR. Se necesitan al menos dos variables para realizar la prueba de hipotesis.")
+        st.error("❌ ERROR. Se necesitan al menos dos variables para realizar la prueba de hipotesis.")
         st.stop()
     elif PREG2 == "Mas de dos":
         MULTINORMALIDAD=True #Añadir aqui el Kruster-Wallis mas tarde si toca. 
@@ -139,7 +139,7 @@ else:
     if RawData.type == "csv":
         df0 = pd.read_csv(RawData) #Lectura de la tabla como una matriz en pandas.
     else:
-        st.error("ERROR. Revise que su archivo sea .CSV y que sea de 20 MB.")
+        st.error("❌ ERROR. Revise que su archivo sea .CSV y que sea de 20 MB.")
         st.stop()
 
 #Muestra la tabla como un menu despegable.
@@ -161,10 +161,10 @@ if NORMALIDAD:
             st.write("Ya que al menos uno de los p-valores tiene una significancia menor que 0.05 esto signfica los datos NO siguen una distribucion normal por lo que es recomendabla hacer una prueba de hipotesis de U-Mann-Whitney.")
             UMANN=True
     elif len(VARIABLES)!=2:
-        st.error("ERROR. No hay exactamente dos variables independientes.")
+        st.error("❌ ERROR. No hay exactamente dos variables independientes.")
         st.stop()
     else:
-        st.error("ERROR. Hay muy pocos datos en alguno de las variables para que el analisis sea estadisticamente significativo. Trata de reunir mas datos en esa variable.")
+        st.error("❌ ERROR. Hay muy pocos datos en alguno de las variables para que el analisis sea estadisticamente significativo. Trata de reunir mas datos en esa variable.")
         st.stop()
 elif MULTINORMALIDAD: #Cambiar luego para cuando se pueda hacer ANOVA y Kruger-Willis
     NORMAL=F_NORMALIDAD(df0) #Se crea normal para no tener que llamar la misma funcion varias veces
@@ -184,10 +184,10 @@ elif MULTINORMALIDAD: #Cambiar luego para cuando se pueda hacer ANOVA y Kruger-W
             st.write("Ya que hay mas de dos variables independientes y al menos uno de los p-valores tiene una significancia menor que 0.05 esto signfica los datos NO siguen una distribucion normal por lo que es recomendabla hacer una prueba de Kruskal-Wallis. Lamentable, la calculadora no cuenta con esta funcionalidad en el momento.")
             #WALLIS=True
     elif len(VARIABLES)<3:
-        st.error("ERROR. Se necesitan al menos tres variables independientes.")
+        st.error("❌ ERROR. Se necesitan al menos tres variables independientes.")
         st.stop()
     else:
-        st.error("ERROR. Hay muy pocos datos en alguno de las variables para que el analisis sea estadisticamente significativo. Trata de reunir mas datos en esa variable.")
+        st.error("❌ ERROR. Hay muy pocos datos en alguno de las variables para que el analisis sea estadisticamente significativo. Trata de reunir mas datos en esa variable.")
         st.stop()
 
 #st.subheader("¿Que desea hacer a continuacion?")
@@ -224,7 +224,7 @@ if TESTING!="Si":
 
 if ANOVA:
     if len(df0.columns)!=3: #NOTA: Si se hace el Anova generalizado se cambia esto a que saque error si es menor que 3
-        st.error("ERROR. Para realizar ANOVA necesitas tres variables.")
+        st.error("❌ ERROR. Para realizar ANOVA necesitas tres variables.")
         st.stop()
     
     st.subheader("Prueba de Hipotesis ANOVA")
@@ -246,7 +246,7 @@ elif CHI2: #Hacer que tire error si hay menos de 5 datos
     st.subheader("Prueba de Hipotesis Chi Cuadrado")
 
     if len(df0.columns)!=2:
-        st.error("ERROR. Se necesitan exactactamente dos columnas cualitativas.")
+        st.error("❌ ERROR. Se necesitan exactactamente dos columnas cualitativas.")
         st.stop()
     
     COL1= df0.columns[0] #Nombra a cada una de las columnas, la columna de Variables y la columna de respuestas.
@@ -374,4 +374,5 @@ elif Graph == "Diagrama de Dispersion" and NORMALIDAD:
     mime="image/png"
     )
 else:
-    st.error("ERROR. La opcion de grafico no es valida o no se puede graficar aun.")
+    st.error("❌ ERROR. La opcion de grafico no es valida o no se puede graficar aun.")
+
