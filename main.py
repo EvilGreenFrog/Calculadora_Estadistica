@@ -72,7 +72,6 @@ st.subheader("Responda las siguientes preguntas.") #Reemplzar formato Si/No con 
 #Añadir opcion de persistencia mas adelante mediante log in
 
 #---------------------------------------------------Variables Banderas---------------------------------------------------------------
-PEARSON = False 
 UMANN = False
 ANOVA = False
 WALLIS = False
@@ -80,7 +79,9 @@ TSTUDENT = False
 CHI2 = False
 NORMALIDAD = False
 MULTINORMALIDAD = False
+PEARSON = False 
 SPEARMAN = False
+CORRELACION = False
 
 #--------------------------------------------------Preguntas de los Datos-------------------------------------------------------
 PREG1= st.selectbox("¿Acaso tus variables independientes y dependientes son cualitativas?",["", "Si", "No"])
@@ -98,14 +99,14 @@ else:
     elif PREG2 == "Más de dos":
         MULTINORMALIDAD=True #Añadir aqui el Kruster-Wallis mas tarde si toca. 
     else:
-        PREG3=st.selectbox("¿Deseas hacer una comparación o una correlación con los datos?", ["", "comparación", "correlación"])
+        PREG3=st.selectbox("¿Deseas hacer una comparación o una correlación con los datos?", ["", "Comparación", "Correlación"])
         if PREG3=="":
             st.stop()
-        elif PREG3=="Correlacion":
-            PEARSON=True
+        elif PREG3=="Correlación":
+            #CORRELACION = True
+            PEARSON = True
         else:
             NORMALIDAD=True
-        NORMALIDAD = True
     
 #-------------------------------------------Recomendacion Pruebas de Hipotesis----------------------------------------------------------
 #Aqui se recomienda que tipo de prueba de hipotesis se debe hacer.
@@ -402,6 +403,7 @@ elif Graph == "Diagrama de Dispersión" and NORMALIDAD:
     )
 else:
     st.error("❌ ERROR. El gráfico escogido no es válido o no se puede graficar aún.")
+
 
 
 
