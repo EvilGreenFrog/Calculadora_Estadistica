@@ -196,7 +196,7 @@ elif MULTINORMALIDAD: #Cambiar luego para cuando se pueda hacer ANOVA y Kruger-W
 if ANOVA:
     Prueba = "ANOVA"
     LINK = "https://www.questionpro.com/blog/es/anova/"
-elif Wallis:
+elif WALLIS:
     Prueba = "Kruskal-Wallis"
     LINK = "https://www.questionpro.com/blog/es/prueba-de-kruskal-wallis/"
 elif UMANN:
@@ -211,13 +211,16 @@ elif CHI2:
 elif PEARSON:
     Prueba = "Coeficiente de Pearson"
     LINK = "https://numiqo.es/tutorial/pearson-correlation"
+elif SPEARMAN:
+    Prueba = "Coeficiente de Spearman"
+    LINK = "https://www.questionpro.com/blog/es/coeficiente-de-correlacion-de-spearman/"
 
 st.link_button(f"¿Que es {Prueba}?", LINK) #Boton que lleva a un sitio que explica como funciona la Prueba de Hipotesis.
 
-#if not PEARSON:
-#    TEXT1="hipótesis"
-#else:
-#    TEXT1="correlación"
+if not PEARSON:
+    TEXT1="hipótesis"
+else:
+    TEXT1="correlación"
 TEXT1="hipótesis"
 
 TESTING = st.selectbox(f"¿Deseas realizar la prueba de {TEXT1}?", ["","Si","No"]) #Opcion para empezar la prueba de hipotesis
@@ -227,8 +230,8 @@ if TESTING!="Si":
     st.stop()
 
 if ANOVA:
-    if len(df0.columns)!=3: #NOTA: Si se hace el Anova generalizado se cambia esto a que saque error si es menor que 3
-        st.error("❌ ERROR. Para realizar ANOVA necesitas tres variables.")
+    if len(df0.columns)<3:
+        st.error("❌ ERROR. Para realizar ANOVA al menos tres variables.")
         st.stop()
     
     st.subheader("Prueba de Hipótesis ANOVA")
@@ -246,6 +249,26 @@ if ANOVA:
         st.write("Al ser P < 0.05, se rechaza la hipótesis nula. Hay una diferencia significativa entre las medias de dos variables.")
     else:
         st.write("Al ser P > 0.05, NO se rechaza la hipótesis nula. NO hay una diferencia significativa entre las medias de las variables.")
+elif WALLIS:
+    if len(df0.columns)<3: 
+        st.error("❌ ERROR. Para realizar Kruskal-Wallis necesitas al menos tres variables.")
+        st.stop()
+    
+    st.subheader("Prueba de Hipótesis Kruskal-Wallis")
+    df = df0.melt(var_name="Grupo", value_name="Valor") #Rota la matriz para que este en formato variable-valor, o sea el formato anterior a parejas, con la columna Grupo teniendo la variable, y la columna Valor tneiendo los valores.
+    df["Valor"] = pd.to_numeric(df["Valor"], errors="coerce") #Mira la columna de los valores y los convierte en numeros si son strings. El coerce es pa evitar errores.
+
+    GRUPOS = df["Grupo"].unique() #Saca cada variable independiente de la tabla.
+    LISTA=[]
+    for Grupo in GRUPOS:
+        LISTA.append(df[df["Grupo"]==Grupo]["Valor"]) #Saca todos los valores asociados a una variables, los vuelve una lsita, y luego los mete a la LISTA y hace eso para cada vairable.
+    f, P_WALLIS = stats.kruskal(*LISTA) #Realiza Wallis a los datos. El "*" es para que en vez de que LISTA sea una lista de lista, solo le da varias listas a Wallis que es el parementro que necesita.
+    
+    st.write("El p-valor de Kruskal-Wallis es P =", P_WALLIS,".")
+    if P_WALLIS<0.05:
+        st.write("Al ser P < 0.05, se rechaza la hipótesis nula. MODIFICAR.") #Corregir esto
+    else:
+        st.write("Al ser P > 0.05, NO se rechaza la hipótesis nula. MODIFICAR.") #Corregir esto
 elif CHI2: #Hacer que tire error si hay menos de 5 datos
     st.subheader("Prueba de Hipótesis Chi Cuadrado")
 
@@ -379,6 +402,7 @@ elif Graph == "Diagrama de Dispersión" and NORMALIDAD:
     )
 else:
     st.error("❌ ERROR. El gráfico escogido no es válido o no se puede graficar aún.")
+
 
 
 
