@@ -35,7 +35,7 @@ def shapiro_local(Datos0): #Esto te lo hace por columnas
     
 def F_NORMALIDAD(df1): #Para hacer la normalidad aqui se asume que cumple todas las condiciones, excepto la de cantidad
     df3 = df1.melt(var_name="Grupo", value_name="Valor")
-    df3["Valor"] = pd.to_numeric(df3["Valor"],errors="coerce") #Convierte todo en formato Variable Valor, y se asegura que los valores si sean numeros. El coerce quita los errores.
+    df3["Valor"] = pd.to_numeric(df3["Valor"], errors="coerce") #Convierte todo en formato Variable Valor, y se asegura que los valores si sean numeros. El coerce quita los errores.
     
     GRUPOS = df3["Grupo"].unique()
     SIZE = True #VARIABLE BANDERA
@@ -84,7 +84,7 @@ SPEARMAN = False
 CORRELACION = False
 
 #--------------------------------------------------Preguntas de los Datos-------------------------------------------------------
-PREG1= st.selectbox("¿Acaso tus variables independientes y dependientes son cualitativas?",["", "Si", "No"])
+PREG1= st.selectbox("¿Tus variables independientes y dependientes son cualitativas?",["", "Si", "No"])
 if PREG1=="":
     st.stop()
 elif PREG1 == "Si":
@@ -106,14 +106,14 @@ else:
               NORMALIDAD=True
         else:
             CORRELACION = True
-            PREG4=st.selectbox("¿Acaso una de tus variables son ordinales?", ["", "Si", "No"])
+            PREG4 = st.selectbox("¿Tus variables son ordinales? (ej: Niveles de satisfaccion [1-Bajo, 2-Medio, 3-Alto])", ["", "Si", "No"])
             if PREG4 == "":
                 st.stop()
             elif PREG4 == "Si":
                 SPEARMAN = True
                 ORDINAL = "ordinales"
             else:
-                PREG5=st.selectbox("¿Acaso la relacion entre tus variables parece lineal?", ["", "Si", "No"])
+                PREG5=st.selectbox("¿Quieres ver si hay una relacion lineal entre tus variables?", ["", "Si", "No"])
                 if PREG5 == "":
                     st.stop()
                 elif PREG5 == "No":
@@ -450,5 +450,6 @@ elif Graph == "Diagrama de Dispersión" and not(CHI2 or MULTINORMALIDAD):
     )
 else:
     st.error("❌ ERROR. El gráfico escogido no es válido o no se puede graficar aún.")
+
 
 
