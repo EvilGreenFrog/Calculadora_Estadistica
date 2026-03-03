@@ -72,7 +72,7 @@ st.subheader("Responda las siguientes preguntas.") #Reemplzar formato Si/No con 
 #Añadir opcion de persistencia mas adelante mediante log in
 
 #---------------------------------------------------Variables Banderas---------------------------------------------------------------
-#PEARSON = False 
+PEARSON = False 
 UMANN = False
 ANOVA = False
 WALLIS = False
@@ -402,6 +402,7 @@ elif Graph == "Diagrama de Dispersión" and NORMALIDAD:
     )
 else:
     st.error("❌ ERROR. El gráfico escogido no es válido o no se puede graficar aún.")
+
 
 
 
