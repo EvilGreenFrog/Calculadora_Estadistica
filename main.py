@@ -267,9 +267,9 @@ elif WALLIS:
     
     st.write("El p-valor de Kruskal-Wallis es P =", P_WALLIS,".")
     if P_WALLIS<0.05:
-        st.write("Al ser P < 0.05, se rechaza la hipótesis nula. MODIFICAR.") #Corregir esto
+        st.write("Al ser P < 0.05, se rechaza la hipótesis nula. Hay una diferencia significativa entre las medianas de dos variables.") #Consultar con JuanJo
     else:
-        st.write("Al ser P > 0.05, NO se rechaza la hipótesis nula. MODIFICAR.") #Corregir esto
+        st.write("Al ser P > 0.05, NO se rechaza la hipótesis nula. NO hay una diferencia significativa entre las medianas de las variables.")
 elif CHI2: #Hacer que tire error si hay menos de 5 datos
     st.subheader("Prueba de Hipótesis Chi Cuadrado")
 
@@ -335,16 +335,16 @@ elif TSTUDENT:
 GRAPHCHI2 = ["Ninguna", "Diagrama de Barras"]
 GRAPHCOMPARACION = ["Ninguna","Diagrama de Bigotes"]
 GRAPHCORRELACION = ["Ninguna","Diagrama de Bigotes", "Diagrama de Dispersión"]
-GRAPHANOVA = ["Ninguna","Diagrama de Bigotes"]
+MULTINORMALIDAD = ["Ninguna","Diagrama de Bigotes"]
 
 if CHI2:
     GRAPHS= GRAPHCHI2
-elif NORMALIDAD and not ANOVA:
+elif NORMALIDAD:
     GRAPHS= GRAPHCOMPARACION
-elif ANOVA:
-    GRAPHS=GRAPHANOVA
-#elif PEARSON:
-#    GRAPHS=GRAPHCORRELACION
+elif MULTINORMALIDAD:
+    GRAPHS=GRAPHMULTI
+elif PEARSON:
+    GRAPHS=GRAPHCORRELACION
 #Hacer que saca un error si se selecciona una grafica que no esta ahi
 
 if Graph=="Ninguna":
@@ -403,6 +403,7 @@ elif Graph == "Diagrama de Dispersión" and NORMALIDAD:
     )
 else:
     st.error("❌ ERROR. El gráfico escogido no es válido o no se puede graficar aún.")
+
 
 
 
