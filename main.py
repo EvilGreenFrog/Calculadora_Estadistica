@@ -106,27 +106,21 @@ else:
               NORMALIDAD=True
         else:
             CORRELACION = True
-            PREG4=st.selectbox("¿Acaso tus variables son continuas?", ["", "Si", "No"])
+            PREG4=st.selectbox("¿Acaso una de tus variables son ordinales?", ["", "Si", "No"])
             if PREG4 == "":
                 st.stop()
-            elif PREG4 == "No":
+            elif PREG4 == "Si":
                 SPEARMAN = True
+                ORDINAL = "ordinal"
             else:
-                PREG5=st.selectbox("¿Acaso tus variables siguen una distribucion normal?", ["", "Si", "No"]) #Modifcar para hacer Shapiro-Wilk
+                PREG5=st.selectbox("¿Acaso la relacion entre tus variables parece lineal?", ["", "Si", "No"])
                 if PREG5 == "":
                     st.stop()
                 elif PREG5 == "No":
                     SPEARMAN = True
+                    ORDINAL = ""
                 else:
-                    PREG6=st.selectbox("¿Acaso la relacion entre tus variables parece linear?", ["", "Si", "No"])
-                    if PREG5 == "":
-                        st.stop()
-                    elif PREG5 == "No":
-                        SPEARMAN = True
-                    else:
-                        PEARSON = True
-
-
+                    PEARSON = True
     
 #-------------------------------------------Recomendacion Pruebas de Hipotesis----------------------------------------------------------
 #Aqui se recomienda que tipo de prueba de hipotesis se debe hacer.
@@ -134,9 +128,9 @@ if CHI2:
     Response = "**:red[Chi Cuadrado]** porque todas las variables son cualitativas"
     st.write(f"Con base a lo respondido, se recomienda hacer una prueba de hipótesis de {Response}.")
 elif PEARSON:
-    st.write("Con base a lo respondido, se recomienda calcular el **:red[coeficiente de Pearson]** para ver si hay una correlación linear entre los datos.")
+    st.write("Con base a lo respondido, ya que se busca una correlacion lineal entre datos no-ordinales se recomienda calcular el **:red[coeficiente de Pearson]** para ver si hay una correlación linear entre los datos.")
 elif SPEARMAN:
-    st.write("Con base a lo respondido, se recomienda calcular el **:red[coeficiente de Spearman]** para ver si hay una correlación monotonica entre los datos.")
+    st.write("Con base a lo respondido, ya se se busca una correlacion no-lineal entre datos", ORDINAL, "se recomienda calcular el **:red[coeficiente de Spearman]** para ver si hay una correlación monotonica entre los datos.")
 elif MULTINORMALIDAD==True:
     st.write("Con base a lo respondido, es necesario hacer una **:red[prueba de normalidad de Shapiro-Wilk]** para determinar el tipo de prueba de hipótesis. Suba los datos para realizar la prueba de normalidad.")
 elif NORMALIDAD==True:
@@ -456,3 +450,4 @@ elif Graph == "Diagrama de Dispersión" and not(CHI2 or MULTINORMALIDAD):
     )
 else:
     st.error("❌ ERROR. El gráfico escogido no es válido o no se puede graficar aún.")
+
