@@ -111,7 +111,7 @@ else:
                 st.stop()
             elif PREG4 == "Si":
                 SPEARMAN = True
-                ORDINAL = "ordinal"
+                ORDINAL = "ordinales"
             else:
                 PREG5=st.selectbox("¿Acaso la relacion entre tus variables parece lineal?", ["", "Si", "No"])
                 if PREG5 == "":
@@ -450,4 +450,5 @@ elif Graph == "Diagrama de Dispersión" and not(CHI2 or MULTINORMALIDAD):
     )
 else:
     st.error("❌ ERROR. El gráfico escogido no es válido o no se puede graficar aún.")
+
 
