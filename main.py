@@ -350,7 +350,38 @@ elif TSTUDENT:
         st.write("Al ser P < 0.05, se rechaza la hipótesis nula. Las medias son significativamente diferentes.")
     else:
         st.write("Al ser P > 0.05, NO se rechaza la hipótesis nula. Las medias NO son significativamente diferentes.")
+elif PEARSON:
+    df = df0.melt(var_name="Grupo", value_name="Valor")
+    df["Valor"] = pd.to_numeric(df["Valor"], errors="coerce")
 
+    GRUPOS = df["Grupo"].unique()
+    COL1 = df[df["Grupo"]==GRUPOS[0]]["Valor"].dropna() #Columna 1
+    COL2 = df[df["Grupo"]==GRUPOS[1]]["Valor"].dropna() #Columna2
+
+    r, P_PEARSON = stats.pearsonr(COL1, COL2)
+
+    st.write("El p-valor del coeficiente de correlación de Pearson es de P =", P_PEARSON)
+
+    if P_PEARSON<0.05:
+        st.write("Al ser P < 0.05, se rechaza la hipótesis nula. Hay una correlación lineal signicativa entre las variables.")
+    else:
+        st.write("Al ser P > 0.05, NO se rechaza la hipótesis nula. NO hay una correlación lineal signicativa entre las variables.")
+elif SPEARMAN:
+    df = df0.melt(var_name="Grupo", value_name="Valor")
+    df["Valor"] = pd.to_numeric(df["Valor"], errors="coerce")
+
+    GRUPOS = df["Grupo"].unique()
+    COL1 = df[df["Grupo"]==GRUPOS[0]]["Valor"].dropna() #Columna 1
+    COL2 = df[df["Grupo"]==GRUPOS[1]]["Valor"].dropna() #Columna2
+
+    p, P_SPEARMAN = stats.spearmanr(COL1, COL2)
+
+    st.write("El p-valor del coeficiente de correlación de Spearman es de P =", P_SPEARMAN)
+
+    if P_SPEARMAN<0.05:
+        st.write("Al ser P < 0.05, se rechaza la hipótesis nula. Hay una correlación signicativa entre las variables.")
+    else:
+        st.write("Al ser P > 0.05, NO se rechaza la hipótesis nula. NO hay una correlación signicativa entre las variables.")
 
 #--------------------------------------------¡¡¡¡SECCION PARA LAS GRAFICAS!!!!-------------------------------------------------------------
 #Tipos de graficas permitidos para cada tipo de datos.
@@ -425,3 +456,4 @@ elif Graph == "Diagrama de Dispersión" and NORMALIDAD:
     )
 else:
     st.error("❌ ERROR. El gráfico escogido no es válido o no se puede graficar aún.")
+
