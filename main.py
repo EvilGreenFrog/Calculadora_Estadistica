@@ -335,7 +335,7 @@ elif TSTUDENT:
 GRAPHCHI2 = ["Ninguna", "Diagrama de Barras"]
 GRAPHCOMPARACION = ["Ninguna","Diagrama de Bigotes"]
 GRAPHCORRELACION = ["Ninguna","Diagrama de Bigotes", "Diagrama de Dispersión"]
-MULTINORMALIDAD = ["Ninguna","Diagrama de Bigotes"]
+GRAPHMULTI = ["Ninguna","Diagrama de Bigotes"]
 
 if CHI2:
     GRAPHS= GRAPHCHI2
@@ -403,6 +403,7 @@ elif Graph == "Diagrama de Dispersión" and NORMALIDAD:
     )
 else:
     st.error("❌ ERROR. El gráfico escogido no es válido o no se puede graficar aún.")
+
 
 
 
