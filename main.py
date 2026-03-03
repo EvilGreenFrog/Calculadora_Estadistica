@@ -106,7 +106,7 @@ else:
               NORMALIDAD=True
         else:
             CORRELACION = True
-            PREG4 = st.selectbox("¿Tus variables son ordinales? (ej: Niveles de satisfaccion [1-Bajo, 2-Medio, 3-Alto])", ["", "Si", "No"])
+            PREG4 = st.selectbox("¿Tus variables son ordinales? (ej: Niveles de satisfaccion [ 1 - Bajo, 2 - Medio, 3 - Alto ] )", ["", "Si", "No"])
             if PREG4 == "":
                 st.stop()
             elif PREG4 == "Si":
@@ -450,6 +450,7 @@ elif Graph == "Diagrama de Dispersión" and not(CHI2 or MULTINORMALIDAD):
     )
 else:
     st.error("❌ ERROR. El gráfico escogido no es válido o no se puede graficar aún.")
+
 
 
 
