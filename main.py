@@ -75,11 +75,12 @@ st.subheader("Responda las siguientes preguntas.") #Reemplzar formato Si/No con 
 #PEARSON = False 
 UMANN = False
 ANOVA = False
-#WALLIS = False
+WALLIS = False
 TSTUDENT = False
 CHI2 = False
 NORMALIDAD = False
 MULTINORMALIDAD = False
+SPEARMAN = False
 
 #--------------------------------------------------Preguntas de los Datos-------------------------------------------------------
 PREG1= st.selectbox("¿Acaso tus variables independientes y dependientes son cualitativas?",["", "Si", "No"])
@@ -97,13 +98,13 @@ else:
     elif PREG2 == "Más de dos":
         MULTINORMALIDAD=True #Añadir aqui el Kruster-Wallis mas tarde si toca. 
     else:
-        #PREG3=st.selectbox("¿Deseas hacer una comparación o una correlación con los datos?", ["", "comparación", "correlación"])
-        #if PREG3=="":
-        #    st.stop()
-        #elif PREG3=="Correlacion":
-        #    PEARSON=True
-        #else:
-        #    NORMALIDAD=True
+        PREG3=st.selectbox("¿Deseas hacer una comparación o una correlación con los datos?", ["", "comparación", "correlación"])
+        if PREG3=="":
+            st.stop()
+        elif PREG3=="Correlacion":
+            PEARSON=True
+        else:
+            NORMALIDAD=True
         NORMALIDAD = True
     
 #-------------------------------------------Recomendacion Pruebas de Hipotesis----------------------------------------------------------
@@ -111,8 +112,8 @@ else:
 if CHI2:
     Response = "**:red[Chi Cuadrado]** porque todas las variables son cualitativas"
     st.write(f"Con base a lo respondido, se recomienda hacer una prueba de hipótesis de {Response}.")
-#elif PEARSON:
-#    st.write("Con base a lo respondido, se recomienda calcular el **:red[coeficiente de Pearson]** para ver si hay una correlación linear entre los datos.")
+elif PEARSON:
+    st.write("Con base a lo respondido, se recomienda calcular el **:red[coeficiente de Pearson]** para ver si hay una correlación linear entre los datos.")
 elif MULTINORMALIDAD==True:
     st.write("Con base a lo respondido, es necesario hacer una **:red[prueba de normalidad de Shapiro-Wilk]** para determinar el tipo de prueba de hipótesis. Suba los datos para realizar la prueba de normalidad.")
 elif NORMALIDAD==True:
@@ -181,8 +182,8 @@ elif MULTINORMALIDAD: #Cambiar luego para cuando se pueda hacer ANOVA y Kruger-W
             st.write("Ya que hay más de dos variables independientes y todos los p-valores tienen una significancia mayor que 0.05 esto significa los datos siguen una distribución normal por lo que es recomendable hacer una prueba de hipótesis ANOVA.")
             ANOVA=True
         else:
-            st.write("Ya que hay más de dos variables independientes y al menos uno de los p-valores tiene una significancia menor que 0.05 esto significa los datos NO siguen una distribución normal por lo que es recomendable hacer una prueba de hipótesis Kruskal-Wallis. Lamentable, la calculadora no cuenta con esta funcionalidad en el momento.")
-            #WALLIS=True
+            st.write("Ya que hay más de dos variables independientes y al menos uno de los p-valores tiene una significancia menor que 0.05 esto significa los datos NO siguen una distribución normal por lo que es recomendable hacer una prueba de hipótesis Kruskal-Wallis.")
+            WALLIS=True
     elif len(VARIABLES)<3:
         st.error("❌ ERROR. Se necesitan al menos tres variables independientes.")
         st.stop()
@@ -195,6 +196,9 @@ elif MULTINORMALIDAD: #Cambiar luego para cuando se pueda hacer ANOVA y Kruger-W
 if ANOVA:
     Prueba = "ANOVA"
     LINK = "https://www.questionpro.com/blog/es/anova/"
+elif Wallis:
+    Prueba = "Kruskal-Wallis"
+    LINK = "https://www.questionpro.com/blog/es/prueba-de-kruskal-wallis/"
 elif UMANN:
     Prueba = "U de Mann-Whitney"
     LINK = "https://www.questionpro.com/blog/es/prueba-u-de-mann-whitney/"
@@ -375,6 +379,7 @@ elif Graph == "Diagrama de Dispersión" and NORMALIDAD:
     )
 else:
     st.error("❌ ERROR. El gráfico escogido no es válido o no se puede graficar aún.")
+
 
 
 
