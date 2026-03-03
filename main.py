@@ -427,7 +427,7 @@ elif Graph=="Diagrama de Barras" and CHI2: #NOTA, Actuamente falla y toca cambia
     mime="image/png"
     )
 #elif Graph == "Diagrama de Dispersion" and (NORMALIDAD or PEARSON):
-elif Graph == "Diagrama de Dispersión" and NORMALIDAD:
+elif Graph == "Diagrama de Dispersión" and not(CHI2 or MULTINORMALIDAD):
 
     if len(df0.columns) < 2:
         st.write("Se necesitan al menos dos columnas.")
@@ -456,4 +456,3 @@ elif Graph == "Diagrama de Dispersión" and NORMALIDAD:
     )
 else:
     st.error("❌ ERROR. El gráfico escogido no es válido o no se puede graficar aún.")
-
