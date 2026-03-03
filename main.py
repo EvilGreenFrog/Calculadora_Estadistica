@@ -102,11 +102,31 @@ else:
         PREG3=st.selectbox("¿Deseas hacer una comparación o una correlación con los datos?", ["", "Comparación", "Correlación"])
         if PREG3=="":
             st.stop()
-        elif PREG3=="Correlación":
-            #CORRELACION = True
-            PEARSON = True
+        elif PREG3 == "Comparación":
+              NORMALIDAD=True
         else:
-            NORMALIDAD=True
+            CORRELACION = True
+            PREG4=st.selectbox("¿Acaso tus variables son continuas?", ["", "Si", "No"])
+            if PREG4 == "":
+                st.stop()
+            elif PREG4 == "No":
+                SPEARMAN = True
+            else:
+                PREG5=st.selectbox("¿Acaso tus variables siguen una distribucion normal?", ["", "Si", "No"]) #Modifcar para hacer Shapiro-Wilk
+                if PREG5 == "":
+                    st.stop()
+                elif PREG5 == "No":
+                    SPEARMAN = True
+                else:
+                    PREG6=st.selectbox("¿Acaso la relacion entre tus variables parece linear?", ["", "Si", "No"])
+                    if PREG5 == "":
+                        st.stop()
+                    elif PREG5 == "No":
+                        SPEARMAN = True
+                    else:
+                        PEARSON = True
+
+
     
 #-------------------------------------------Recomendacion Pruebas de Hipotesis----------------------------------------------------------
 #Aqui se recomienda que tipo de prueba de hipotesis se debe hacer.
@@ -115,6 +135,8 @@ if CHI2:
     st.write(f"Con base a lo respondido, se recomienda hacer una prueba de hipótesis de {Response}.")
 elif PEARSON:
     st.write("Con base a lo respondido, se recomienda calcular el **:red[coeficiente de Pearson]** para ver si hay una correlación linear entre los datos.")
+elif SPEARMAN:
+    st.write("Con base a lo respondido, se recomienda calcular el **:red[coeficiente de Spearman]** para ver si hay una correlación monotonica entre los datos.")
 elif MULTINORMALIDAD==True:
     st.write("Con base a lo respondido, es necesario hacer una **:red[prueba de normalidad de Shapiro-Wilk]** para determinar el tipo de prueba de hipótesis. Suba los datos para realizar la prueba de normalidad.")
 elif NORMALIDAD==True:
@@ -403,20 +425,3 @@ elif Graph == "Diagrama de Dispersión" and NORMALIDAD:
     )
 else:
     st.error("❌ ERROR. El gráfico escogido no es válido o no se puede graficar aún.")
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
