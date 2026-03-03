@@ -138,7 +138,7 @@ if RawData is None:
     st.stop()
 else:
     if RawData.type == "csv":
-    #df0 = pd.read_csv(RawData) #Lectura de la tabla como una matriz en pandas.
+        df0 = pd.read_csv(RawData) #Lectura de la tabla como una matriz en pandas.
     else:
         st.error("❌ ERROR. Revise que su archivo sea .CSV y que sea de 20 MB.")
         st.stop()
@@ -402,6 +402,7 @@ elif Graph == "Diagrama de Dispersión" and NORMALIDAD:
     )
 else:
     st.error("❌ ERROR. El gráfico escogido no es válido o no se puede graficar aún.")
+
 
 
 
