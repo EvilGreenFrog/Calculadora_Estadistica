@@ -94,7 +94,7 @@ else:
     if PREG2=="":
         st.stop()
     elif PREG2 == "1":
-        st.error("❌ ERROR. Se necesitan al menos dos variables para realizar la prueba de hipótesis.")
+        st.error("❌ ERROR. Se necesitan al menos dos variables para realizar la prueba de hipótesis o de correlación.")
         st.stop()
     elif PREG2 == "Más de dos":
         MULTINORMALIDAD=True #Añadir aqui el Kruster-Wallis mas tarde si toca. 
@@ -106,12 +106,13 @@ else:
               NORMALIDAD=True
         else:
             CORRELACION = True
-            PREG4 = st.selectbox("¿Tus variables son ordinales? (ej: Niveles de satisfaccion [ 1 - Bajo, 2 - Medio, 3 - Alto ] )", ["", "Si", "No"])
+            PREG4 = st.selectbox("¿Tus variables son ordinales? ej: Niveles de satisfaccion [ 1 - Bajo, 2 - Medio, 3 - Alto ]", ["", "Si", "No"])
             if PREG4 == "":
                 st.stop()
             elif PREG4 == "Si":
                 SPEARMAN = True
                 ORDINAL = "ordinales"
+                LINEAL = ""
             else:
                 PREG5=st.selectbox("¿Quieres ver si hay una relacion lineal entre tus variables?", ["", "Si", "No"])
                 if PREG5 == "":
@@ -119,6 +120,7 @@ else:
                 elif PREG5 == "No":
                     SPEARMAN = True
                     ORDINAL = ""
+                    LINEAL = "no-lineal"
                 else:
                     PEARSON = True
     
@@ -128,9 +130,9 @@ if CHI2:
     Response = "**:red[Chi Cuadrado]** porque todas las variables son cualitativas"
     st.write(f"Con base a lo respondido, se recomienda hacer una prueba de hipótesis de {Response}.")
 elif PEARSON:
-    st.write("Con base a lo respondido, ya que se busca una correlacion lineal entre datos no-ordinales se recomienda calcular el **:red[coeficiente de Pearson]** para ver si hay una correlación linear entre los datos.")
+    st.write("Con base a lo respondido, ya que se busca una correlacion lineal entre datos no-ordinales se recomienda calcular el **:red[coeficiente de Pearson]** para ver si hay una correlación lineal entre los datos.")
 elif SPEARMAN:
-    st.write("Con base a lo respondido, ya se se busca una correlacion no-lineal entre datos", ORDINAL, "se recomienda calcular el **:red[coeficiente de Spearman]** para ver si hay una correlación monotonica entre los datos.")
+    st.write("Con base a lo respondido, ya se se busca una correlacion", LINEAL ,"entre datos", ORDINAL, "se recomienda calcular el **:red[coeficiente de Spearman]** para ver si hay una correlación monotonica entre los datos.")
 elif MULTINORMALIDAD==True:
     st.write("Con base a lo respondido, es necesario hacer una **:red[prueba de normalidad de Shapiro-Wilk]** para determinar el tipo de prueba de hipótesis. Suba los datos para realizar la prueba de normalidad.")
 elif NORMALIDAD==True:
@@ -263,9 +265,9 @@ if ANOVA:
     
     st.write("El p-valor de ANOVA es P =", P_ANOVA,".")
     if P_ANOVA<0.05:
-        st.write("Al ser P < 0.05, se rechaza la hipótesis nula. Hay una diferencia significativa entre las medias de dos variables.")
+        st.write("Al ser P < 0.05, **:red[se rechaza]** la hipótesis nula. Hay una diferencia significativa entre las medias de dos variables.")
     else:
-        st.write("Al ser P > 0.05, NO se rechaza la hipótesis nula. NO hay una diferencia significativa entre las medias de las variables.")
+        st.write("Al ser P > 0.05, **:red[NO se rechaza]** la hipótesis nula. **NO** hay una diferencia significativa entre las medias de las variables.")
 elif WALLIS:
     if len(df0.columns)<3: 
         st.error("❌ ERROR. Para realizar Kruskal-Wallis necesitas al menos tres variables.")
@@ -283,9 +285,9 @@ elif WALLIS:
     
     st.write("El p-valor de Kruskal-Wallis es P =", P_WALLIS,".")
     if P_WALLIS<0.05:
-        st.write("Al ser P < 0.05, se rechaza la hipótesis nula. Hay una diferencia significativa entre las distribuciones de dos variables.") #Consultar con JuanJo
+        st.write("Al ser P < 0.05, se rechaza]** la hipótesis nula. Hay una diferencia significativa entre las distribuciones de dos variables.") #Consultar con JuanJo
     else:
-        st.write("Al ser P > 0.05, NO se rechaza la hipótesis nula. NO hay una diferencia significativa entre las distribuciones de las variables.")
+        st.write("Al ser P > 0.05, **:red[NO se rechaza]** la hipótesis nula. NO hay una diferencia significativa entre las distribuciones de las variables.")
 elif CHI2: #Hacer que tire error si hay menos de 5 datos
     st.subheader("Prueba de Hipótesis Chi Cuadrado")
 
@@ -308,9 +310,9 @@ elif CHI2: #Hacer que tire error si hay menos de 5 datos
     st.write("El p-valor de Chi Cuadrado es P =", res.pvalue,".")
     
     if P_CHI<0.05:
-        st.write("Al ser P < 0.05, se rechaza la hipótesis nula. Las dos variables están significativamente relacionadas.")
+        st.write("Al ser P < 0.05, **:red[se rechaza]** la hipótesis nula. Las dos variables están significativamente relacionadas.")
     else:
-        st.write("Al ser P > 0.05, NO se rechaza la hipótesis nula. Las dos variables NO están significativamente relacionadas.")
+        st.write("Al ser P > 0.05, **:red[NO se rechaza]** la hipótesis nula. Las dos variables NO están significativamente relacionadas.")
 elif UMANN:
     st.subheader("Prueba de Hipótesis U de Mann-Whitney")
     df = df0.melt(var_name="Grupo", value_name="Valor")
@@ -325,9 +327,9 @@ elif UMANN:
     st.write("El p-valor de U de Mann-Whitney es de P =", P_UMANN)
 
     if P_UMANN<0.05:
-        st.write("Al ser P < 0.05, se rechaza la hipótesis nula. Las distribuciones son significativamente diferentes.")
+        st.write("Al ser P < 0.05, **:red[se rechaza]** la hipótesis nula. Las distribuciones son significativamente diferentes.")
     else:
-        st.write("Al ser P > 0.05, NO se rechaza la hipótesis nula. Las distribuciones NO son significativamente diferentes.")
+        st.write("Al ser P > 0.05, **:red[NO se rechaza]** la hipótesis nula. Las distribuciones NO son significativamente diferentes.")
 elif TSTUDENT:
     df = df0.melt(var_name="Grupo", value_name="Valor")
     df["Valor"] = pd.to_numeric(df["Valor"], errors="coerce")
@@ -341,9 +343,9 @@ elif TSTUDENT:
     st.write("El p-valor de T de Student es de P =", P_TSTUDENT)
 
     if P_TSTUDENT<0.05:
-        st.write("Al ser P < 0.05, se rechaza la hipótesis nula. Las medias son significativamente diferentes.")
+        st.write("Al ser P < 0.05, **:red[se rechaza]** la hipótesis nula. Las medias son significativamente diferentes.")
     else:
-        st.write("Al ser P > 0.05, NO se rechaza la hipótesis nula. Las medias NO son significativamente diferentes.")
+        st.write("Al ser P > 0.05, **:red[NO se rechaza]** la hipótesis nula. Las medias NO son significativamente diferentes.")
 elif PEARSON:
     df = df0.melt(var_name="Grupo", value_name="Valor")
     df["Valor"] = pd.to_numeric(df["Valor"], errors="coerce")
@@ -377,9 +379,9 @@ elif PEARSON:
         TAMAÑO = "menor que 0.1"
     
     if P_PEARSON<0.05:
-        st.write("Al ser P < 0.05, se rechaza la hipótesis nula. Hay una correlación lineal signicativa entre las variables.")
+        st.write("Al ser P < 0.05, **:red[se rechaza]** la hipótesis nula. Hay una correlación lineal signicativa entre las variables.")
     else:
-        st.write("Al ser P > 0.05, NO se rechaza la hipótesis nula. NO hay una correlación lineal signicativa entre las variables.")
+        st.write("Al ser P > 0.05, **:red[NO se rechaza]** la hipótesis nula. NO hay una correlación lineal signicativa entre las variables.")
 
     st.write("Al ser el valor absoluto de r", TAMAÑO, "eso indica que hay una correlacion lineal", COR, FUERZA, "entre las variables.")
 
@@ -417,9 +419,9 @@ elif SPEARMAN:
         TAMAÑO = "menor que 0.1"
 
     if P_SPEARMAN<0.05:
-        st.write("Al ser P < 0.05, se rechaza la hipótesis nula. Hay una correlación signicativa entre las variables.")
+        st.write("Al ser P < 0.05, **:red[se rechaza]** la hipótesis nula. Hay una correlación signicativa entre las variables.")
     else:
-        st.write("Al ser P > 0.05, NO se rechaza la hipótesis nula. NO hay una correlación signicativa entre las variables.")
+        st.write("Al ser P > 0.05, **:red[NO se rechaza]** la hipótesis nula. NO hay una correlación signicativa entre las variables.")
 
     st.write("Al ser el valor absoluto de rₛ", TAMAÑO, "eso indica que hay una correlacion", COR, FUERZA, "entre las variables.")
 
@@ -496,4 +498,5 @@ elif Graph == "Diagrama de Dispersión" and not(CHI2 or MULTINORMALIDAD):
     )
 else:
     st.error("❌ ERROR. El gráfico escogido no es válido o no se puede graficar aún.")
+
 
