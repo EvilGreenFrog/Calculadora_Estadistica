@@ -211,7 +211,7 @@ elif MULTINORMALIDAD: #Cambiar luego para cuando se pueda hacer ANOVA y Kruger-W
         st.stop()
 
 #st.subheader("¿Que desea hacer a continuación?")
-#------------------------------------------------------Pruebas de Hipotesis-------------------------------------------------------
+#------------------------------------------------------Butones de Links-------------------------------------------------------
 if ANOVA:
     Prueba = "ANOVA"
     LINK = "https://www.questionpro.com/blog/es/anova/"
@@ -248,6 +248,7 @@ START = False
 if TESTING!="Si":
     st.stop()
 
+#------------------------------------------------------Pruebas de Hipotesis-------------------------------------------------------
 if ANOVA:
     if len(df0.columns)<3:
         st.error("❌ ERROR. Para realizar ANOVA al menos tres variables.")
@@ -498,5 +499,6 @@ elif Graph == "Diagrama de Dispersión" and not(CHI2 or MULTINORMALIDAD):
     )
 else:
     st.error("❌ ERROR. El gráfico escogido no es válido o no se puede graficar aún.")
+
 
 
