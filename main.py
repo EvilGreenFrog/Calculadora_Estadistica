@@ -186,6 +186,7 @@ if NORMALIDAD:
     else:
         st.error("❌ ERROR. Hay muy pocos datos en alguna de las variables para que el análisis sea estadísticamente significativo. Trata de reunir más datos en esa variable.")
         st.stop()
+        
 elif MULTINORMALIDAD: #Cambiar luego para cuando se pueda hacer ANOVA y Kruger-Willis
     NORMAL=F_NORMALIDAD(df0) #Se crea normal para no tener que llamar la misma funcion varias veces
     df10 = df0.melt(var_name="Grupo", value_name="Valor")
@@ -269,6 +270,7 @@ if ANOVA:
         st.write("Al ser P < 0.05, **:red[se rechaza]** la hipótesis nula. Hay una diferencia significativa entre las medias de dos variables.")
     else:
         st.write("Al ser P > 0.05, **:red[NO se rechaza]** la hipótesis nula. **NO** hay una diferencia significativa entre las medias de las variables.")
+        
 elif WALLIS:
     if len(df0.columns)<3: 
         st.error("❌ ERROR. Para realizar Kruskal-Wallis necesitas al menos tres variables.")
@@ -289,6 +291,7 @@ elif WALLIS:
         st.write("Al ser P < 0.05, se rechaza]** la hipótesis nula. Hay una diferencia significativa entre las distribuciones de dos variables.") #Consultar con JuanJo
     else:
         st.write("Al ser P > 0.05, **:red[NO se rechaza]** la hipótesis nula. NO hay una diferencia significativa entre las distribuciones de las variables.")
+        
 elif CHI2: #Hacer que tire error si hay menos de 5 datos
     st.subheader("Prueba de Hipótesis Chi Cuadrado")
 
@@ -347,6 +350,7 @@ elif TSTUDENT:
         st.write("Al ser P < 0.05, **:red[se rechaza]** la hipótesis nula. Las medias son significativamente diferentes.")
     else:
         st.write("Al ser P > 0.05, **:red[NO se rechaza]** la hipótesis nula. Las medias NO son significativamente diferentes.")
+        
 elif PEARSON:
     df = df0.melt(var_name="Grupo", value_name="Valor")
     df["Valor"] = pd.to_numeric(df["Valor"], errors="coerce")
@@ -355,18 +359,19 @@ elif PEARSON:
     COL1 = df[df["Grupo"]==GRUPOS[0]]["Valor"].dropna() #Columna 1
     COL2 = df[df["Grupo"]==GRUPOS[1]]["Valor"].dropna() #Columna2
 
-    r, P_PEARSON = stats.pearsonr(COL1, COL2)
+    r, P_PEARSON = stats.pearsonr(COL1, COL2) #Se calcula el coeficiente de correlacion de pearson y el p-valor
 
     st.write("El p-valor del coeficiente de correlación de Pearson es P =", P_PEARSON)
     st.write("El coeficiente de correlacion de Pearson es r =", r)
-    if r>0:
+    
+    if r>0:#Aqui dice si la correlacion es positiva o negativa
         COR = "positiva"
     elif r<0:
         COR = "negativa"
     else:
         COR = ""
 
-    if np.abs(r)>=0.5:
+    if np.abs(r)>=0.5: #Aqui dice si la correlacion es fuerte o debil.
         FUERZA = "fuerte"
         TAMAÑO = "mayor que 0.5"
     elif np.abs(r)>=0.3:
@@ -394,19 +399,19 @@ elif SPEARMAN:
     COL1 = df[df["Grupo"]==GRUPOS[0]]["Valor"].dropna() #Columna 1
     COL2 = df[df["Grupo"]==GRUPOS[1]]["Valor"].dropna() #Columna2
 
-    p, P_SPEARMAN = stats.spearmanr(COL1, COL2)
+    p, P_SPEARMAN = stats.spearmanr(COL1, COL2) #Se calcula el coeficiente de correlacion de Spearman y el p-valor.
 
     st.write("El p-valor del coeficiente de correlación de Spearman es de P =", P_SPEARMAN)
     st.write("El coeficiente de correlacion de Pearson es rₛ =", p)
     
-    if p>0:
+    if p>0: #Aqui dice si la correlacion es positiva o negativa
         COR = "positiva"
     elif p<0:
         COR = "negativa"
     else:
         COR = ""
 
-    if np.abs(p)>=0.5:
+    if np.abs(p)>=0.5: #Aqui dice si la correlacion es fuerte o debil.
         FUERZA = "fuerte"
         TAMAÑO = "mayor que 0.5"
     elif np.abs(p)>=0.3:
@@ -499,6 +504,7 @@ elif Graph == "Diagrama de Dispersión" and not(CHI2 or MULTINORMALIDAD):
     )
 else:
     st.error("❌ ERROR. El gráfico escogido no es válido o no se puede graficar aún.")
+
 
 
 
