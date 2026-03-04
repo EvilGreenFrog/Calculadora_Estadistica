@@ -381,7 +381,7 @@ elif PEARSON:
     else:
         st.write("Al ser P > 0.05, NO se rechaza la hipótesis nula. NO hay una correlación lineal signicativa entre las variables.")
 
-    st.write("Al ser el valor absoluto de r", TAMAÑO, "eso indica que hay una correlacion lineal", COR, FUERZA, "entre las variables")
+    st.write("Al ser el valor absoluto de r", TAMAÑO, "eso indica que hay una correlacion lineal", COR, FUERZA, "entre las variables.")
 
 elif SPEARMAN:
     df = df0.melt(var_name="Grupo", value_name="Valor")
@@ -421,7 +421,7 @@ elif SPEARMAN:
     else:
         st.write("Al ser P > 0.05, NO se rechaza la hipótesis nula. NO hay una correlación signicativa entre las variables.")
 
-    st.write("Al ser el valor absoluto de rₛ", TAMAÑO, "eso indica que hay una correlacion", COR, FUERZA, "entre las variables")
+    st.write("Al ser el valor absoluto de rₛ", TAMAÑO, "eso indica que hay una correlacion", COR, FUERZA, "entre las variables.")
 
 #--------------------------------------------¡¡¡¡SECCION PARA LAS GRAFICAS!!!!-------------------------------------------------------------
 #Tipos de graficas permitidos para cada tipo de datos.
@@ -496,3 +496,4 @@ elif Graph == "Diagrama de Dispersión" and not(CHI2 or MULTINORMALIDAD):
     )
 else:
     st.error("❌ ERROR. El gráfico escogido no es válido o no se puede graficar aún.")
+
