@@ -241,7 +241,6 @@ if not PEARSON:
     TEXT1="hipótesis"
 else:
     TEXT1="correlación"
-TEXT1="hipótesis"
 
 TESTING = st.selectbox(f"¿Deseas realizar la prueba de {TEXT1}?", ["","Si","No"]) #Opcion para empezar la prueba de hipotesis
 START = False
@@ -288,7 +287,7 @@ elif WALLIS:
     
     st.write("El p-valor de Kruskal-Wallis es P =", P_WALLIS,".")
     if P_WALLIS<0.05:
-        st.write("Al ser P < 0.05, se rechaza]** la hipótesis nula. Hay una diferencia significativa entre las distribuciones de dos variables.") #Consultar con JuanJo
+        st.write("Al ser P < 0.05, **:red[se rechaza]** la hipótesis nula. Hay una diferencia significativa entre las distribuciones de dos variables.") #Consultar con JuanJo
     else:
         st.write("Al ser P > 0.05, **:red[NO se rechaza]** la hipótesis nula. NO hay una diferencia significativa entre las distribuciones de las variables.")
         
@@ -317,6 +316,7 @@ elif CHI2: #Hacer que tire error si hay menos de 5 datos
         st.write("Al ser P < 0.05, **:red[se rechaza]** la hipótesis nula. Las dos variables están significativamente relacionadas.")
     else:
         st.write("Al ser P > 0.05, **:red[NO se rechaza]** la hipótesis nula. Las dos variables NO están significativamente relacionadas.")
+        
 elif UMANN:
     st.subheader("Prueba de Hipótesis U de Mann-Whitney")
     df = df0.melt(var_name="Grupo", value_name="Valor")
@@ -334,6 +334,7 @@ elif UMANN:
         st.write("Al ser P < 0.05, **:red[se rechaza]** la hipótesis nula. Las distribuciones son significativamente diferentes.")
     else:
         st.write("Al ser P > 0.05, **:red[NO se rechaza]** la hipótesis nula. Las distribuciones NO son significativamente diferentes.")
+        
 elif TSTUDENT:
     df = df0.melt(var_name="Grupo", value_name="Valor")
     df["Valor"] = pd.to_numeric(df["Valor"], errors="coerce")
@@ -377,7 +378,7 @@ elif PEARSON:
     elif np.abs(r)>=0.3:
         FUERZA = "media"
         TAMAÑO = "mayor que 0.3 y menor a 0.5"
-    elif np.abs(r)>=0.3:
+    elif np.abs(r)>=0.1:
         FUERZA = "debil"
         TAMAÑO = "mayor que 0.1 y menor a 0.3"
     else:
@@ -417,7 +418,7 @@ elif SPEARMAN:
     elif np.abs(p)>=0.3:
         FUERZA = "media"
         TAMAÑO = "mayor que 0.3 y menor a 0.5"
-    elif np.abs(p)>=0.3:
+    elif np.abs(p)>=0.1:
         FUERZA = "debil"
         TAMAÑO = "mayor que 0.1 y menor a 0.3"
     else:
@@ -504,7 +505,3 @@ elif Graph == "Diagrama de Dispersión" and not(CHI2 or MULTINORMALIDAD):
     )
 else:
     st.error("❌ ERROR. El gráfico escogido no es válido o no se puede graficar aún.")
-
-
-
-
