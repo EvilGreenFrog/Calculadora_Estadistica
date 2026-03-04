@@ -354,12 +354,35 @@ elif PEARSON:
 
     r, P_PEARSON = stats.pearsonr(COL1, COL2)
 
-    st.write("El p-valor del coeficiente de correlación de Pearson es de P =", P_PEARSON)
+    st.write("El p-valor del coeficiente de correlación de Pearson es P =", P_PEARSON)
+    st.write("El coeficiente de correlacion de Pearson es r =", r)
+    if r>0:
+        COR = "positiva"
+    elif r<0:
+        COR = "negativa"
+    else:
+        COR = ""
 
+    if np.abs(r)>=0.5:
+        FUERZA = "fuerte"
+        TAMAÑO = "mayor que 0.5"
+    elif np.abs(r)>=0.3:
+        FUERZA = "media"
+        TAMAÑO = "mayor que 0.3 y menor a 0.5"
+    elif np.abs(r)>=0.3:
+        FUERZA = "debil"
+        TAMAÑO = "mayor que 0.1 y menor a 0.3"
+    else:
+        FUERZA = "MUY DEBIL"
+        TAMAÑO = "menor que 0.1"
+    
     if P_PEARSON<0.05:
         st.write("Al ser P < 0.05, se rechaza la hipótesis nula. Hay una correlación lineal signicativa entre las variables.")
     else:
         st.write("Al ser P > 0.05, NO se rechaza la hipótesis nula. NO hay una correlación lineal signicativa entre las variables.")
+
+    st.write("Al ser el valor absoluto de r", TAMAÑO, "eso indica que hay una correlacion lineal", COR, FUERZA, "entre las variables")
+
 elif SPEARMAN:
     df = df0.melt(var_name="Grupo", value_name="Valor")
     df["Valor"] = pd.to_numeric(df["Valor"], errors="coerce")
@@ -371,11 +394,34 @@ elif SPEARMAN:
     p, P_SPEARMAN = stats.spearmanr(COL1, COL2)
 
     st.write("El p-valor del coeficiente de correlación de Spearman es de P =", P_SPEARMAN)
+    st.write("El coeficiente de correlacion de Pearson es rₛ =", p)
+    
+    if p>0:
+        COR = "positiva"
+    elif p<0:
+        COR = "negativa"
+    else:
+        COR = ""
+
+    if np.abs(p)>=0.5:
+        FUERZA = "fuerte"
+        TAMAÑO = "mayor que 0.5"
+    elif np.abs(p)>=0.3:
+        FUERZA = "media"
+        TAMAÑO = "mayor que 0.3 y menor a 0.5"
+    elif np.abs(p)>=0.3:
+        FUERZA = "debil"
+        TAMAÑO = "mayor que 0.1 y menor a 0.3"
+    else:
+        FUERZA = "MUY DEBIL"
+        TAMAÑO = "menor que 0.1"
 
     if P_SPEARMAN<0.05:
         st.write("Al ser P < 0.05, se rechaza la hipótesis nula. Hay una correlación signicativa entre las variables.")
     else:
         st.write("Al ser P > 0.05, NO se rechaza la hipótesis nula. NO hay una correlación signicativa entre las variables.")
+
+    st.write("Al ser el valor absoluto de rₛ", TAMAÑO, "eso indica que hay una correlacion", COR, FUERZA, "entre las variables")
 
 #--------------------------------------------¡¡¡¡SECCION PARA LAS GRAFICAS!!!!-------------------------------------------------------------
 #Tipos de graficas permitidos para cada tipo de datos.
@@ -385,13 +431,13 @@ GRAPHCORRELACION = ["Ninguna","Diagrama de Bigotes", "Diagrama de Dispersión"]
 GRAPHMULTI = ["Ninguna","Diagrama de Bigotes"]
 
 if CHI2:
-    GRAPHS= GRAPHCHI2
+    GRAPHS = GRAPHCHI2
 elif NORMALIDAD:
-    GRAPHS= GRAPHCOMPARACION
+    GRAPHS = GRAPHCOMPARACION
 elif MULTINORMALIDAD:
-    GRAPHS=GRAPHMULTI
+    GRAPHS = GRAPHMULTI
 elif PEARSON:
-    GRAPHS=GRAPHCORRELACION
+    GRAPHS = GRAPHCORRELACION
 #Hacer que saca un error si se selecciona una grafica que no esta ahi
 
 if Graph=="Ninguna":
@@ -450,7 +496,3 @@ elif Graph == "Diagrama de Dispersión" and not(CHI2 or MULTINORMALIDAD):
     )
 else:
     st.error("❌ ERROR. El gráfico escogido no es válido o no se puede graficar aún.")
-
-
-
-
