@@ -5,6 +5,8 @@ import scipy.stats as stats
 import matplotlib.pyplot as plt
 import io
 
+#AÑADIR QUE LOS PUNTOS DECIMALES DEBENE SER "." Y NO ","
+
 #--------------------------------------------------Cambios Visuales con CSS-------------------------------------------------
 st.markdown("""
 <style>
@@ -43,9 +45,9 @@ def F_NORMALIDAD(df1): #Para hacer la normalidad aqui se asume que cumple todas 
 
     for Grupo in GRUPOS:
         Lista_Valores = df3[df3["Grupo"]==Grupo]["Valor"] #Hace una lista de listas en donde en cada lista estan todos los valores asociados a una variable en especifica. Hace esto para una variable en especifico.
-        VARNORMALIDAD.append(shapiro_local(Lista_Valores)) #Aplica normalidad para esa variable en especifica "Grupo"
-        if shapiro_local(Lista_Valores) is None:
-            SIZE=False
+        VARNORMALIDAD.append(RESULT) #Aplica normalidad para esa variable en especifica "Grupo"
+        if RETURN is None:
+            SIZE = False
     
     if SIZE:
         return VARNORMALIDAD #Esto es una lista de los p's
@@ -157,7 +159,7 @@ if RawData is None:
     st.stop()
 else:
     if RawData.name.endswith(".csv"):
-        df0 = pd.read_csv(RawData) #Lectura de la tabla como una matriz en pandas.
+        df0 = pd.read_csv(RawData, decimal=",") #Lectura de la tabla como una matriz en pandas.
     else:
         st.error("❌ ERROR. Revise que su archivo sea .CSV y que sea de 20 MB.")
         st.stop()
@@ -326,7 +328,7 @@ elif UMANN:
     G1 = df[df["Grupo"]==GRUPOS[0]]["Valor"].dropna() #Variable independiente 1
     G2 = df[df["Grupo"]==GRUPOS[1]]["Valor"].dropna() #""
 
-    u, P_UMANN = stats.mannwhitneyu(G1, G2) #Aplicacion de la prueba
+    u, P_UMANN = stats.mannwhitneyu(G1, G2, alternative="two-sided") #Aplicacion de la prueba
 
     st.write("El p-valor de U de Mann-Whitney es de P =", P_UMANN)
 
@@ -505,3 +507,4 @@ elif Graph == "Diagrama de Dispersión" and not(CHI2 or MULTINORMALIDAD):
     )
 else:
     st.error("❌ ERROR. El gráfico escogido no es válido o no se puede graficar aún.")
+
