@@ -5,8 +5,6 @@ import scipy.stats as stats
 import matplotlib.pyplot as plt
 import io
 
-#AÑADIR QUE LOS PUNTOS DECIMALES DEBENE SER "." Y NO ","
-
 #--------------------------------------------------Cambios Visuales con CSS-------------------------------------------------
 st.markdown("""
 <style>
@@ -140,7 +138,7 @@ elif MULTINORMALIDAD==True:
 elif NORMALIDAD==True:
     st.write("Con base a lo respondido, es necesario hacer una **:red[prueba de normalidad de Shapiro-Wilk]** para determinar el tipo de prueba de hipótesis. Suba los datos para realizar la prueba de normalidad.")
 
-st.markdown("**Por favor suba los datos para poder continuar con el proceso. Si son datos cuantitativos coloque las variables al inicio de cada columna y debajo coloque los valores asociados. Si son datos cualitativos, coloque cada variable a la izquierda de cada fila con un valor que se les asocia a la derecha para cada valor que haya.**")
+st.markdown("**Por favor suba los datos para poder continuar con el proceso. Separe los decimales con una coma como se ve en el ejemplo. Si son datos cuantitativos coloque las variables al inicio de cada columna y debajo coloque los valores asociados. Si son datos cualitativos, coloque cada variable a la izquierda de cada fila con un valor que se les asocia a la derecha para cada valor que haya.**")
 #Añadir imagen para que sea mas facil comprender el formato de las tablas. Esta imagen luego deberia desaparece despues de que se haya subido el archivo.
 
 #---------------------------------------------------Subir Tabla y Manipulacion de los Datos-------------------------------------
@@ -507,4 +505,5 @@ elif Graph == "Diagrama de Dispersión" and not(CHI2 or MULTINORMALIDAD):
     )
 else:
     st.error("❌ ERROR. El gráfico escogido no es válido o no se puede graficar aún.")
+
 
