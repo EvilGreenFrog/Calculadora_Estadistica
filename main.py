@@ -4,8 +4,6 @@ import numpy as np
 import scipy.stats as stats
 import matplotlib.pyplot as plt
 import io
-import json
-
 #--------------------------------------------------Cambios Visuales con CSS-------------------------------------------------
 st.markdown("""
 <style>
@@ -64,7 +62,7 @@ GRAPHS = ["Ninguna", "Diagrama de Barras", "Diagrama de Bigotes", "Diagrama de D
 
 with st.sidebar:
     st.title("Opciones Adicionales")
-    Graph = st.selectbox("Gráficas", GRAPHS)
+    Graph = st.selectbox("Gráficas", GRAPHS) #Opcion de elegir graficas
     
 st.title("Calculadora Estadística") #Titulo con fondo azul.
 st.write("Para ingresar nuevos datos por favor refresque la página.")
@@ -144,25 +142,28 @@ st.markdown("**Por favor suba los datos para poder continuar con el proceso. Sep
 #Añadir imagen para que sea mas facil comprender el formato de las tablas. 
 
 #---------------------------------------------------Subir Tabla y Manipulacion de los Datos-------------------------------------
+df0 = None
 #Ejemplo de como se debe ver la tabla
 COL1, COL2 = st.columns([3, 4]) # Ancho de 300 y 400. Todo esto vuelve las imagenes una tabla y ya.
 with COL1:
-    st.image("Tabla_Chi2.png", caption="Ejemplo Formato de Tabla para Datos Cualitativos", width="stretch")
+	st.image("Tabla_Chi2.png", caption="Ejemplo Formato de Tabla para Datos Cualitativos", width="stretch")
 with COL2:
-    st.image("Tabla_Comparacion.png", caption="Ejemplo Formato de Tabla para Datos Cuantitativos", width="stretch")
+	st.image("Tabla_Comparacion.png", caption="Ejemplo Formato de Tabla para Datos Cuantitativos", width="stretch")
 
 #Esto hace que se pueda subir la tabla
 RawData = st.file_uploader("Sube una tabla en formato .CSV de máximo 20 MB.", max_upload_size=20) #Limita el tamaño maximo de archivo a 20MB #type=["csv"],
 
 #Esto hace que no salga un error cuando aun no han subido el archivo.
 if RawData is None:
-    st.stop()
+	st.stop()
 else:
-    if RawData.name.endswith(".csv"):
-        df0 = pd.read_csv(RawData, decimal=",") #Lectura de la tabla como una matriz en pandas.
-    else:
-        st.error("❌ ERROR. Revise que su archivo sea .CSV y que sea de 20 MB.")
-        st.stop()
+	if RawData.name.endswith(".csv"):
+		df0 = pd.read_csv(RawData, decimal=",") #Lectura de la tabla como una matriz en pandas.
+		st.success("Datos cargados correctamente.")
+
+	else:
+		st.error("❌ ERROR. Revise que su archivo sea .CSV y que sea de 20 MB.")
+		st.stop()
 
 #Muestra la tabla como un menu despegable.
 with st.expander("Vista Previa"):
@@ -432,88 +433,7 @@ elif SPEARMAN:
         st.write("Al ser P > 0.05, **:red[NO se rechaza]** la hipótesis nula. NO hay una correlación signicativa entre las variables.")
 
     st.write("Al ser el valor absoluto de rₛ", TAMAÑO, "eso indica que hay una correlacion", COR, FUERZA, "entre las variables.")
-
-#---------------------------------------------Experimental-----------------------------------------------
-
-st.header("Guardar análisis (opcional)")
-
-if st.button("Guardar análisis"):
-    datos_guardar = {
-        "datos": df0.to_dict(),
-        "resultados": {
-            "shapiro": resultado_shapiro,
-            "prueba": resultado_prueba
-        }
-    }
-
-    json_bytes = json.dumps(datos_guardar).encode()
-
-    st.download_button(
-        label="Descargar archivo JSON",
-        data=json_bytes,
-        file_name="analisis_estadistico.json",
-        mime="application/json"
-    )
-
-Faber Hernan Aristizabal Gómez
 	
-4 mar 2026, 15:31 (hace 5 días)
-	
-	
-para mí
-
-# ---------------------------------------------------
-# GUARDAR ANALISIS
-# ---------------------------------------------------
-
-st.header("Guardar análisis (opcional)")
-
-if st.button("Guardar análisis"):
-
-    datos_guardar = {
-        "datos": df0.to_dict(),
-        "resultados": {
-            "shapiro": resultado_shapiro,
-            "prueba": resultado_prueba
-        }
-    }
-
-    json_bytes = json.dumps(datos_guardar).encode()
-
-    st.download_button(
-        label="Descargar archivo JSON",
-        data=json_bytes,
-        file_name="analisis_estadistico.json",
-        mime="application/json"
-    )
-
-
-# ---------------------------------------------------
-# CARGAR ANALISIS ANTERIOR
-# ---------------------------------------------------
-
-st.header("Cargar análisis anterior (opcional)")
-
-archivo_json = st.file_uploader(
-    "Cargar archivo de análisis (.json)",
-    type=["json"]
-)
-
-if archivo_json is not None:
-
-    contenido = json.load(archivo_json)
-
-    st.subheader("Datos utilizados en el análisis anterior")
-
-    df_guardado = pd.DataFrame(contenido["datos"])
-    st.dataframe(df_guardado)
-
-    st.subheader("Resultados del análisis anterior")
-
-    st.write(contenido["resultados"])
-
-    st.divider()
-
 #--------------------------------------------¡¡¡¡SECCION PARA LAS GRAFICAS!!!!-------------------------------------------------------------
 #Tipos de graficas permitidos para cada tipo de datos.
 GRAPHCHI2 = ["Ninguna", "Diagrama de Barras"]
@@ -587,6 +507,7 @@ elif Graph == "Diagrama de Dispersión" and not(CHI2 or MULTINORMALIDAD):
     )
 else:
     st.error("❌ ERROR. El gráfico escogido no es válido o no se puede graficar aún.")
+
 
 
 
