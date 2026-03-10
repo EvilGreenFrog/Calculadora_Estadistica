@@ -455,6 +455,65 @@ if st.button("Guardar análisis"):
         mime="application/json"
     )
 
+Faber Hernan Aristizabal Gómez
+	
+4 mar 2026, 15:31 (hace 5 días)
+	
+	
+para mí
+
+# ---------------------------------------------------
+# GUARDAR ANALISIS
+# ---------------------------------------------------
+
+st.header("Guardar análisis (opcional)")
+
+if st.button("Guardar análisis"):
+
+    datos_guardar = {
+        "datos": df0.to_dict(),
+        "resultados": {
+            "shapiro": resultado_shapiro,
+            "prueba": resultado_prueba
+        }
+    }
+
+    json_bytes = json.dumps(datos_guardar).encode()
+
+    st.download_button(
+        label="Descargar archivo JSON",
+        data=json_bytes,
+        file_name="analisis_estadistico.json",
+        mime="application/json"
+    )
+
+
+# ---------------------------------------------------
+# CARGAR ANALISIS ANTERIOR
+# ---------------------------------------------------
+
+st.header("Cargar análisis anterior (opcional)")
+
+archivo_json = st.file_uploader(
+    "Cargar archivo de análisis (.json)",
+    type=["json"]
+)
+
+if archivo_json is not None:
+
+    contenido = json.load(archivo_json)
+
+    st.subheader("Datos utilizados en el análisis anterior")
+
+    df_guardado = pd.DataFrame(contenido["datos"])
+    st.dataframe(df_guardado)
+
+    st.subheader("Resultados del análisis anterior")
+
+    st.write(contenido["resultados"])
+
+    st.divider()
+
 #--------------------------------------------¡¡¡¡SECCION PARA LAS GRAFICAS!!!!-------------------------------------------------------------
 #Tipos de graficas permitidos para cada tipo de datos.
 GRAPHCHI2 = ["Ninguna", "Diagrama de Barras"]
@@ -498,7 +557,6 @@ elif Graph=="Diagrama de Barras" and CHI2: #NOTA, Actuamente falla y toca cambia
     file_name= str("Diagrama_de_Barras") + ".png",
     mime="image/png"
     )
-#elif Graph == "Diagrama de Dispersion" and (NORMALIDAD or PEARSON):
 elif Graph == "Diagrama de Dispersión" and not(CHI2 or MULTINORMALIDAD):
 
     if len(df0.columns) < 2:
@@ -528,4 +586,5 @@ elif Graph == "Diagrama de Dispersión" and not(CHI2 or MULTINORMALIDAD):
     )
 else:
     st.error("❌ ERROR. El gráfico escogido no es válido o no se puede graficar aún.")
+
 
