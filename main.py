@@ -90,7 +90,7 @@ if PREG1=="":
 elif PREG1 == "Si":
     CHI2=True
 else:
-    PREG2= st.selectbox("¿Cuantas variables independientes tienes?", ["", "1", "2", "Más de dos"])  #Aplicar Normalidad con base a esto
+    PREG2= st.selectbox("¿Cuantas variables independientes y dependientes tienes?", ["", "1", "2", "Más de dos"])  #Aplicar Normalidad con base a esto
     if PREG2=="":
         st.stop()
     elif PREG2 == "1":
@@ -504,6 +504,7 @@ elif Graph == "Diagrama de Dispersión" and not(CHI2 or MULTINORMALIDAD):
     )
 else:
     st.error("❌ ERROR. El gráfico escogido no es válido o no se puede graficar aún.")
+
 
 
 
