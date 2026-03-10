@@ -4,6 +4,7 @@ import numpy as np
 import scipy.stats as stats
 import matplotlib.pyplot as plt
 import io
+import json
 
 #--------------------------------------------------Cambios Visuales con CSS-------------------------------------------------
 st.markdown("""
@@ -43,8 +44,9 @@ def F_NORMALIDAD(df1): #Para hacer la normalidad aqui se asume que cumple todas 
 
     for Grupo in GRUPOS:
         Lista_Valores = df3[df3["Grupo"]==Grupo]["Valor"] #Hace una lista de listas en donde en cada lista estan todos los valores asociados a una variable en especifica. Hace esto para una variable en especifico.
+        RESULT = Shapiro_Local(Lista_Valores)
         VARNORMALIDAD.append(RESULT) #Aplica normalidad para esa variable en especifica "Grupo"
-        if RETURN is None:
+        if RESULT is None:
             SIZE = False
     
     if SIZE:
@@ -508,7 +510,7 @@ else:
 #---------------------------------------------Experimental-----------------------------------------------
 
 st.header("Guardar análisis (opcional)")
-st.button("Guardar anaálisis")
+
 if st.button("Guardar análisis"):
 
     datos_guardar = {
