@@ -139,7 +139,7 @@ elif NORMALIDAD==True:
     st.write("Con base a lo respondido, es necesario hacer una **:red[prueba de normalidad de Shapiro-Wilk]** para determinar el tipo de prueba de hipótesis. Suba los datos para realizar la prueba de normalidad.")
 
 st.markdown("**Por favor suba los datos para poder continuar con el proceso. Separe los decimales con una coma como se ve en el ejemplo. Si son datos cuantitativos coloque las variables al inicio de cada columna y debajo coloque los valores asociados. Si son datos cualitativos, coloque cada variable a la izquierda de cada fila con un valor que se les asocia a la derecha para cada valor que haya.**")
-#Añadir imagen para que sea mas facil comprender el formato de las tablas. Esta imagen luego deberia desaparece despues de que se haya subido el archivo.
+#Añadir imagen para que sea mas facil comprender el formato de las tablas. 
 
 #---------------------------------------------------Subir Tabla y Manipulacion de los Datos-------------------------------------
 #Ejemplo de como se debe ver la tabla
@@ -150,7 +150,7 @@ with COL2:
     st.image("Tabla_Comparacion.png", caption="Ejemplo Formato de Tabla para Datos Cuantitativos", width="stretch")
 
 #Esto hace que se pueda subir la tabla
-RawData= st.file_uploader("Sube una tabla en formato .CSV de máximo 20 MB.", max_upload_size=20) #Limita el tamaño maximo de archivo a 20MB #type=["csv"],
+RawData = st.file_uploader("Sube una tabla en formato .CSV de máximo 20 MB.", max_upload_size=20) #Limita el tamaño maximo de archivo a 20MB #type=["csv"],
 
 #Esto hace que no salga un error cuando aun no han subido el archivo.
 if RawData is None:
@@ -211,7 +211,6 @@ elif MULTINORMALIDAD: #Cambiar luego para cuando se pueda hacer ANOVA y Kruger-W
         st.error("❌ ERROR. Hay muy pocos datos en alguna de las variables para que el análisis sea estadísticamente significativo. Trata de reunir más datos en esa variable.")
         st.stop()
 
-#st.subheader("¿Que desea hacer a continuación?")
 #------------------------------------------------------Butones de Links-------------------------------------------------------
 if ANOVA:
     Prueba = "ANOVA"
@@ -509,7 +508,7 @@ else:
 #---------------------------------------------Experimental-----------------------------------------------
 
 st.header("Guardar análisis (opcional)")
-
+st.button("Guardar anaálisis")
 if st.button("Guardar análisis"):
 
     datos_guardar = {
@@ -528,6 +527,3 @@ if st.button("Guardar análisis"):
         file_name="analisis_estadistico.json",
         mime="application/json"
     )
-
-
-
