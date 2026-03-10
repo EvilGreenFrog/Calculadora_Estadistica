@@ -404,7 +404,7 @@ elif SPEARMAN:
     p, P_SPEARMAN = stats.spearmanr(COL1, COL2) #Se calcula el coeficiente de correlacion de Spearman y el p-valor.
 
     st.write("El p-valor del coeficiente de correlación de Spearman es de P =", P_SPEARMAN)
-    st.write("El coeficiente de correlacion de Pearson es rₛ =", p)
+    st.write("El coeficiente de correlacion de Spearman es rₛ =", p)
     
     if p>0: #Aqui dice si la correlacion es positiva o negativa
         COR = "positiva"
@@ -587,6 +587,7 @@ elif Graph == "Diagrama de Dispersión" and not(CHI2 or MULTINORMALIDAD):
     )
 else:
     st.error("❌ ERROR. El gráfico escogido no es válido o no se puede graficar aún.")
+
 
 
 
