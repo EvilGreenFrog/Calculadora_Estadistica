@@ -44,7 +44,7 @@ def F_NORMALIDAD(df1): #Para hacer la normalidad aqui se asume que cumple todas 
 
     for Grupo in GRUPOS:
         Lista_Valores = df3[df3["Grupo"]==Grupo]["Valor"] #Hace una lista de listas en donde en cada lista estan todos los valores asociados a una variable en especifica. Hace esto para una variable en especifico.
-        RESULT = Shapiro_Local(Lista_Valores)
+        RESULT = shapiro_local(Lista_Valores)
         VARNORMALIDAD.append(RESULT) #Aplica normalidad para esa variable en especifica "Grupo"
         if RESULT is None:
             SIZE = False
@@ -586,5 +586,6 @@ elif Graph == "Diagrama de Dispersión" and not(CHI2 or MULTINORMALIDAD):
     )
 else:
     st.error("❌ ERROR. El gráfico escogido no es válido o no se puede graficar aún.")
+
 
 
