@@ -460,23 +460,22 @@ elif Graph=="Diagrama de Bigotes" and not CHI2:
     st.pyplot(fig, use_container_width=True)
 
     st.download_button(
-    "Descargar PNG",
-    guardar_png(fig),
-    file_name= str("Diagrama_de_Bigotes") + ".png",
-    mime="image/png"
-    )
+	    "Descargar PNG",
+	    guardar_png(fig),
+	    file_name= str("Diagrama_de_Bigotes") + ".png",
+	    mime="image/png"
+	    )
     #Cambiar Valor y Grupo que eso hace que los ejes tengan nombres raros.
 elif Graph=="Diagrama de Barras" and CHI2:
 	fig, ax = plt.subplots()
 	Tabla = pd.crosstab(df0[COL1], df0[COL2]) #Crea tabla nuevamente para evitar errores.
 	Tabla.plot(kind="bar",ax=ax)
 	st.pyplot(fig)
-    
-    st.download_button(
-    "Descargar PNG",
-    guardar_png(fig),
-    file_name= str("Diagrama_de_Barras") + ".png",
-    mime="image/png"
+	st.download_button(
+		"Descargar PNG",
+		guardar_png(fig),
+		file_name= str("Diagrama_de_Barras") + ".png",
+		mime="image/png"
     )
 elif Graph == "Diagrama de Dispersión" and not(CHI2 or MULTINORMALIDAD):
 
@@ -500,13 +499,14 @@ elif Graph == "Diagrama de Dispersión" and not(CHI2 or MULTINORMALIDAD):
     st.pyplot(fig)
 
     st.download_button(
-    "Descargar PNG",
-    guardar_png(fig),
-    file_name="Diagrama_de_Dispersion.png",
-    mime="image/png"
+	    "Descargar PNG",
+	    guardar_png(fig),
+	    file_name="Diagrama_de_Dispersion.png",
+	    mime="image/png"
     )
 else:
     st.error("❌ ERROR. El gráfico escogido no es válido o no se puede graficar aún.")
+
 
 
 
