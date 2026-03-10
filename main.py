@@ -506,4 +506,28 @@ elif Graph == "Diagrama de Dispersión" and not(CHI2 or MULTINORMALIDAD):
 else:
     st.error("❌ ERROR. El gráfico escogido no es válido o no se puede graficar aún.")
 
+#---------------------------------------------Experimental-----------------------------------------------
+
+st.header("Guardar análisis (opcional)")
+
+if st.button("Guardar análisis"):
+
+    datos_guardar = {
+        "datos": df0.to_dict(),
+        "resultados": {
+            "shapiro": resultado_shapiro,
+            "prueba": resultado_prueba
+        }
+    }
+
+    json_bytes = json.dumps(datos_guardar).encode()
+
+    st.download_button(
+        label="Descargar archivo JSON",
+        data=json_bytes,
+        file_name="analisis_estadistico.json",
+        mime="application/json"
+    )
+
+
 
