@@ -159,8 +159,6 @@ if RawData is None:
 else:
 	if RawData.name.endswith(".csv"):
 		df0 = pd.read_csv(RawData, decimal=",") #Lectura de la tabla como una matriz en pandas.
-		st.success("Datos cargados correctamente.")
-
 	else:
 		st.error("❌ ERROR. Revise que su archivo sea .CSV y que sea de 20 MB.")
 		st.stop()
@@ -506,6 +504,7 @@ elif Graph == "Diagrama de Dispersión" and not(CHI2 or MULTINORMALIDAD):
     )
 else:
     st.error("❌ ERROR. El gráfico escogido no es válido o no se puede graficar aún.")
+
 
 
 
