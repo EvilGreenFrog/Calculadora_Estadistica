@@ -467,10 +467,10 @@ elif Graph=="Diagrama de Bigotes" and not CHI2:
     )
     #Cambiar Valor y Grupo que eso hace que los ejes tengan nombres raros.
 elif Graph=="Diagrama de Barras" and CHI2:
-    fig, ax = plt.subplots()
-	Tabla = pd.crosstab(df0[COL1], df0[COL2])
-    Tabla.plot(kind="bar",ax=ax)
-    st.pyplot(fig)
+	fig, ax = plt.subplots()
+	Tabla = pd.crosstab(df0[COL1], df0[COL2]) #Crea tabla nuevamente para evitar errores.
+	Tabla.plot(kind="bar",ax=ax)
+	st.pyplot(fig)
     
     st.download_button(
     "Descargar PNG",
@@ -507,6 +507,7 @@ elif Graph == "Diagrama de Dispersión" and not(CHI2 or MULTINORMALIDAD):
     )
 else:
     st.error("❌ ERROR. El gráfico escogido no es válido o no se puede graficar aún.")
+
 
 
 
