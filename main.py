@@ -69,8 +69,6 @@ with st.sidebar:
 st.title("Calculadora Estadística") #Titulo con fondo azul.
 st.write("Para ingresar nuevos datos por favor refresque la página.")
 st.markdown("---")
-st.subheader("Responda las siguientes preguntas.") #Reemplzar formato Si/No con botones.
-
 #Añadir opcion de persistencia mas adelante mediante log in
 
 #---------------------------------------------------Variables Banderas---------------------------------------------------------------
@@ -190,6 +188,8 @@ if Nuevos_Datos == "Si (Subir analisis guardado .JSON)":
 	st.stop
 
 #--------------------------------------------------Preguntas de los Datos-------------------------------------------------------
+st.subheader("Responda las siguientes preguntas.") #Reemplzar formato Si/No con botones.
+
 PREG1= st.selectbox("¿Tus variables independientes y dependientes son cualitativas?",["", "Si", "No"])
 if PREG1=="":
     st.stop()
@@ -644,6 +644,7 @@ elif Graph == "Diagrama de Dispersión" and not(CHI2 or MULTINORMALIDAD):
     )
 else:
     st.error("❌ ERROR. El gráfico escogido no es válido o no se puede graficar aún.")
+
 
 
 
