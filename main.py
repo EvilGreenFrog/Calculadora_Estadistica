@@ -398,55 +398,55 @@ elif WALLIS:
 	st.write("El p-valor de Kruskal-Wallis es P =", P_WALLIS,".")
 	if P_WALLIS<0.05:
 		st.write("Al ser P < 0.05, **:red[se rechaza]** la hipótesis nula. Hay una diferencia significativa entre las distribuciones de dos variables.") #Consultar con JuanJo
-    else:
-        st.write("Al ser P > 0.05, **:red[NO se rechaza]** la hipótesis nula. NO hay una diferencia significativa entre las distribuciones de las variables.")
+	else:
+		st.write("Al ser P > 0.05, **:red[NO se rechaza]** la hipótesis nula. NO hay una diferencia significativa entre las distribuciones de las variables.")
         
 elif CHI2: #Hacer que tire error si hay menos de 5 datos
 	TEST = "Chi Cuadrado"
-    st.subheader("Prueba de Hipótesis Chi Cuadrado")
+	st.subheader("Prueba de Hipótesis Chi Cuadrado")
 
-    if len(df0.columns)!=2:
-        st.error("❌ ERROR. Se necesitan exactactamente dos columnas cualitativas.")
-        st.stop()
+	if len(df0.columns)!=2:
+		st.error("❌ ERROR. Se necesitan exactactamente dos columnas cualitativas.")
+		st.stop()
     
-    COL1= df0.columns[0] #Nombra a cada una de las columnas, la columna de Variables y la columna de respuestas.
-    COL2 = df0.columns[1]
+	COL1= df0.columns[0] #Nombra a cada una de las columnas, la columna de Variables y la columna de respuestas.
+	COL2 = df0.columns[1]
 
-    Tabla = pd.crosstab(df0[COL1], df0[COL2])
-    st.write("Tabla de Contingencia:")
-    st.dataframe(Tabla)
+	Tabla = pd.crosstab(df0[COL1], df0[COL2])
+	st.write("Tabla de Contingencia:")
+	st.dataframe(Tabla)
 
-    Tabla = Tabla.apply(pd.to_numeric) #Verifica que la tabla sea numerica.
+	Tabla = Tabla.apply(pd.to_numeric) #Verifica que la tabla sea numerica.
     
-    res = stats.chi2_contingency(Tabla, correction=False) 
-    P_CHI = res.pvalue #Res es varios valores, de los que ellos se saca el P-Valor
+	res = stats.chi2_contingency(Tabla, correction=False) 
+	P_CHI = res.pvalue #Res es varios valores, de los que ellos se saca el P-Valor
 	P_VALUE = P_CHI
     
-    st.write("El p-valor de Chi Cuadrado es P =", res.pvalue,".")
+	st.write("El p-valor de Chi Cuadrado es P =", res.pvalue,".")
     
-    if P_CHI<0.05:
-        st.write("Al ser P < 0.05, **:red[se rechaza]** la hipótesis nula. Las dos variables están significativamente relacionadas.")
-    else:
-        st.write("Al ser P > 0.05, **:red[NO se rechaza]** la hipótesis nula. Las dos variables NO están significativamente relacionadas.")
+	if P_CHI<0.05:
+		st.write("Al ser P < 0.05, **:red[se rechaza]** la hipótesis nula. Las dos variables están significativamente relacionadas.")
+	else:
+		st.write("Al ser P > 0.05, **:red[NO se rechaza]** la hipótesis nula. Las dos variables NO están significativamente relacionadas.")
         
 elif UMANN:
 	TEST = "U de Mann-Whitney"
-    st.subheader("Prueba de Hipótesis U de Mann-Whitney")
-    df = df0.melt(var_name="Grupo", value_name="Valor")
-    df["Valor"] = pd.to_numeric(df["Valor"], errors="coerce") #Se cambia el formato de la matrix
+	st.subheader("Prueba de Hipótesis U de Mann-Whitney")
+	df = df0.melt(var_name="Grupo", value_name="Valor")
+	df["Valor"] = pd.to_numeric(df["Valor"], errors="coerce") #Se cambia el formato de la matrix
 
-    GRUPOS = df["Grupo"].unique()
-    G1 = df[df["Grupo"]==GRUPOS[0]]["Valor"].dropna() #Variable independiente 1
-    G2 = df[df["Grupo"]==GRUPOS[1]]["Valor"].dropna() #""
+	GRUPOS = df["Grupo"].unique()
+	G1 = df[df["Grupo"]==GRUPOS[0]]["Valor"].dropna() #Variable independiente 1
+	G2 = df[df["Grupo"]==GRUPOS[1]]["Valor"].dropna() #""
 
-    u, P_UMANN = stats.mannwhitneyu(G1, G2, alternative="two-sided") #Aplicacion de la prueba
+	u, P_UMANN = stats.mannwhitneyu(G1, G2, alternative="two-sided") #Aplicacion de la prueba
 	P_VALUE = P_UMANN
 
-    st.write("El p-valor de U de Mann-Whitney es de P =", P_UMANN)
+	st.write("El p-valor de U de Mann-Whitney es de P =", P_UMANN)
 
-    if P_UMANN<0.05:
-        st.write("Al ser P < 0.05, **:red[se rechaza]** la hipótesis nula. Las distribuciones son significativamente diferentes.")
-    else:
+	if P_UMANN<0.05:
+		st.write("Al ser P < 0.05, **:red[se rechaza]** la hipótesis nula. Las distribuciones son significativamente diferentes.")
+	else:
         st.write("Al ser P > 0.05, **:red[NO se rechaza]** la hipótesis nula. Las distribuciones NO son significativamente diferentes.")
         
 elif TSTUDENT:
@@ -644,6 +644,7 @@ elif Graph == "Diagrama de Dispersión" and not(CHI2 or MULTINORMALIDAD):
     )
 else:
     st.error("❌ ERROR. El gráfico escogido no es válido o no se puede graficar aún.")
+
 
 
 
