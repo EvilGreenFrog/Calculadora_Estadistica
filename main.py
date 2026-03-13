@@ -557,21 +557,20 @@ elif SPEARMAN:
 	OUTPUT2 = "Al ser el valor absoluto de rₛ" + str(TAMAÑO) + "eso indica que hay una correlacion" + str(COR) + str(FUERZA) + "entre las variables."
 	
 #-----------------------------------------------------------PERSISTENCIA---------------------------------------------------------	
-if st.button("Guardar análisis"): #Archivo JSON para guardar los datos.
-    datos_guardar = {
-        "Datos": df0.to_dict(),
-		"TEST": TEST,
-        "P_VALOR": P_VALUE,
-		"COEFICIENTE": COEFICIENTE if CORRELACION else None
-    }
-    json_bytes = json.dumps(datos_guardar, indent=4).encode() #Convierte el diccionario en un formato JSON y lo convierte en bytes para poder descargarlo.
+datos_guardar = {
+	"Datos": df0.to_dict(),
+	"TEST": TEST,
+	"P_VALOR": P_VALUE,
+	"COEFICIENTE": COEFICIENTE if CORRELACION else None
+}
+json_bytes = json.dumps(datos_guardar, indent=4).encode() #Convierte el diccionario en un formato JSON y lo convierte en bytes para poder descargarlo.
 	
-    st.download_button(
-        label="¿Guardar Analisis en Archivo JSON?", ##rchivo JSON para guardar los datos.
-        data=json_bytes,
-        file_name="analisis_estadistico.json",
-        mime="application/json"
-    ) #Boton para descargar
+st.download_button(
+	label="¿Guardar Analisis en Archivo JSON?", ##rchivo JSON para guardar los datos.
+	data=json_bytes,
+	file_name="analisis_estadistico.json",
+	mime="application/json"
+) #Boton para descargar
 
 #--------------------------------------------¡¡¡¡SECCION PARA LAS GRAFICAS!!!!-------------------------------------------------------------
 #Tipos de graficas permitidos para cada tipo de datos.
@@ -645,6 +644,7 @@ elif Graph == "Diagrama de Dispersión" and not(CHI2 or MULTINORMALIDAD):
     )
 else:
     st.error("❌ ERROR. El gráfico escogido no es válido o no se puede graficar aún.")
+
 
 
 
