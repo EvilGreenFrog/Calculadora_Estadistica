@@ -447,26 +447,26 @@ elif UMANN:
 	if P_UMANN<0.05:
 		st.write("Al ser P < 0.05, **:red[se rechaza]** la hipótesis nula. Las distribuciones son significativamente diferentes.")
 	else:
-        st.write("Al ser P > 0.05, **:red[NO se rechaza]** la hipótesis nula. Las distribuciones NO son significativamente diferentes.")
+		st.write("Al ser P > 0.05, **:red[NO se rechaza]** la hipótesis nula. Las distribuciones NO son significativamente diferentes.")
         
 elif TSTUDENT:
 	TEST = "T de Student"
-    df = df0.melt(var_name="Grupo", value_name="Valor")
-    df["Valor"] = pd.to_numeric(df["Valor"], errors="coerce")
+	df = df0.melt(var_name="Grupo", value_name="Valor")
+	df["Valor"] = pd.to_numeric(df["Valor"], errors="coerce")
 
-    GRUPOS = df["Grupo"].unique()
-    COL1 = df[df["Grupo"]==GRUPOS[0]]["Valor"].dropna() #Columna 1
-    COL2 = df[df["Grupo"]==GRUPOS[1]]["Valor"].dropna() #Columna2
+	GRUPOS = df["Grupo"].unique()
+	COL1 = df[df["Grupo"]==GRUPOS[0]]["Valor"].dropna() #Columna 1
+	COL2 = df[df["Grupo"]==GRUPOS[1]]["Valor"].dropna() #Columna2
 
-    t, P_TSTUDENT = stats.ttest_ind(COL1, COL2)
+	t, P_TSTUDENT = stats.ttest_ind(COL1, COL2)
 	P_VALUE = P_TSTUDENT
 
-    st.write("El p-valor de T de Student es de P =", P_TSTUDENT)
+	st.write("El p-valor de T de Student es de P =", P_TSTUDENT)
 
     if P_TSTUDENT<0.05:
-        st.write("Al ser P < 0.05, **:red[se rechaza]** la hipótesis nula. Las medias son significativamente diferentes.")
-    else:
-        st.write("Al ser P > 0.05, **:red[NO se rechaza]** la hipótesis nula. Las medias NO son significativamente diferentes.")
+		st.write("Al ser P < 0.05, **:red[se rechaza]** la hipótesis nula. Las medias son significativamente diferentes.")
+	else:
+		st.write("Al ser P > 0.05, **:red[NO se rechaza]** la hipótesis nula. Las medias NO son significativamente diferentes.")
         
 elif PEARSON:
     df = df0.melt(var_name="Grupo", value_name="Valor")
@@ -644,19 +644,3 @@ elif Graph == "Diagrama de Dispersión" and not(CHI2 or MULTINORMALIDAD):
     )
 else:
     st.error("❌ ERROR. El gráfico escogido no es válido o no se puede graficar aún.")
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
