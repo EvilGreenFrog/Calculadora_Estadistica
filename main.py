@@ -114,8 +114,8 @@ if Nuevos_Datos == "Si (Subir analisis guardado .JSON)":
 			COR = "negativa"
 		else:
 			COR = ""
-	
-	    if np.abs(NEWDATA["COEFICIENTE"])>=0.5: #Aqui dice si la correlacion es fuerte o debil.
+			
+		if np.abs(NEWDATA["COEFICIENTE"])>=0.5: #Aqui dice si la correlacion es fuerte o debil.
 	        FUERZA = "fuerte"
 	        TAMAÑO = "mayor que 0.5"
 	    elif np.abs(NEWDATA["COEFICIENTE"])>=0.3:
@@ -179,7 +179,7 @@ if Nuevos_Datos == "Si (Subir analisis guardado .JSON)":
 	    else:
 	        st.write("Al ser P > 0.05, **:red[NO se rechaza]** la hipótesis nula. Las medias NO son significativamente diferentes.")
 	
-	elif NEW_DATA["TEST"] == "U de Mann-Whitney:
+	elif NEW_DATA["TEST"] == "U de Mann-Whitney":
 		st.write("Ya que NO todas las variables tenian significativamente una distribucion normal y habian dos variables, se hizo la prueba de hipotesis U de Mann-Whitney.")
 		st.write("El p-valor de", NEW_DATA["TEST"],"es P =", NEW_DATA["P_VALOR"],".")
 	
@@ -644,6 +644,7 @@ elif Graph == "Diagrama de Dispersión" and not(CHI2 or MULTINORMALIDAD):
     )
 else:
     st.error("❌ ERROR. El gráfico escogido no es válido o no se puede graficar aún.")
+
 
 
 
