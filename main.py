@@ -381,23 +381,23 @@ if ANOVA:
 elif WALLIS:
 	TEST = "Kruskal-Wallis"
 	if len(df0.columns)<3: 
-        st.error("❌ ERROR. Para realizar Kruskal-Wallis necesitas al menos tres variables.")
-        st.stop()
+		st.error("❌ ERROR. Para realizar Kruskal-Wallis necesitas al menos tres variables.")
+		st.stop()
     
-    st.subheader("Prueba de Hipótesis Kruskal-Wallis")
-    df = df0.melt(var_name="Grupo", value_name="Valor") #Rota la matriz para que este en formato variable-valor, o sea el formato anterior a parejas, con la columna Grupo teniendo la variable, y la columna Valor tneiendo los valores.
-    df["Valor"] = pd.to_numeric(df["Valor"], errors="coerce") #Mira la columna de los valores y los convierte en numeros si son strings. El coerce es pa evitar errores.
+	st.subheader("Prueba de Hipótesis Kruskal-Wallis")
+	df = df0.melt(var_name="Grupo", value_name="Valor") #Rota la matriz para que este en formato variable-valor, o sea el formato anterior a parejas, con la columna Grupo teniendo la variable, y la columna Valor tneiendo los valores.
+	df["Valor"] = pd.to_numeric(df["Valor"], errors="coerce") #Mira la columna de los valores y los convierte en numeros si son strings. El coerce es pa evitar errores.
 
-    GRUPOS = df["Grupo"].unique() #Saca cada variable independiente de la tabla.
-    LISTA=[]
-    for Grupo in GRUPOS:
-        LISTA.append(df[df["Grupo"]==Grupo]["Valor"]) #Saca todos los valores asociados a una variables, los vuelve una lsita, y luego los mete a la LISTA y hace eso para cada vairable.
-    f, P_WALLIS = stats.kruskal(*LISTA) #Realiza Wallis a los datos. El "*" es para que en vez de que LISTA sea una lista de lista, solo le da varias listas a Wallis que es el parementro que necesita.
+	GRUPOS = df["Grupo"].unique() #Saca cada variable independiente de la tabla.
+	LISTA=[]
+	for Grupo in GRUPOS:
+		LISTA.append(df[df["Grupo"]==Grupo]["Valor"]) #Saca todos los valores asociados a una variables, los vuelve una lsita, y luego los mete a la LISTA y hace eso para cada vairable.
+	f, P_WALLIS = stats.kruskal(*LISTA) #Realiza Wallis a los datos. El "*" es para que en vez de que LISTA sea una lista de lista, solo le da varias listas a Wallis que es el parementro que necesita.
 	P_VALUE = P_WALLIS
 
-    st.write("El p-valor de Kruskal-Wallis es P =", P_WALLIS,".")
-    if P_WALLIS<0.05:
-        st.write("Al ser P < 0.05, **:red[se rechaza]** la hipótesis nula. Hay una diferencia significativa entre las distribuciones de dos variables.") #Consultar con JuanJo
+	st.write("El p-valor de Kruskal-Wallis es P =", P_WALLIS,".")
+	if P_WALLIS<0.05:
+		st.write("Al ser P < 0.05, **:red[se rechaza]** la hipótesis nula. Hay una diferencia significativa entre las distribuciones de dos variables.") #Consultar con JuanJo
     else:
         st.write("Al ser P > 0.05, **:red[NO se rechaza]** la hipótesis nula. NO hay una diferencia significativa entre las distribuciones de las variables.")
         
@@ -644,6 +644,7 @@ elif Graph == "Diagrama de Dispersión" and not(CHI2 or MULTINORMALIDAD):
     )
 else:
     st.error("❌ ERROR. El gráfico escogido no es válido o no se puede graficar aún.")
+
 
 
 
