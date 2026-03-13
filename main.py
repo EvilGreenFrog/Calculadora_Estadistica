@@ -107,8 +107,8 @@ if Nuevos_Datos == "Si (Subir analisis guardado .JSON)":
 	
 	if NEW_DATA["TEST"] == "Spearman" or "Pearson":
 		st.write(f"En estos datos se hizo un test de **correlacion de coeficiente de {NEWDATA["TEST"]}**.")
-	    
-	    if NEWDATA["COEFICIENTE"]>0:#Aqui dice si la correlacion es positiva o negativa
+		
+		if NEWDATA["COEFICIENTE"]>0:#Aqui dice si la correlacion es positiva o negativa
 	        COR = "positiva"
 	    elif NEWDATA["COEFICIENTE"]<0:
 	        COR = "negativa"
@@ -644,5 +644,6 @@ elif Graph == "Diagrama de Dispersión" and not(CHI2 or MULTINORMALIDAD):
     )
 else:
     st.error("❌ ERROR. El gráfico escogido no es válido o no se puede graficar aún.")
+
 
 
