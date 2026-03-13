@@ -171,7 +171,7 @@ if Nuevos_Datos == "Si (Subir analisis guardado .JSON)":
 	
 	elif NEW_DATA["TEST"] == "T de Student":
 		st.write("Ya que todas las variables tenian significativamente una distribucion normal y habian dos variables, se hizo la prueba de hipotesis T de Student.")
-		st.write("El p-valor de", NEW_DATA["TEST"],"es P =", NEW_DATA["P_VALOR"],".")
+		st.write("El p-valor de", NEW_DATA["TEST"],"es P =", NEW_DATA['P_VALOR'],".")
 	
 		if NEW_DATA["P_VALOR"]<0.05:
 			st.write("Al ser P < 0.05, **:red[se rechaza]** la hipótesis nula. Las medias son significativamente diferentes.")
@@ -645,6 +645,7 @@ elif Graph == "Diagrama de Dispersión" and not(CHI2 or MULTINORMALIDAD):
     )
 else:
     st.error("❌ ERROR. El gráfico escogido no es válido o no se puede graficar aún.")
+
 
 
 
