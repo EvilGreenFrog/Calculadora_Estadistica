@@ -63,7 +63,7 @@ GRAPHS = ["Ninguna", "Diagrama de Barras", "Diagrama de Bigotes", "Diagrama de D
 
 with st.sidebar:
 	st.title("Opciones Adicionales")
-	Nuevos_Datos = st.selectbox("¿Cargar analisis anterior?", ["No, "Si (Subir analisis guardado .JSON)"])
+	Nuevos_Datos = st.selectbox("¿Cargar analisis anterior?", ["No", "Si (Subir analisis guardado .JSON)"])
 	Graph = st.selectbox("Gráficas", GRAPHS) #Opcion de elegir graficas
     
 st.title("Calculadora Estadística") #Titulo con fondo azul.
@@ -644,6 +644,7 @@ elif Graph == "Diagrama de Dispersión" and not(CHI2 or MULTINORMALIDAD):
     )
 else:
     st.error("❌ ERROR. El gráfico escogido no es válido o no se puede graficar aún.")
+
 
 
 
