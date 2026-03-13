@@ -95,7 +95,7 @@ if Nuevos_Datos == "Si (Subir analisis guardado .JSON)":
 			NEW_DATA = json.load(RawData) #Lectura del archivo json.
 			df0 = pd.DataFrame(NEW_DATA["Datos"])
 		else:
-			st.error("❌ ERROR. Revise que su archivo sea .CSV y que sea de 20 MB.")
+			st.error("❌ ERROR. Revise que su archivo sea .JSON y que sea de menos de 20 MB.")
 			st.stop()
 			
 	with st.expander("Vista Previa"):
@@ -645,6 +645,7 @@ elif Graph == "Diagrama de Dispersión" and not(CHI2 or MULTINORMALIDAD):
     )
 else:
     st.error("❌ ERROR. El gráfico escogido no es válido o no se puede graficar aún.")
+
 
 
 
