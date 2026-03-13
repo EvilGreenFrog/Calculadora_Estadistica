@@ -103,8 +103,8 @@ if Nuevos_Datos == "Si (Subir analisis guardado .JSON)":
 	
 	st.subheader("Resultados del Analisis Anterior")
 	
-	NEW_DATA["COEFICIENTE"] = float(NEW_DATA["COEFICIENTE"])
 	if NEW_DATA["TEST"] == "Spearman" or NEW_DATA["TEST"] == "Pearson":
+		NEW_DATA["COEFICIENTE"] = float(NEW_DATA["COEFICIENTE"])
 		st.write(f"En estos datos se hizo un test de **correlacion de coeficiente de {NEW_DATA['TEST']}**.")
 		
 		if NEW_DATA["COEFICIENTE"]>0:#Aqui dice si la correlacion es positiva o negativa
@@ -136,9 +136,9 @@ if Nuevos_Datos == "Si (Subir analisis guardado .JSON)":
 			lineal = ""
 			
 		if NEW_DATA["P_VALUE"]<0.05:
-			st.write("Al ser P < 0.05, **:red[se rechaza]** la hipótesis nula. Hay una correlación", lineal, "signicativa entre las variables.")
+			st.write("Al ser P < 0.05, **:red[se rechaza]** la hipótesis nula. Hay una correlación", lineal, "significativa entre las variables.")
 		else:
-			st.write("Al ser P > 0.05, **:red[NO se rechaza]** la hipótesis nula. NO hay una correlación", lineal, "signicativa entre las variables.")
+			st.write("Al ser P > 0.05, **:red[NO se rechaza]** la hipótesis nula. NO hay una correlación", lineal, "significativa entre las variables.")
 			
 		st.write("Al ser el valor absoluto del coeficiente", TAMAÑO, "eso indica que hay una correlacion", lineal, COR, FUERZA, "entre las variables.")
 	
@@ -151,7 +151,7 @@ if Nuevos_Datos == "Si (Subir analisis guardado .JSON)":
 		else:
 			st.write("Al ser P > 0.05, **:red[NO se rechaza]** la hipótesis nula. **NO** hay una diferencia significativa entre las medias de las variables.")
 			
-	elif NEW_DATA["TEST"] == "Kruger-Wallis":
+	elif NEW_DATA["TEST"] == "Kruskal-Wallis":
 		st.write("Ya que NO todas las variables tenian significativamente una distribucion normal y habian mas de dos variables, se hizo la prueba de hipotesis Kruger-Wallis.")
 		st.write("El p-valor de", NEW_DATA["TEST"],"es P =", NEW_DATA["P_VALOR"],".")
 	
@@ -645,6 +645,7 @@ elif Graph == "Diagrama de Dispersión" and not(CHI2 or MULTINORMALIDAD):
     )
 else:
     st.error("❌ ERROR. El gráfico escogido no es válido o no se puede graficar aún.")
+
 
 
 
