@@ -372,15 +372,15 @@ if ANOVA:
 	f, P_ANOVA = stats.f_oneway(*LISTA) #Realiza ANOVA a los datos. El "*" es para que en vez de que LISTA sea una lista de lista, solo le da varias listas a ANOVA que es el parementro que necesita.
 	P_VALUE = P_ANOVA
 	
-    st.write("El p-valor de ANOVA es P =", P_ANOVA,".")
-    if P_ANOVA<0.05:
-        st.write("Al ser P < 0.05, **:red[se rechaza]** la hipótesis nula. Hay una diferencia significativa entre las medias de dos variables.")
-    else:
-        st.write("Al ser P > 0.05, **:red[NO se rechaza]** la hipótesis nula. **NO** hay una diferencia significativa entre las medias de las variables.")
+	st.write("El p-valor de ANOVA es P =", P_ANOVA,".")
+	if P_ANOVA<0.05:
+		st.write("Al ser P < 0.05, **:red[se rechaza]** la hipótesis nula. Hay una diferencia significativa entre las medias de dos variables.")
+	else:
+		st.write("Al ser P > 0.05, **:red[NO se rechaza]** la hipótesis nula. **NO** hay una diferencia significativa entre las medias de las variables.")
         
 elif WALLIS:
 	TEST = "Kruskal-Wallis"
-    if len(df0.columns)<3: 
+	if len(df0.columns)<3: 
         st.error("❌ ERROR. Para realizar Kruskal-Wallis necesitas al menos tres variables.")
         st.stop()
     
@@ -644,6 +644,7 @@ elif Graph == "Diagrama de Dispersión" and not(CHI2 or MULTINORMALIDAD):
     )
 else:
     st.error("❌ ERROR. El gráfico escogido no es válido o no se puede graficar aún.")
+
 
 
 
