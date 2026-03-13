@@ -589,7 +589,7 @@ elif PEARSON:
     GRAPHS = GRAPHCORRELACION
 #Hacer que saca un error si se selecciona una grafica que no esta ahi
 
-if Graph=="Ninguna" or Nuevos_Datos != "Si (Subir analisis guardado .JSON)":
+if Graph=="Ninguna" or Nuevos_Datos == "Si (Subir analisis guardado .JSON)":
     st.stop()
 elif Graph=="Diagrama de Bigotes" and not CHI2:
     fig, ax = plt.subplots()
@@ -644,8 +644,3 @@ elif Graph == "Diagrama de Dispersión" and not(CHI2 or MULTINORMALIDAD):
     )
 else:
     st.error("❌ ERROR. El gráfico escogido no es válido o no se puede graficar aún.")
-
-
-
-
-
