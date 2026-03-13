@@ -109,7 +109,7 @@ if Nuevos_Datos == "Si (Subir analisis guardado .JSON)":
 		
 		if NEW_DATA["COEFICIENTE"]>0:#Aqui dice si la correlacion es positiva o negativa
 			COR = "positiva"
-		elif NEWDATA["COEFICIENTE"]<0:
+		elif NEW_DATA["COEFICIENTE"]<0:
 			COR = "negativa"
 		else:
 			COR = ""
@@ -127,7 +127,7 @@ if Nuevos_Datos == "Si (Subir analisis guardado .JSON)":
 			FUERZA = "MUY DEBIL"
 			TAMAÑO = "menor que 0.1"
 	
-		st.write("El p-valor del coeficiente de correlación de", NEW_DATA["TEST"], "es de ", NEW_DATA["P_VALUE"])
+		st.write("El p-valor del coeficiente de correlación de", NEW_DATA["TEST"], "es de ", NEW_DATA["P_VALOR"])
 		st.write("El coeficiente de correlacion de", NEW_DATA["TEST"], "es de", NEW_DATA["COEFICIENTE"])
 	
 		if NEW_DATA["TEST"] == "Pearson":
@@ -186,7 +186,7 @@ if Nuevos_Datos == "Si (Subir analisis guardado .JSON)":
 			st.write("Al ser P < 0.05, **:red[se rechaza]** la hipótesis nula. Las distribuciones son significativamente diferentes.")
 		else:
 			st.write("Al ser P > 0.05, **:red[NO se rechaza]** la hipótesis nula. Las distribuciones NO son significativamente diferentes.")
-	st.stop
+	st.stop()
 
 #--------------------------------------------------Preguntas de los Datos-------------------------------------------------------
 st.subheader("Responda las siguientes preguntas.") #Reemplzar formato Si/No con botones.
@@ -561,7 +561,7 @@ if st.button("Guardar análisis"): #Archivo JSON para guardar los datos.
     datos_guardar = {
         "Datos": df0.to_dict(),
 		"TEST": TEST,
-        "P_VALORES": P_VALUE,
+        "P_VALOR": P_VALUE,
 		"COEFICIENTE": COEFICIENTE if CORRELACION else None
     }
     json_bytes = json.dumps(datos_guardar, indent=4).encode() #Convierte el diccionario en un formato JSON y lo convierte en bytes para poder descargarlo.
@@ -645,6 +645,7 @@ elif Graph == "Diagrama de Dispersión" and not(CHI2 or MULTINORMALIDAD):
     )
 else:
     st.error("❌ ERROR. El gráfico escogido no es válido o no se puede graficar aún.")
+
 
 
 
