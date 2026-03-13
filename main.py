@@ -3,6 +3,7 @@ import pandas as pd
 import numpy as np
 import scipy.stats as stats
 import matplotlib.pyplot as plt
+import json
 import io
 #--------------------------------------------------Cambios Visuales con CSS-------------------------------------------------
 st.markdown("""
@@ -83,18 +84,110 @@ MULTINORMALIDAD = False
 PEARSON = False 
 SPEARMAN = False
 CORRELACION = False
+
+OUTPUT2 = None
+COEFICIENTE = None
 #-------------------------------------------------
 if Nuevos_Datos == "Si (Subir analisis guardado .JSON)":
-RawData = st.file_uploader("Sube una tabla en formato .CSV de máximo 20 MB.", max_upload_size=20) #Limita el tamaño maximo de archivo a 20MB
-if RawData is None:#Esto hace que no salga un error cuando aun no han subido el archivo.
-	st.stop()
-else:
-	if RawData.name.endswith(".json"):
-		df0 = json.load(RawData, decimal=",") #Lectura de la tabla como una matriz en pandas.
-	else:
-		st.error("❌ ERROR. Revise que su archivo sea .CSV y que sea de 20 MB.")
+	RawData = st.file_uploader("Sube el archivo en formato .JSON que descargaste al final del analisis anterior.", max_upload_size=20) #Limita el tamaño maximo de archivo a 20MB
+	if RawData is None:#Esto hace que no salga un error cuando aun no han subido el archivo.
 		st.stop()
-st.stp
+	else:
+		if RawData.name.endswith(".json"):
+			NEW_DATA = json.load(RawData) #Lectura del archivo json.
+			df0 = pd.DataFrame(NEW_DATA["Datos"])
+		else:
+			st.error("❌ ERROR. Revise que su archivo sea .CSV y que sea de 20 MB.")
+			st.stop()
+			
+	with st.expander("Vista Previa"):
+	    st.dataframe(df0, use_container_width=True)
+	
+	st.subheader("Resultados del Analisis Anterior")
+	
+	if NEW_DATA["TEST"] == "Spearman" or "Pearson":
+		st.write(f"En estos datos se hizo un test de **correlacion de coeficiente de {NEWDATA["TEST"]}**.")
+	    
+	    if NEWDATA["COEFICIENTE"]>0:#Aqui dice si la correlacion es positiva o negativa
+	        COR = "positiva"
+	    elif NEWDATA["COEFICIENTE"]<0:
+	        COR = "negativa"
+	    else:
+	        COR = ""
+	
+	    if np.abs(NEWDATA["COEFICIENTE"])>=0.5: #Aqui dice si la correlacion es fuerte o debil.
+	        FUERZA = "fuerte"
+	        TAMAÑO = "mayor que 0.5"
+	    elif np.abs(NEWDATA["COEFICIENTE"])>=0.3:
+	        FUERZA = "media"
+	        TAMAÑO = "mayor que 0.3 y menor a 0.5"
+	    elif np.abs(NEWDATA["COEFICIENTE"])>=0.1:
+	        FUERZA = "debil"
+	        TAMAÑO = "mayor que 0.1 y menor a 0.3"
+	    else:
+	        FUERZA = "MUY DEBIL"
+	        TAMAÑO = "menor que 0.1"
+	
+		st.write("El p-valor del coeficiente de correlación de", NEWDATA["TEST"], "es de ", NEW_DATA["P_VALUE"])
+		st.write("El coeficiente de correlacion de", NEW_DATA["TEST"], "es de", NEW_DATA["COEFICIENTE"])
+	
+		if NEW_DATA["TEST"] == "Pearson":
+			lineal = "lineal"
+		else:
+			lineal = ""
+			
+		if NEW_DATA["P_VALUE"]<0.05:
+			st.write("Al ser P < 0.05, **:red[se rechaza]** la hipótesis nula. Hay una correlación", lineal, "signicativa entre las variables.")
+		else:
+			st.write("Al ser P > 0.05, **:red[NO se rechaza]** la hipótesis nula. NO hay una correlación", lineal, "signicativa entre las variables.")
+	
+	    st.write("Al ser el valor absoluto del coeficiente", TAMAÑO, "eso indica que hay una correlacion", lineal, COR, FUERZA, "entre las variables.")
+	
+	elif NEW_DATA["TEST"] == "ANOVA":
+		st.write("Ya que todas las variables tenian significativamente una distribucion normal y habian mas de dos variables, se hizo la prueba de hipotesis ANOVA.")
+		st.write("El p-valor de", NEW_DATA["TEST"],"es P =", NEW_DATA["P_VALOR"],".")
+	
+		if NEW_DATA["P_VALOR"]<0.05:
+	        st.write("Al ser P < 0.05, **:red[se rechaza]** la hipótesis nula. Hay una diferencia significativa entre las medias de dos variables.")
+	    else:
+	        st.write("Al ser P > 0.05, **:red[NO se rechaza]** la hipótesis nula. **NO** hay una diferencia significativa entre las medias de las variables.")
+			
+	elif NEW_DATA["TEST"] == "Kruger-Wallis":
+		st.write("Ya que NO todas las variables tenian significativamente una distribucion normal y habian mas de dos variables, se hizo la prueba de hipotesis Kruger-Wallis.")
+		st.write("El p-valor de", NEW_DATA["TEST"],"es P =", NEW_DATA["P_VALOR"],".")
+	
+		if NEW_DATA["P_VALOR"]<0.05:
+	        st.write("Al ser P < 0.05, **:red[se rechaza]** la hipótesis nula. Hay una diferencia significativa entre las distribuciones de dos variables.") #Consultar con JuanJo
+	    else:
+	        st.write("Al ser P > 0.05, **:red[NO se rechaza]** la hipótesis nula. NO hay una diferencia significativa entre las distribuciones de las variables.")
+	
+	elif NEW_DATA["TEST"] == "Chi Cuadrado":
+		st.write("Ya que se trabajo con datos cualitativos, se hizo la prueba de hipotesis Chi Cuadrado.")
+		st.write("El p-valor de", NEW_DATA["TEST"],"es P =", NEW_DATA["P_VALOR"],".")
+	
+		if NEW_DATA["P_VALOR"]<0.05:
+	        st.write("Al ser P < 0.05, **:red[se rechaza]** la hipótesis nula. Las dos variables están significativamente relacionadas.")
+	    else:
+	        st.write("Al ser P > 0.05, **:red[NO se rechaza]** la hipótesis nula. Las dos variables NO están significativamente relacionadas.")
+	
+	elif NEW_DATA["TEST"] == "T de Student":
+		st.write("Ya que todas las variables tenian significativamente una distribucion normal y habian dos variables, se hizo la prueba de hipotesis T de Student.")
+		st.write("El p-valor de", NEW_DATA["TEST"],"es P =", NEW_DATA["P_VALOR"],".")
+	
+		if NEW_DATA["P_VALOR"]<0.05:
+	    	st.write("Al ser P < 0.05, **:red[se rechaza]** la hipótesis nula. Las medias son significativamente diferentes.")
+	    else:
+	        st.write("Al ser P > 0.05, **:red[NO se rechaza]** la hipótesis nula. Las medias NO son significativamente diferentes.")
+	
+	elif NEW_DATA["TEST"] == "U de Mann-Whitney:
+		st.write("Ya que NO todas las variables tenian significativamente una distribucion normal y habian dos variables, se hizo la prueba de hipotesis U de Mann-Whitney.")
+		st.write("El p-valor de", NEW_DATA["TEST"],"es P =", NEW_DATA["P_VALOR"],".")
+	
+		if NEW_DATA["P_VALOR"]<0.05:
+	        st.write("Al ser P < 0.05, **:red[se rechaza]** la hipótesis nula. Las distribuciones son significativamente diferentes.")
+	    else:
+	        st.write("Al ser P > 0.05, **:red[NO se rechaza]** la hipótesis nula. Las distribuciones NO son significativamente diferentes.")
+	st.stop
 
 #--------------------------------------------------Preguntas de los Datos-------------------------------------------------------
 PREG1= st.selectbox("¿Tus variables independientes y dependientes son cualitativas?",["", "Si", "No"])
@@ -263,6 +356,7 @@ if TESTING!="Si":
 
 #------------------------------------------------------Pruebas de Hipotesis-------------------------------------------------------
 if ANOVA:
+	TEST = "ANOVA"
     if len(df0.columns)<3:
         st.error("❌ ERROR. Para realizar ANOVA al menos tres variables.")
         st.stop()
@@ -276,7 +370,8 @@ if ANOVA:
     for Grupo in GRUPOS:
         LISTA.append(df[df["Grupo"]==Grupo]["Valor"]) #Saca todos los valores asociados a una variables, los vuelve una lsita, y luego los mete a la LISTA y hace eso para cada vairable.
     f, P_ANOVA = stats.f_oneway(*LISTA) #Realiza ANOVA a los datos. El "*" es para que en vez de que LISTA sea una lista de lista, solo le da varias listas a ANOVA que es el parementro que necesita.
-    
+	P_VALUE = P_ANOVA
+	
     st.write("El p-valor de ANOVA es P =", P_ANOVA,".")
     if P_ANOVA<0.05:
         st.write("Al ser P < 0.05, **:red[se rechaza]** la hipótesis nula. Hay una diferencia significativa entre las medias de dos variables.")
@@ -284,6 +379,7 @@ if ANOVA:
         st.write("Al ser P > 0.05, **:red[NO se rechaza]** la hipótesis nula. **NO** hay una diferencia significativa entre las medias de las variables.")
         
 elif WALLIS:
+	TEST = "Kruskal-Wallis"
     if len(df0.columns)<3: 
         st.error("❌ ERROR. Para realizar Kruskal-Wallis necesitas al menos tres variables.")
         st.stop()
@@ -297,7 +393,8 @@ elif WALLIS:
     for Grupo in GRUPOS:
         LISTA.append(df[df["Grupo"]==Grupo]["Valor"]) #Saca todos los valores asociados a una variables, los vuelve una lsita, y luego los mete a la LISTA y hace eso para cada vairable.
     f, P_WALLIS = stats.kruskal(*LISTA) #Realiza Wallis a los datos. El "*" es para que en vez de que LISTA sea una lista de lista, solo le da varias listas a Wallis que es el parementro que necesita.
-    
+	P_VALUE = P_WALLIS
+
     st.write("El p-valor de Kruskal-Wallis es P =", P_WALLIS,".")
     if P_WALLIS<0.05:
         st.write("Al ser P < 0.05, **:red[se rechaza]** la hipótesis nula. Hay una diferencia significativa entre las distribuciones de dos variables.") #Consultar con JuanJo
@@ -305,6 +402,7 @@ elif WALLIS:
         st.write("Al ser P > 0.05, **:red[NO se rechaza]** la hipótesis nula. NO hay una diferencia significativa entre las distribuciones de las variables.")
         
 elif CHI2: #Hacer que tire error si hay menos de 5 datos
+	TEST = "Chi Cuadrado"
     st.subheader("Prueba de Hipótesis Chi Cuadrado")
 
     if len(df0.columns)!=2:
@@ -322,6 +420,7 @@ elif CHI2: #Hacer que tire error si hay menos de 5 datos
     
     res = stats.chi2_contingency(Tabla, correction=False) 
     P_CHI = res.pvalue #Res es varios valores, de los que ellos se saca el P-Valor
+	P_VALUE = P_CHI
     
     st.write("El p-valor de Chi Cuadrado es P =", res.pvalue,".")
     
@@ -331,6 +430,7 @@ elif CHI2: #Hacer que tire error si hay menos de 5 datos
         st.write("Al ser P > 0.05, **:red[NO se rechaza]** la hipótesis nula. Las dos variables NO están significativamente relacionadas.")
         
 elif UMANN:
+	TEST = "U de Mann-Whitney"
     st.subheader("Prueba de Hipótesis U de Mann-Whitney")
     df = df0.melt(var_name="Grupo", value_name="Valor")
     df["Valor"] = pd.to_numeric(df["Valor"], errors="coerce") #Se cambia el formato de la matrix
@@ -340,6 +440,7 @@ elif UMANN:
     G2 = df[df["Grupo"]==GRUPOS[1]]["Valor"].dropna() #""
 
     u, P_UMANN = stats.mannwhitneyu(G1, G2, alternative="two-sided") #Aplicacion de la prueba
+	P_VALUE = P_UMANN
 
     st.write("El p-valor de U de Mann-Whitney es de P =", P_UMANN)
 
@@ -349,6 +450,7 @@ elif UMANN:
         st.write("Al ser P > 0.05, **:red[NO se rechaza]** la hipótesis nula. Las distribuciones NO son significativamente diferentes.")
         
 elif TSTUDENT:
+	TEST = "T de Student"
     df = df0.melt(var_name="Grupo", value_name="Valor")
     df["Valor"] = pd.to_numeric(df["Valor"], errors="coerce")
 
@@ -357,6 +459,7 @@ elif TSTUDENT:
     COL2 = df[df["Grupo"]==GRUPOS[1]]["Valor"].dropna() #Columna2
 
     t, P_TSTUDENT = stats.ttest_ind(COL1, COL2)
+	P_VALUE = P_TSTUDENT
 
     st.write("El p-valor de T de Student es de P =", P_TSTUDENT)
 
@@ -374,6 +477,8 @@ elif PEARSON:
     COL2 = df[df["Grupo"]==GRUPOS[1]]["Valor"].dropna() #Columna2
 
     r, P_PEARSON = stats.pearsonr(COL1, COL2) #Se calcula el coeficiente de correlacion de pearson y el p-valor
+	P_VALUE = P_PEARSON
+	COEFICIENTE = r
 
     st.write("El p-valor del coeficiente de correlación de Pearson es P =", P_PEARSON)
     st.write("El coeficiente de correlacion de Pearson es r =", r)
@@ -414,6 +519,8 @@ elif SPEARMAN:
     COL2 = df[df["Grupo"]==GRUPOS[1]]["Valor"].dropna() #Columna2
 
     p, P_SPEARMAN = stats.spearmanr(COL1, COL2) #Se calcula el coeficiente de correlacion de Spearman y el p-valor.
+	P_VALUE = P_SPEARMAN
+	COEFICIENTE = p
 
     st.write("El p-valor del coeficiente de correlación de Spearman es de P =", P_SPEARMAN)
     st.write("El coeficiente de correlacion de Spearman es rₛ =", p)
@@ -439,12 +546,32 @@ elif SPEARMAN:
         TAMAÑO = "menor que 0.1"
 
     if P_SPEARMAN<0.05:
-        st.write("Al ser P < 0.05, **:red[se rechaza]** la hipótesis nula. Hay una correlación signicativa entre las variables.")
+        OUTPUT = "Al ser P < 0.05, **:red[se rechaza]** la hipótesis nula. Hay una correlación signicativa entre las variables."
+		st.write(OUTPUT)
     else:
-        st.write("Al ser P > 0.05, **:red[NO se rechaza]** la hipótesis nula. NO hay una correlación signicativa entre las variables.")
+        OUTPUT = "Al ser P > 0.05, **:red[NO se rechaza]** la hipótesis nula. NO hay una correlación signicativa entre las variables."
+		st.write(OUTPUT)
 
     st.write("Al ser el valor absoluto de rₛ", TAMAÑO, "eso indica que hay una correlacion", COR, FUERZA, "entre las variables.")
+	OUTPUT2 = "Al ser el valor absoluto de rₛ" + str(TAMAÑO) + "eso indica que hay una correlacion" + str(COR) + str(FUERZA) + "entre las variables."
 	
+#-----------------------------------------------------------PERSISTENCIA---------------------------------------------------------	
+if st.button("Guardar análisis"): #Archivo JSON para guardar los datos.
+    datos_guardar = {
+        "Datos": df0.to_dict(),
+		"TEST": TEST,
+        "P_VALORES": P_VALUE,
+		"COEFICIENTE": COEFICIENTE if CORRELACION else None
+    }
+    json_bytes = json.dumps(datos_guardar, indent=4).encode() #Convierte el diccionario en un formato JSON y lo convierte en bytes para poder descargarlo.
+	
+    st.download_button(
+        label="Descargar Analisis en Archivo JSON",
+        data=json_bytes,
+        file_name="analisis_estadistico.json",
+        mime="application/json"
+    ) #Boton para descargar
+
 #--------------------------------------------¡¡¡¡SECCION PARA LAS GRAFICAS!!!!-------------------------------------------------------------
 #Tipos de graficas permitidos para cada tipo de datos.
 GRAPHCHI2 = ["Ninguna", "Diagrama de Barras"]
@@ -462,7 +589,7 @@ elif PEARSON:
     GRAPHS = GRAPHCORRELACION
 #Hacer que saca un error si se selecciona una grafica que no esta ahi
 
-if Graph=="Ninguna":
+if Graph=="Ninguna" or Nuevos_Datos != "Si (Subir analisis guardado .JSON)":
     st.stop()
 elif Graph=="Diagrama de Bigotes" and not CHI2:
     fig, ax = plt.subplots()
@@ -517,14 +644,3 @@ elif Graph == "Diagrama de Dispersión" and not(CHI2 or MULTINORMALIDAD):
     )
 else:
     st.error("❌ ERROR. El gráfico escogido no es válido o no se puede graficar aún.")
-
-
-
-
-
-
-
-
-
-
-
