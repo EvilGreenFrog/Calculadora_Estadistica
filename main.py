@@ -496,7 +496,7 @@ elif PEARSON:
 	elif np.abs(r)>=0.3:
 		FUERZA = "media"
 		TAMAÑO = "mayor que 0.3 y menor a 0.5"
-    elif np.abs(r)>=0.1:
+	elif np.abs(r)>=0.1:
 		FUERZA = "debil"
 		TAMAÑO = "mayor que 0.1 y menor a 0.3"
 	else:
@@ -644,4 +644,5 @@ elif Graph == "Diagrama de Dispersión" and not(CHI2 or MULTINORMALIDAD):
     )
 else:
     st.error("❌ ERROR. El gráfico escogido no es válido o no se puede graficar aún.")
+
 
