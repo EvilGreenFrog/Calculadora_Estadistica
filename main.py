@@ -62,9 +62,9 @@ def guardar_png(fig):
 GRAPHS = ["Ninguna", "Diagrama de Barras", "Diagrama de Bigotes", "Diagrama de Dispersión"]
 
 with st.sidebar:
-    st.title("Opciones Adicionales")
+	st.title("Opciones Adicionales")
 	Nuevos_Datos = st.selectbox("¿Cargar analisis anterior?", ["No (Subir archivo .CSV nuevo)", "Si (Subir analisis guardado .JSON)"])
-    Graph = st.selectbox("Gráficas", GRAPHS) #Opcion de elegir graficas
+	Graph = st.selectbox("Gráficas", GRAPHS) #Opcion de elegir graficas
     
 st.title("Calculadora Estadística") #Titulo con fondo azul.
 st.write("Para ingresar nuevos datos por favor refresque la página.")
@@ -644,4 +644,5 @@ elif Graph == "Diagrama de Dispersión" and not(CHI2 or MULTINORMALIDAD):
     )
 else:
     st.error("❌ ERROR. El gráfico escogido no es válido o no se puede graficar aún.")
+
 
