@@ -140,8 +140,8 @@ if Nuevos_Datos == "Si (Subir analisis guardado .JSON)":
 			st.write("Al ser P < 0.05, **:red[se rechaza]** la hipótesis nula. Hay una correlación", lineal, "signicativa entre las variables.")
 		else:
 			st.write("Al ser P > 0.05, **:red[NO se rechaza]** la hipótesis nula. NO hay una correlación", lineal, "signicativa entre las variables.")
-	
-	    st.write("Al ser el valor absoluto del coeficiente", TAMAÑO, "eso indica que hay una correlacion", lineal, COR, FUERZA, "entre las variables.")
+			
+		st.write("Al ser el valor absoluto del coeficiente", TAMAÑO, "eso indica que hay una correlacion", lineal, COR, FUERZA, "entre las variables.")
 	
 	elif NEW_DATA["TEST"] == "ANOVA":
 		st.write("Ya que todas las variables tenian significativamente una distribucion normal y habian mas de dos variables, se hizo la prueba de hipotesis ANOVA.")
@@ -644,6 +644,7 @@ elif Graph == "Diagrama de Dispersión" and not(CHI2 or MULTINORMALIDAD):
     )
 else:
     st.error("❌ ERROR. El gráfico escogido no es válido o no se puede graficar aún.")
+
 
 
 
