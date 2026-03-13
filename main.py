@@ -62,6 +62,7 @@ GRAPHS = ["Ninguna", "Diagrama de Barras", "Diagrama de Bigotes", "Diagrama de D
 
 with st.sidebar:
     st.title("Opciones Adicionales")
+	Nuevos_Datos = st.selectbox("¿Cargar analisis anterior?", ["No (Subir archivo .CSV nuevo)", "Si (Subir analisis guardado .JSON)"])
     Graph = st.selectbox("Gráficas", GRAPHS) #Opcion de elegir graficas
     
 st.title("Calculadora Estadística") #Titulo con fondo azul.
@@ -82,6 +83,18 @@ MULTINORMALIDAD = False
 PEARSON = False 
 SPEARMAN = False
 CORRELACION = False
+#-------------------------------------------------
+if Nuevos_Datos == "Si (Subir analisis guardado .JSON)":
+RawData = st.file_uploader("Sube una tabla en formato .CSV de máximo 20 MB.", max_upload_size=20) #Limita el tamaño maximo de archivo a 20MB
+if RawData is None:#Esto hace que no salga un error cuando aun no han subido el archivo.
+	st.stop()
+else:
+	if RawData.name.endswith(".json"):
+		df0 = json.load(RawData, decimal=",") #Lectura de la tabla como una matriz en pandas.
+	else:
+		st.error("❌ ERROR. Revise que su archivo sea .CSV y que sea de 20 MB.")
+		st.stop()
+st.stp
 
 #--------------------------------------------------Preguntas de los Datos-------------------------------------------------------
 PREG1= st.selectbox("¿Tus variables independientes y dependientes son cualitativas?",["", "Si", "No"])
@@ -504,6 +517,7 @@ elif Graph == "Diagrama de Dispersión" and not(CHI2 or MULTINORMALIDAD):
     )
 else:
     st.error("❌ ERROR. El gráfico escogido no es válido o no se puede graficar aún.")
+
 
 
 
