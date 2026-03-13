@@ -167,7 +167,7 @@ if Nuevos_Datos == "Si (Subir analisis guardado .JSON)":
 	
 		if NEW_DATA["P_VALOR"]<0.05:
 			st.write("Al ser P < 0.05, **:red[se rechaza]** la hipótesis nula. Las dos variables están significativamente relacionadas.")
-	    else:
+		else:
 			st.write("Al ser P > 0.05, **:red[NO se rechaza]** la hipótesis nula. Las dos variables NO están significativamente relacionadas.")
 	
 	elif NEW_DATA["TEST"] == "T de Student":
@@ -175,18 +175,18 @@ if Nuevos_Datos == "Si (Subir analisis guardado .JSON)":
 		st.write("El p-valor de", NEW_DATA["TEST"],"es P =", NEW_DATA["P_VALOR"],".")
 	
 		if NEW_DATA["P_VALOR"]<0.05:
-	    	st.write("Al ser P < 0.05, **:red[se rechaza]** la hipótesis nula. Las medias son significativamente diferentes.")
-	    else:
-	        st.write("Al ser P > 0.05, **:red[NO se rechaza]** la hipótesis nula. Las medias NO son significativamente diferentes.")
+			st.write("Al ser P < 0.05, **:red[se rechaza]** la hipótesis nula. Las medias son significativamente diferentes.")
+		else:
+			st.write("Al ser P > 0.05, **:red[NO se rechaza]** la hipótesis nula. Las medias NO son significativamente diferentes.")
 	
 	elif NEW_DATA["TEST"] == "U de Mann-Whitney":
 		st.write("Ya que NO todas las variables tenian significativamente una distribucion normal y habian dos variables, se hizo la prueba de hipotesis U de Mann-Whitney.")
 		st.write("El p-valor de", NEW_DATA["TEST"],"es P =", NEW_DATA["P_VALOR"],".")
-	
+		
 		if NEW_DATA["P_VALOR"]<0.05:
-	        st.write("Al ser P < 0.05, **:red[se rechaza]** la hipótesis nula. Las distribuciones son significativamente diferentes.")
-	    else:
-	        st.write("Al ser P > 0.05, **:red[NO se rechaza]** la hipótesis nula. Las distribuciones NO son significativamente diferentes.")
+			st.write("Al ser P < 0.05, **:red[se rechaza]** la hipótesis nula. Las distribuciones son significativamente diferentes.")
+		else:
+			st.write("Al ser P > 0.05, **:red[NO se rechaza]** la hipótesis nula. Las distribuciones NO son significativamente diferentes.")
 	st.stop
 
 #--------------------------------------------------Preguntas de los Datos-------------------------------------------------------
@@ -644,6 +644,7 @@ elif Graph == "Diagrama de Dispersión" and not(CHI2 or MULTINORMALIDAD):
     )
 else:
     st.error("❌ ERROR. El gráfico escogido no es válido o no se puede graficar aún.")
+
 
 
 
