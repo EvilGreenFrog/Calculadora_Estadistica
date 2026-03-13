@@ -148,9 +148,9 @@ if Nuevos_Datos == "Si (Subir analisis guardado .JSON)":
 		st.write("El p-valor de", NEW_DATA["TEST"],"es P =", NEW_DATA["P_VALOR"],".")
 	
 		if NEW_DATA["P_VALOR"]<0.05:
-	        st.write("Al ser P < 0.05, **:red[se rechaza]** la hipótesis nula. Hay una diferencia significativa entre las medias de dos variables.")
-	    else:
-	        st.write("Al ser P > 0.05, **:red[NO se rechaza]** la hipótesis nula. **NO** hay una diferencia significativa entre las medias de las variables.")
+			st.write("Al ser P < 0.05, **:red[se rechaza]** la hipótesis nula. Hay una diferencia significativa entre las medias de dos variables.")
+		else:
+			st.write("Al ser P > 0.05, **:red[NO se rechaza]** la hipótesis nula. **NO** hay una diferencia significativa entre las medias de las variables.")
 			
 	elif NEW_DATA["TEST"] == "Kruger-Wallis":
 		st.write("Ya que NO todas las variables tenian significativamente una distribucion normal y habian mas de dos variables, se hizo la prueba de hipotesis Kruger-Wallis.")
@@ -644,6 +644,7 @@ elif Graph == "Diagrama de Dispersión" and not(CHI2 or MULTINORMALIDAD):
     )
 else:
     st.error("❌ ERROR. El gráfico escogido no es válido o no se puede graficar aún.")
+
 
 
 
