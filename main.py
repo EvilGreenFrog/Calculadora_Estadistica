@@ -112,7 +112,8 @@ if Nuevos_Datos == "Si (Subir analisis guardado .JSON)":
 			COR = "negativa"
 		else:
 			COR = ""
-			
+
+		NEW_DATA["COEFICIENTE"] = float(NEW_DATA["COEFICIENTE"])
 		if np.abs(NEW_DATA["COEFICIENTE"])>=0.5: #Aqui dice si la correlacion es fuerte o debil.
 			FUERZA = "fuerte"
 			TAMAÑO = "mayor que 0.5"
@@ -644,6 +645,7 @@ elif Graph == "Diagrama de Dispersión" and not(CHI2 or MULTINORMALIDAD):
     )
 else:
     st.error("❌ ERROR. El gráfico escogido no es válido o no se puede graficar aún.")
+
 
 
 
