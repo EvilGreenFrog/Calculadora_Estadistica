@@ -544,7 +544,7 @@ elif SPEARMAN:
 		TAMAÑO = "mayor que 0.1 y menor a 0.3"
 	else:
 		FUERZA = "MUY DEBIL"
-	TAMAÑO = "menor que 0.1"
+		TAMAÑO = "menor que 0.1"
 
 	if P_SPEARMAN<0.05:
 		OUTPUT = "Al ser P < 0.05, **:red[se rechaza]** la hipótesis nula. Hay una correlación signicativa entre las variables."
@@ -645,6 +645,7 @@ elif Graph == "Diagrama de Dispersión" and not(CHI2 or MULTINORMALIDAD):
     )
 else:
     st.error("❌ ERROR. El gráfico escogido no es válido o no se puede graficar aún.")
+
 
 
 
