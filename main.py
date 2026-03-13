@@ -106,27 +106,27 @@ if Nuevos_Datos == "Si (Subir analisis guardado .JSON)":
 	if NEW_DATA["TEST"] == "Spearman" or "Pearson":
 		st.write(f"En estos datos se hizo un test de **correlacion de coeficiente de {NEWDATA["TEST"]}**.")
 		
-		if NEWDATA["COEFICIENTE"]>0:#Aqui dice si la correlacion es positiva o negativa
+		if NEW_DATA["COEFICIENTE"]>0:#Aqui dice si la correlacion es positiva o negativa
 			COR = "positiva"
 		elif NEWDATA["COEFICIENTE"]<0:
 			COR = "negativa"
 		else:
 			COR = ""
 			
-		if np.abs(NEWDATA["COEFICIENTE"])>=0.5: #Aqui dice si la correlacion es fuerte o debil.
+		if np.abs(NEW_DATA["COEFICIENTE"])>=0.5: #Aqui dice si la correlacion es fuerte o debil.
 			FUERZA = "fuerte"
 			TAMAÑO = "mayor que 0.5"
-		elif np.abs(NEWDATA["COEFICIENTE"])>=0.3:
+		elif np.abs(NEW_DATA["COEFICIENTE"])>=0.3:
 			FUERZA = "media"
 			TAMAÑO = "mayor que 0.3 y menor a 0.5"
-		elif np.abs(NEWDATA["COEFICIENTE"])>=0.1:
+		elif np.abs(NEW_DATA["COEFICIENTE"])>=0.1:
 			FUERZA = "debil"
 			TAMAÑO = "mayor que 0.1 y menor a 0.3"
 		else:
 			FUERZA = "MUY DEBIL"
 			TAMAÑO = "menor que 0.1"
 	
-		st.write("El p-valor del coeficiente de correlación de", NEWDATA["TEST"], "es de ", NEW_DATA["P_VALUE"])
+		st.write("El p-valor del coeficiente de correlación de", NEW_DATA["TEST"], "es de ", NEW_DATA["P_VALUE"])
 		st.write("El coeficiente de correlacion de", NEW_DATA["TEST"], "es de", NEW_DATA["COEFICIENTE"])
 	
 		if NEW_DATA["TEST"] == "Pearson":
@@ -644,4 +644,5 @@ elif Graph == "Diagrama de Dispersión" and not(CHI2 or MULTINORMALIDAD):
     )
 else:
     st.error("❌ ERROR. El gráfico escogido no es válido o no se puede graficar aún.")
+
 
