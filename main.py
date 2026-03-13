@@ -566,7 +566,7 @@ if st.button("Guardar análisis"): #Archivo JSON para guardar los datos.
     json_bytes = json.dumps(datos_guardar, indent=4).encode() #Convierte el diccionario en un formato JSON y lo convierte en bytes para poder descargarlo.
 	
     st.download_button(
-        label="Descargar Analisis en Archivo JSON",
+        label="¿Guardar Analisis en Archivo JSON?", ##rchivo JSON para guardar los datos.
         data=json_bytes,
         file_name="analisis_estadistico.json",
         mime="application/json"
@@ -644,3 +644,4 @@ elif Graph == "Diagrama de Dispersión" and not(CHI2 or MULTINORMALIDAD):
     )
 else:
     st.error("❌ ERROR. El gráfico escogido no es válido o no se puede graficar aún.")
+
