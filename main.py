@@ -505,9 +505,9 @@ elif PEARSON:
 		TAMAÑO = "menor que 0.1"
     
 	if P_PEARSON<0.05:
-		st.write("Al ser P < 0.05, **:red[se rechaza]** la hipótesis nula. Hay una correlación lineal signicativa entre las variables.")
+		st.write("Al ser P < 0.05, **:red[se rechaza]** la hipótesis nula. Hay una correlación lineal significativa entre las variables.")
 	else:
-		st.write("Al ser P > 0.05, **:red[NO se rechaza]** la hipótesis nula. NO hay una correlación lineal signicativa entre las variables.")
+		st.write("Al ser P > 0.05, **:red[NO se rechaza]** la hipótesis nula. NO hay una correlación lineal significativa entre las variables.")
 
 	st.write("Al ser el valor absoluto de r", TAMAÑO, "eso indica que hay una correlacion lineal", COR, FUERZA, "entre las variables.")
 
@@ -547,10 +547,10 @@ elif SPEARMAN:
 		TAMAÑO = "menor que 0.1"
 
 	if P_SPEARMAN<0.05:
-		OUTPUT = "Al ser P < 0.05, **:red[se rechaza]** la hipótesis nula. Hay una correlación signicativa entre las variables."
+		OUTPUT = "Al ser P < 0.05, **:red[se rechaza]** la hipótesis nula. Hay una correlación significativa entre las variables."
 		st.write(OUTPUT)
 	else:
-		OUTPUT = "Al ser P > 0.05, **:red[NO se rechaza]** la hipótesis nula. NO hay una correlación signicativa entre las variables."
+		OUTPUT = "Al ser P > 0.05, **:red[NO se rechaza]** la hipótesis nula. NO hay una correlación significativa entre las variables."
 		st.write(OUTPUT)
 
 	st.write("Al ser el valor absoluto de rₛ", TAMAÑO, "eso indica que hay una correlacion", COR, FUERZA, "entre las variables.")
@@ -644,6 +644,7 @@ elif Graph == "Diagrama de Dispersión" and not(CHI2 or MULTINORMALIDAD):
     )
 else:
     st.error("❌ ERROR. El gráfico escogido no es válido o no se puede graficar aún.")
+
 
 
 
