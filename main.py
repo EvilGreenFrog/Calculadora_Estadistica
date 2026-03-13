@@ -157,18 +157,18 @@ if Nuevos_Datos == "Si (Subir analisis guardado .JSON)":
 		st.write("El p-valor de", NEW_DATA["TEST"],"es P =", NEW_DATA["P_VALOR"],".")
 	
 		if NEW_DATA["P_VALOR"]<0.05:
-	        st.write("Al ser P < 0.05, **:red[se rechaza]** la hipótesis nula. Hay una diferencia significativa entre las distribuciones de dos variables.") #Consultar con JuanJo
+			st.write("Al ser P < 0.05, **:red[se rechaza]** la hipótesis nula. Hay una diferencia significativa entre las distribuciones de dos variables.") #Consultar con JuanJo
 	    else:
-	        st.write("Al ser P > 0.05, **:red[NO se rechaza]** la hipótesis nula. NO hay una diferencia significativa entre las distribuciones de las variables.")
+			st.write("Al ser P > 0.05, **:red[NO se rechaza]** la hipótesis nula. NO hay una diferencia significativa entre las distribuciones de las variables.")
 	
 	elif NEW_DATA["TEST"] == "Chi Cuadrado":
 		st.write("Ya que se trabajo con datos cualitativos, se hizo la prueba de hipotesis Chi Cuadrado.")
 		st.write("El p-valor de", NEW_DATA["TEST"],"es P =", NEW_DATA["P_VALOR"],".")
 	
 		if NEW_DATA["P_VALOR"]<0.05:
-	        st.write("Al ser P < 0.05, **:red[se rechaza]** la hipótesis nula. Las dos variables están significativamente relacionadas.")
+			st.write("Al ser P < 0.05, **:red[se rechaza]** la hipótesis nula. Las dos variables están significativamente relacionadas.")
 	    else:
-	        st.write("Al ser P > 0.05, **:red[NO se rechaza]** la hipótesis nula. Las dos variables NO están significativamente relacionadas.")
+			st.write("Al ser P > 0.05, **:red[NO se rechaza]** la hipótesis nula. Las dos variables NO están significativamente relacionadas.")
 	
 	elif NEW_DATA["TEST"] == "T de Student":
 		st.write("Ya que todas las variables tenian significativamente una distribucion normal y habian dos variables, se hizo la prueba de hipotesis T de Student.")
@@ -644,6 +644,7 @@ elif Graph == "Diagrama de Dispersión" and not(CHI2 or MULTINORMALIDAD):
     )
 else:
     st.error("❌ ERROR. El gráfico escogido no es válido o no se puede graficar aún.")
+
 
 
 
