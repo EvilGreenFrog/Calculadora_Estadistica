@@ -357,7 +357,7 @@ if TESTING!="Si":
 #------------------------------------------------------Pruebas de Hipotesis-------------------------------------------------------
 if ANOVA:
 	TEST = "ANOVA"
-    if len(df0.columns)<3:
+	if len(df0.columns)<3:
         st.error("❌ ERROR. Para realizar ANOVA al menos tres variables.")
         st.stop()
     
@@ -644,6 +644,7 @@ elif Graph == "Diagrama de Dispersión" and not(CHI2 or MULTINORMALIDAD):
     )
 else:
     st.error("❌ ERROR. El gráfico escogido no es válido o no se puede graficar aún.")
+
 
 
 
