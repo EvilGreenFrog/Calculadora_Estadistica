@@ -138,7 +138,7 @@ if Nuevos_Datos == "Si (Subir analisis guardado .JSON)":
 		if NEW_DATA["P_VALUE"]<0.05:
 			st.write("Al ser P < 0.05, **:red[se rechaza]** la hipótesis nula. Hay una correlación", lineal, "significativa entre las variables.")
 		else:
-			st.write("Al ser P > 0.05, **:red[NO se rechaza]** la hipótesis nula. NO hay una correlación", lineal, "significativa entre las variables.")
+			st.write("Al ser P ≥ 0.05, **:red[NO se rechaza]** la hipótesis nula. NO hay una correlación", lineal, "significativa entre las variables.")
 			
 		st.write("Al ser el valor absoluto del coeficiente", TAMAÑO, "eso indica que hay una correlacion", lineal, COR, FUERZA, "entre las variables.")
 	
@@ -149,7 +149,7 @@ if Nuevos_Datos == "Si (Subir analisis guardado .JSON)":
 		if NEW_DATA["P_VALOR"]<0.05:
 			st.write("Al ser P < 0.05, **:red[se rechaza]** la hipótesis nula. Hay una diferencia significativa entre las medias de dos variables.")
 		else:
-			st.write("Al ser P > 0.05, **:red[NO se rechaza]** la hipótesis nula. **NO** hay una diferencia significativa entre las medias de las variables.")
+			st.write("Al ser P ≥ 0.05, **:red[NO se rechaza]** la hipótesis nula. **NO** hay una diferencia significativa entre las medias de las variables.")
 			
 	elif NEW_DATA["TEST"] == "Kruskal-Wallis":
 		st.write("Ya que NO todas las variables tenian significativamente una distribucion normal y habian mas de dos variables, se hizo la prueba de hipotesis Kruger-Wallis.")
@@ -158,7 +158,7 @@ if Nuevos_Datos == "Si (Subir analisis guardado .JSON)":
 		if NEW_DATA["P_VALOR"]<0.05:
 			st.write("Al ser P < 0.05, **:red[se rechaza]** la hipótesis nula. Hay una diferencia significativa entre las distribuciones de dos variables.") #Consultar con JuanJo
 		else:
-			st.write("Al ser P > 0.05, **:red[NO se rechaza]** la hipótesis nula. NO hay una diferencia significativa entre las distribuciones de las variables.")
+			st.write("Al ser P ≥ 0.05, **:red[NO se rechaza]** la hipótesis nula. NO hay una diferencia significativa entre las distribuciones de las variables.")
 	
 	elif NEW_DATA["TEST"] == "Chi Cuadrado":
 		st.write("Ya que se trabajo con datos cualitativos, se hizo la prueba de hipotesis Chi Cuadrado.")
@@ -167,7 +167,7 @@ if Nuevos_Datos == "Si (Subir analisis guardado .JSON)":
 		if NEW_DATA["P_VALOR"]<0.05:
 			st.write("Al ser P < 0.05, **:red[se rechaza]** la hipótesis nula. Las dos variables están significativamente relacionadas.")
 		else:
-			st.write("Al ser P > 0.05, **:red[NO se rechaza]** la hipótesis nula. Las dos variables NO están significativamente relacionadas.")
+			st.write("Al ser P ≥ 0.05, **:red[NO se rechaza]** la hipótesis nula. Las dos variables NO están significativamente relacionadas.")
 	
 	elif NEW_DATA["TEST"] == "T de Student":
 		st.write("Ya que todas las variables tenian significativamente una distribucion normal y habian dos variables, se hizo la prueba de hipotesis T de Student.")
@@ -176,7 +176,7 @@ if Nuevos_Datos == "Si (Subir analisis guardado .JSON)":
 		if NEW_DATA["P_VALOR"]<0.05:
 			st.write("Al ser P < 0.05, **:red[se rechaza]** la hipótesis nula. Las medias son significativamente diferentes.")
 		else:
-			st.write("Al ser P > 0.05, **:red[NO se rechaza]** la hipótesis nula. Las medias NO son significativamente diferentes.")
+			st.write("Al ser P ≥ 0.05, **:red[NO se rechaza]** la hipótesis nula. Las medias NO son significativamente diferentes.")
 	
 	elif NEW_DATA["TEST"] == "U de Mann-Whitney":
 		st.write("Ya que NO todas las variables tenian significativamente una distribucion normal y habian dos variables, se hizo la prueba de hipotesis U de Mann-Whitney.")
@@ -185,7 +185,7 @@ if Nuevos_Datos == "Si (Subir analisis guardado .JSON)":
 		if NEW_DATA["P_VALOR"]<0.05:
 			st.write("Al ser P < 0.05, **:red[se rechaza]** la hipótesis nula. Las distribuciones son significativamente diferentes.")
 		else:
-			st.write("Al ser P > 0.05, **:red[NO se rechaza]** la hipótesis nula. Las distribuciones NO son significativamente diferentes.")
+			st.write("Al ser P ≥ 0.05, **:red[NO se rechaza]** la hipótesis nula. Las distribuciones NO son significativamente diferentes.")
 	st.stop()
 
 #--------------------------------------------------Preguntas de los Datos-------------------------------------------------------
@@ -377,7 +377,7 @@ if ANOVA:
 	if P_ANOVA<0.05:
 		st.write("Al ser P < 0.05, **:red[se rechaza]** la hipótesis nula. Hay una diferencia significativa entre las medias de dos variables.")
 	else:
-		st.write("Al ser P > 0.05, **:red[NO se rechaza]** la hipótesis nula. **NO** hay una diferencia significativa entre las medias de las variables.")
+		st.write("Al ser P ≥ 0.05, **:red[NO se rechaza]** la hipótesis nula. **NO** hay una diferencia significativa entre las medias de las variables.")
         
 elif WALLIS:
 	TEST = "Kruskal-Wallis"
@@ -400,7 +400,7 @@ elif WALLIS:
 	if P_WALLIS<0.05:
 		st.write("Al ser P < 0.05, **:red[se rechaza]** la hipótesis nula. Hay una diferencia significativa entre las distribuciones de dos variables.") #Consultar con JuanJo
 	else:
-		st.write("Al ser P > 0.05, **:red[NO se rechaza]** la hipótesis nula. NO hay una diferencia significativa entre las distribuciones de las variables.")
+		st.write("Al ser P ≥ 0.05, **:red[NO se rechaza]** la hipótesis nula. NO hay una diferencia significativa entre las distribuciones de las variables.")
         
 elif CHI2: #Hacer que tire error si hay menos de 5 datos
 	TEST = "Chi Cuadrado"
@@ -428,7 +428,7 @@ elif CHI2: #Hacer que tire error si hay menos de 5 datos
 	if P_CHI<0.05:
 		st.write("Al ser P < 0.05, **:red[se rechaza]** la hipótesis nula. Las dos variables están significativamente relacionadas.")
 	else:
-		st.write("Al ser P > 0.05, **:red[NO se rechaza]** la hipótesis nula. Las dos variables NO están significativamente relacionadas.")
+		st.write("Al ser P ≥ 0.05, **:red[NO se rechaza]** la hipótesis nula. Las dos variables NO están significativamente relacionadas.")
         
 elif UMANN:
 	TEST = "U de Mann-Whitney"
@@ -448,7 +448,7 @@ elif UMANN:
 	if P_UMANN<0.05:
 		st.write("Al ser P < 0.05, **:red[se rechaza]** la hipótesis nula. Las distribuciones son significativamente diferentes.")
 	else:
-		st.write("Al ser P > 0.05, **:red[NO se rechaza]** la hipótesis nula. Las distribuciones NO son significativamente diferentes.")
+		st.write("Al ser P ≥ 0.05, **:red[NO se rechaza]** la hipótesis nula. Las distribuciones NO son significativamente diferentes.")
         
 elif TSTUDENT:
 	TEST = "T de Student"
@@ -467,9 +467,10 @@ elif TSTUDENT:
 	if P_TSTUDENT<0.05:
 		st.write("Al ser P < 0.05, **:red[se rechaza]** la hipótesis nula. Las medias son significativamente diferentes.")
 	else:
-		st.write("Al ser P > 0.05, **:red[NO se rechaza]** la hipótesis nula. Las medias NO son significativamente diferentes.")
+		st.write("Al ser P ≥ 0.05, **:red[NO se rechaza]** la hipótesis nula. Las medias NO son significativamente diferentes.")
         
 elif PEARSON:
+	TEST = "PEARSON"
 	df = df0.melt(var_name="Grupo", value_name="Valor")
 	df["Valor"] = pd.to_numeric(df["Valor"], errors="coerce")
 
@@ -507,11 +508,12 @@ elif PEARSON:
 	if P_PEARSON<0.05:
 		st.write("Al ser P < 0.05, **:red[se rechaza]** la hipótesis nula. Hay una correlación lineal significativa entre las variables.")
 	else:
-		st.write("Al ser P > 0.05, **:red[NO se rechaza]** la hipótesis nula. NO hay una correlación lineal significativa entre las variables.")
+		st.write("Al ser P ≥ 0.05, **:red[NO se rechaza]** la hipótesis nula. NO hay una correlación lineal significativa entre las variables.")
 
 	st.write("Al ser el valor absoluto de r", TAMAÑO, "eso indica que hay una correlacion lineal", COR, FUERZA, "entre las variables.")
 
 elif SPEARMAN:
+	TEST = "SPEARMAN"
 	df = df0.melt(var_name="Grupo", value_name="Valor")
 	df["Valor"] = pd.to_numeric(df["Valor"], errors="coerce")
 
@@ -550,7 +552,7 @@ elif SPEARMAN:
 		OUTPUT = "Al ser P < 0.05, **:red[se rechaza]** la hipótesis nula. Hay una correlación significativa entre las variables."
 		st.write(OUTPUT)
 	else:
-		OUTPUT = "Al ser P > 0.05, **:red[NO se rechaza]** la hipótesis nula. NO hay una correlación significativa entre las variables."
+		OUTPUT = "Al ser P ≥ 0.05, **:red[NO se rechaza]** la hipótesis nula. NO hay una correlación significativa entre las variables."
 		st.write(OUTPUT)
 
 	st.write("Al ser el valor absoluto de rₛ", TAMAÑO, "eso indica que hay una correlacion", COR, FUERZA, "entre las variables.")
@@ -644,6 +646,7 @@ elif Graph == "Diagrama de Dispersión" and not(CHI2 or MULTINORMALIDAD):
     )
 else:
     st.error("❌ ERROR. El gráfico escogido no es válido o no se puede graficar aún.")
+
 
 
 
