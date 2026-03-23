@@ -105,7 +105,7 @@ if Nuevos_Datos == "Si (Subir analisis guardado .JSON)":
 	
 	if NEW_DATA["TEST"] == "Spearman" or NEW_DATA["TEST"] == "Pearson":
 		NEW_DATA["COEFICIENTE"] = float(NEW_DATA["COEFICIENTE"])
-		st.write(f"En estos datos se hizo un test de **correlacion de coeficiente de {NEW_DATA['TEST']}**.")
+		st.write(f"En estos datos se hizo un test de **coeficiente de correlación de {NEW_DATA['TEST']}**.")
 		
 		if NEW_DATA["COEFICIENTE"]>0:#Aqui dice si la correlacion es positiva o negativa
 			COR = "positiva"
