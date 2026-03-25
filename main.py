@@ -292,7 +292,7 @@ if NORMALIDAD:
         st.error("❌ ERROR. No hay exactamente dos variables independientes.")
         st.stop()
     else:
-        st.error("❌ ERROR. Hay muy pocos datos en alguna de las variables para que el análisis sea estadísticamente significativo. Trata de reunir más datos en esa variable.")
+        st.error("❌ ERROR. Hay muy pocos datos en alguna de las variables para que el análisis sea estadísticamente significativo. Trata de reunir más datos en esa variable...")
         st.stop()
         
 elif MULTINORMALIDAD: #Cambiar luego para cuando se pueda hacer ANOVA y Kruger-Willis
