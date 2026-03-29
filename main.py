@@ -363,14 +363,15 @@ if ANOVA:
 		st.stop()
     
 	st.subheader("Prueba de Hipótesis ANOVA")
-	df = df0.melt(var_name="Grupo", value_name="Valor") #Rota la matriz para que este en formato variable-valor, o sea el formato anterior a parejas, con la columna Grupo teniendo la variable, y la columna Valor tneiendo los valores.
-	df["Valor"] = pd.to_numeric(df["Valor"], errors="coerce") #Mira la columna de los valores y los convierte en numeros si son strings. El coerce es pa evitar errores.
+	df = df0.melt(var_name="Grupo", value_name="Valor") #Rota la matriz para que este en formato variable-valor, o sea el formato anterior a parejas,...
+														#...con la columna Grupo teniendo la variable,y la columna Valor tneiendo los valores.
+	df["Valor"] = pd.to_numeric(df["Valor"], errors="coerce") #Mira la columna de los valores y los convierte en numeros si son strings. El coerce es para evitar errores.
 
 	GRUPOS = df["Grupo"].unique() #Saca cada variable independiente de la tabla.
 	LISTA=[]
 	for Grupo in GRUPOS:
-		LISTA.append(df[df["Grupo"]==Grupo]["Valor"]) #Saca todos los valores asociados a una variables, los vuelve una lsita, y luego los mete a la LISTA y hace eso para cada vairable.
-	f, P_ANOVA = stats.f_oneway(*LISTA) #Realiza ANOVA a los datos. El "*" es para que en vez de que LISTA sea una lista de lista, solo le da varias listas a ANOVA que es el parementro que necesita.
+		LISTA.append(df[df["Grupo"]==Grupo]["Valor"]) #Saca todos los valores asociados a una variable, los vuelve una lista, y luego los mete a LISTA y hace eso para cada variable.
+	f, P_ANOVA = stats.f_oneway(*LISTA) #Realiza ANOVA a los datos. El "*" es para que en vez de que LISTA sea una lista de lista, solo le da varias listas a ANOVA que es el paramentro que necesita.
 	P_VALUE = P_ANOVA
 	
 	st.write("El p-valor de ANOVA es P =", P_ANOVA,".")
